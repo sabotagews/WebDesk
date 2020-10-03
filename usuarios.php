@@ -77,7 +77,7 @@ require_once('./includes/admin/menu-admin.php');
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input type="text" class="form-control" id="usuarioUsername" placeholder="Username" required="">
+                            <input type="text" class="form-control" id="usuarioUsername" placeholder="username" required="">
                             <div class="invalid-feedback" style="width: 100%;">
                                 El username es requerido.
                             </div>
@@ -93,16 +93,16 @@ require_once('./includes/admin/menu-admin.php');
 
                     <div class="mb-3">
                         <label for="usuarioEmail">Email</label>
-                        <input type="email" class="form-control" id="usuarioEmail" placeholder="tu@dominio.com" required="">
+                        <input type="email" class="form-control" id="usuarioEmail" placeholder="usuario@turismosalomon.com.mx" required="">
                         <div class="invalid-feedback">
-                            Por favor ingresa un email válido.
+                            Por favor ingresa un email v&aacute;lido.
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="usuarioMovil">M&oacute;vil</label>
-                        <input type="email" class="form-control" id="usuarioMovil" placeholder="tu@dominio.com" required="">
+                        <input type="email" class="form-control" id="usuarioMovil" placeholder="10 d&iacute;gitos sin espacios ni separadores" required="">
                         <div class="invalid-feedback">
-                            Por favor ingresa un email válido.
+                            Por favor ingresa un m&oacute;vil v&aacute;lido.
                         </div>
                     </div>
 

@@ -12,8 +12,8 @@
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>reservaciones.php">Reservaciones</a>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>pagos.php">Pagos</a>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>cobros.php">Cobros</a>
-					<div class="dropdown">
-						<a class="nav-link dropdown-toggle bg-transparent" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle bg-transparent" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Administrar
 						</a>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
