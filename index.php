@@ -6,7 +6,7 @@ require_once('./includes/layout/header.php');
 <script>
 form.action = <?= $_SESSION['PATH_HOME']; ?> + 'usuarios.php';
 </script>
-<div class="text-center align-items-center">
+<div class="text-center align-self-center">
 	<form class="form-signin" action="<?= $_SESSION['PATH_HOME']; ?>usuarios.php">
 		<img class="mb-4" src="./images/logo.png" alt="" width="200">
 		<h1 class="h3 mb-3 font-weight-normal">Bienvenido</h1>
