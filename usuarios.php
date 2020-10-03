@@ -99,7 +99,7 @@ require_once('./includes/admin/menu-admin.php');
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="usuarioMovil">Móvil</label>
+                        <label for="usuarioMovil">M&oacute;vil</label>
                         <input type="email" class="form-control" id="usuarioMovil" placeholder="tu@dominio.com" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un email válido.
