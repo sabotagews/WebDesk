@@ -1,7 +1,15 @@
 <?
 session_start();
 define( 'S', '/' );
-$_SESSION['PATH_HOME']		= str_replace( $arrTmp     , '', strtolower( 'http://'.$_SERVER['SERVER_NAME'] ) ) . S;
+if( $_SERVER['SERVER_NAME'] == 'webdesk.turismosalomon.com.mx' ) {
+    define( 'SSL', 's' );
+}
+else
+{
+    define( 'SSL', '' );
+}
+
+$_SESSION['PATH_HOME']		= str_replace( $arrTmp     , '', strtolower( 'http' . SSL . '://'.$_SERVER['SERVER_NAME'] ) ) . S;
 $_SESSION['PATH_HOME_REAL']	= strtolower( str_replace( '\\', S, realpath( '.' ) ) ) . S;
 
 $_SESSION['PATH_IMAGES']	= $_SESSION['PATH_HOME'] . 'images/';

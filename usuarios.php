@@ -20,7 +20,7 @@ require_once('./includes/admin/menu-admin.php');
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <a class="stretched-link" href="#">
                             <div>
-                                <h6 class="my-0">América Salomón</h6>
+                                <h6 class="my-0"><?= utf8_decode( 'América Salomón' ); ?></h6>
                                 <small class="text-muted">Aministrador</small>
                             </div>
                         </a>
@@ -28,7 +28,7 @@ require_once('./includes/admin/menu-admin.php');
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <a class="stretched-link" href="#">
                             <div>
-                                <h6 class="my-0">Elizabeth Salomón</h6>
+                                <h6 class="my-0"><?= utf8_decode( 'Elizabeth Salomón' ); ?></h6>
                                 <small class="text-muted">Aministrador</small>
                             </div>
                         </a>
@@ -36,7 +36,7 @@ require_once('./includes/admin/menu-admin.php');
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <a class="stretched-link" href="#">
                             <div>
-                                <h6 class="my-0">Paulina López</h6>
+                                <h6 class="my-0"><?= utf8_decode( 'Paulina López' ); ?></h6>
                                 <small class="text-muted">Agente</small>
                             </div>
                         </a>
@@ -56,15 +56,15 @@ require_once('./includes/admin/menu-admin.php');
                 <form class="needs-validation" novalidate="">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">Nombre</label>
-                            <input type="text" class="form-control" id="usuarioNombre" placeholder="" value="" required>
+                            <label for="usuarioNombre">Nombre</label>
+                            <input type="text" class="form-control" id="usuarioNombre" placeholder="" value="" required="">
                             <div class="invalid-feedback">
                                 El nombre es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lastName">Apellido</label>
-                            <input type="text" class="form-control" id="usuaroApellido" placeholder="" value="" required>
+                            <label for="usuarioApellido">Apellido</label>
+                            <input type="text" class="form-control" id="usuarioApellido" placeholder="" value="" required="">
                             <div class="invalid-feedback">
                                 El apellido es requerido.
                             </div>
@@ -72,28 +72,35 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
 
                     <div class="mb-3">
-                        <label for="username">Username</label>
+                        <label for="usuarioUsername">Username</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input type="text" class="form-control" id="usuarioUsername" placeholder="Username" required>
+                            <input type="text" class="form-control" id="usuarioUsername" placeholder="Username" required="">
                             <div class="invalid-feedback" style="width: 100%;">
                                 El username es requerido.
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="username">Password</label>
-                        <input type="password" class="form-control" id="usuarioPassword" placeholder="" required>
+                        <label for="usuarioPassword">Password</label>
+                        <input type="password" class="form-control" id="usuarioPassword" placeholder="" required="">
                         <div class="invalid-feedback" style="width: 100%;">
                             El password es requerido.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="usuarioEmail" placeholder="tu@dominio.com" required>
+                        <label for="usuarioEmail">Email</label>
+                        <input type="email" class="form-control" id="usuarioEmail" placeholder="tu@dominio.com" required="">
+                        <div class="invalid-feedback">
+                            Por favor ingresa un email válido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="usuarioMovil">Móvil</label>
+                        <input type="email" class="form-control" id="usuarioMovil" placeholder="tu@dominio.com" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un email válido.
                         </div>
