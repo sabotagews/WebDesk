@@ -1,5 +1,6 @@
 <?
 session_start();
+header('Content-type: text/html; charset=iso-8859-1');
 ?>
 <!doctype html>
 <html lang="es">
