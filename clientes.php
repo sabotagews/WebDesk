@@ -56,7 +56,14 @@ window.onload = function( ) { get_clientes( ); }
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+                    <div class="row">
+	                    <div class="col-4">
+							<button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar</button>
+                    	</div>
+	                    <div class="col-8">
+							<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+	                    </div>
+                    </div>
                 </form>
             </div>
         </div>
