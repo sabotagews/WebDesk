@@ -5,6 +5,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/mysql.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts/scripts.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/usuario.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/sucursal.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cliente.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
@@ -174,6 +175,86 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Sucursales*/
+
+	/*Clientes*/
+	case 'clientes->get'	:
+
+					$aTmp = array( );
+					$html = '';
+
+					$u			= new Cliente( );
+					$clientes	= $u->get_cliente( '%' );
+
+					foreach( $clientes as $k => $v ) {
+
+						$html .= '<tr onclick="get_cliente( \'' . $k . '\' );">';
+						$html .= '	<th scope="row">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</th>';
+						$html .= '	<td><a href="' . utf8_decode( $v['clienteEmail'] ) . '">' . utf8_decode( $v['clienteEmail'] ) . '</a></td>';
+						$html .= '	<td>' . utf8_decode( $v['clienteMovil'] ) . '</td>';
+						$html .= '	<td>' . utf8_decode( $v['sucursalNombre'] ) . '</td>';
+						$html .= '	<td></td>';
+						$html .= '</tr>';
+
+					}
+
+					$aTmp['html']		= $html;
+					$aTmp['contador']	= count( $clientes );
+
+					echo $u->toAJAX( $aTmp, 'json' );
+
+			break;
+
+	case 'cliente->get'		:
+
+					try {
+
+						$u			= new Cliente( );
+						$cliente	= $u->get_cliente( $_POST['_data2'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( $cliente[ $_POST['_data2'] ], 'json' );
+
+			break;
+
+	case 'cliente->set'		:
+
+					try {
+
+						$u		= new Cliente( );
+						$u->set_cliente( $_POST );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+	case 'cliente->delete'	:
+
+					try {
+
+						$u		= new Cliente( );
+						$u->delete_cliente( $_POST['clienteId'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+	/*Clientes*/
 
 }
 

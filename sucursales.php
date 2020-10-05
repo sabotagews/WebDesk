@@ -4,6 +4,9 @@ require_once('definitions.php');
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
 ?>
+<script type="text/javascript">
+window.onload = function( ) { get_sucursales( ); }
+</script>
 <main class="container" role="main">
     <div class="container pb-4">
         <div class="py-5 text-center">

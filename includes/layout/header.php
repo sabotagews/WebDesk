@@ -5,6 +5,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'mysql.cls.php' 
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts' . S . 'scripts.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'usuario.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'sucursal.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'cliente.cls.php' );
 
 header('Content-type: text/html; charset=iso-8859-1');
 ?>
@@ -306,6 +307,133 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 			}
 			/*Sucursales*/
+
+			/*Clientes*/
+			function limpia_cliente( ) {
+
+				g('form_clientes').reset( );
+				g('clienteId').value	= '0';
+
+			}
+			function get_cliente( cliente_id ) {
+
+				var datos			= {};
+					datos._data1	= 'cliente->get';
+					datos._data2	= cliente_id;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('clienteId').value		= objJSON.clienteId;
+
+												g('clienteNombre').value	= objJSON.clienteNombre;
+												g('clienteApellido').value	= objJSON.clienteApellido;
+												g('clienteEmail').value		= objJSON.clienteEmail;
+												g('clienteMovil').value		= objJSON.clienteMovil;
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_clientes( ) {
+
+				g('listClientes').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'clientes->get';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listClientes').innerHTML			= objJSON.html;
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_cliente( ) {
+
+				var datos					= {};
+					datos._data1			= 'cliente->set';
+
+					datos.clienteId			= g('clienteId').value;
+
+					datos.clienteNombre		= g('clienteNombre').value;
+					datos.clienteApellido	= g('clienteApellido').value;
+					datos.clienteEmail		= g('clienteEmail').value;
+					datos.clienteMovil		= g('clienteMovil').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_clientes( );
+												limpia_cliente( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_cliente( ) {
+
+				var datos			= {};
+					datos._data1	= 'cliente->delete';
+					datos.clienteId	= g('clienteId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_cliente( );
+												get_clientes( );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Clientes*/
 
 		</script>
 	</head>
