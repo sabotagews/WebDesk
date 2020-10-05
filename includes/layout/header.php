@@ -123,7 +123,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 					datos.usuario_email		= g('usuarioEmail').value;
 					datos.usuario_movil		= g('usuarioMovil').value;
 					datos.usuario_status	= g('usuarioStatus').checked ? '1' : '0';
-					datos.usuario_rol		= 'A';
+					datos.usuario_rol		= $('input[name=usuarioRol]:checked').val()
 
 				$.ajax(
 

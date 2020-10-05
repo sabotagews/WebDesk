@@ -10,7 +10,7 @@ else
 }
 
 $_SESSION['PATH_HOME']			= str_replace( $arrTmp     , '', strtolower( 'http' . SSL . '://'.$_SERVER['SERVER_NAME'] ) ) . S;
-$_SESSION['PATH_HOME']			.= 'WebDesk' . S;
+//$_SESSION['PATH_HOME']			.= 'WebDesk' . S;
 
 $_SESSION['PATH_HOME_REAL']		= strtolower( str_replace( '\\', S, realpath( '.' ) ) ) . S;
 $_SESSION['PATH_INCLUDES_REAL']	= $_SESSION['PATH_HOME_REAL'] . 'includes/';
