@@ -97,12 +97,12 @@ window.onload = function( ) { get_usuarios( ); }
 
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="rolUsuario" type="radio" class="custom-control-input" required="">
-                            <label class="custom-control-label" for="credit">Administrador</label>
+                            <input id="admin" name="usuarioRol" type="radio" class="custom-control-input" value="A" required="">
+                            <label class="custom-control-label" for="admin">Administrador</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="rolUsuario" type="radio" class="custom-control-input" required="">
-                            <label class="custom-control-label" for="debit">Agente</label>
+                            <input id="agent" name="usuarioRol" type="radio" class="custom-control-input" value="" required="">
+                            <label class="custom-control-label" for="agent">Agente</label>
                         </div>
                     </div>
                     <hr class="mb-4">

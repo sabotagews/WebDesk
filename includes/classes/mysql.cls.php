@@ -5,7 +5,7 @@ define('RJS'			, chr( 10 ) );
 
 define('DB_HOSTNAME'	, 'localhost'	);
 define('DB_USERNAME'	, 'root'		);
-define('DB_PASSWORD'	, 'XSmotif7'	);
+define('DB_PASSWORD'	, '180810'	);
 define('DB_DATABASE'	, 'WebDesk'		);
 define('DEBUGGER'		, true			);
 

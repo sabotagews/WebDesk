@@ -19,7 +19,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					foreach( $usuarios as $k => $v ) {
 
-						$class	= $v['usuarios_status'] ? '' : ' text-muted';
+						$class	= $v['usuario_status'] ? '' : ' text-muted';
 						$rol	= $v['usuario_rol']		== 'A' ? 'Administrador' : 'Agente';
 
 						$html .= '<li class="list-group-item d-flex justify-content-between lh-condensed">';
