@@ -16,47 +16,14 @@ require_once('./includes/admin/menu-admin.php');
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-color">Sucursales</span>
-                    <span class="badge badge-secondary badge-pill">4</span>
+                    <span class="badge badge-secondary badge-pill" id="contador_sucursales"></span>
                 </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'Celaya' ); ?></h6>
-                                <small class="text-muted">celaya@turismosalomon.com.mx</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'Querétaro' ); ?></h6>
-                                <small class="text-muted">queretaro@turismosalomon.com.mx</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'Irapuato' ); ?></h6>
-                                <small class="text-muted">irapuato@turismosalomon.com.mx</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0 text-muted"><?= utf8_decode( 'Salamanca' ); ?></h6>
-                                <small class="text-muted">salamanca@turismosalomon.com.mx</small>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="list-group mb-3" id="listSucursales"></ul>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos de la Sucursal</h4>
-                <form class="needs-validation" novalidate="">
-
+                <form class="needs-validation" id="form_sucursales" onsubmit="event.preventDefault( );guarda_sucursal( );" novalidate="">
+					<input type="hidden" name="sucursalId" value="0" />
                     <div class="mb-3">
                         <label for="sucursalNombre">Nombre de la Sucursal</label>
                         <input type="text" class="form-control" id="sucursalNombre" placeholder="" value="" required="">
@@ -73,7 +40,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                     <div class="mb-3">
                         <label for="sucursalTelefono">Tel&eacute;fono</label>
-                        <input type="password" class="form-control" id="sucursalTelefono" placeholder="" required="">
+                        <input type="text" class="form-control" id="sucursalTelefono" placeholder="" required="">
                         <div class="invalid-feedback" style="width: 100%;">
                             El tel&eacute;fono es requerido.
                         </div>
@@ -81,7 +48,7 @@ require_once('./includes/admin/menu-admin.php');
 
                     <div class="mb-3">
                         <label for="email">Email de la sucursal</label>
-                        <input type="email" class="form-control" id="usuarioEmail" placeholder="sucursal@turismosalomon.com.mx" required="">
+                        <input type="email" class="form-control" id="sucursalEmail" placeholder="sucursal@turismosalomon.com.mx" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un email v&aacute;lido.
                         </div>

@@ -4,6 +4,7 @@ session_start( );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'mysql.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts' . S . 'scripts.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'usuario.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'sucursal.cls.php' );
 
 header('Content-type: text/html; charset=iso-8859-1');
 ?>
@@ -42,7 +43,6 @@ header('Content-type: text/html; charset=iso-8859-1');
 			function limpia_usuario( ) {
 
 				g('form_usuarios').reset( );
-
 				g('usuario_id').value		= '0';
 
 			}
@@ -136,8 +136,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												limpia_usuario( );
 												get_usuarios( );
+												limpia_usuario( );
+
 
 											}
 
@@ -150,7 +151,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 				var datos				= {};
 					datos._data1		= 'usuario->delete';
-					datos.usuario_id	= usuario_id;
+					datos.usuario_id	= g('usuario_id').value;
 
 				$.ajax(
 
@@ -174,6 +175,137 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 			}
 			/*Usuarios*/
+
+			/*Sucursales*/
+			function limpia_sucursal( ) {
+
+				g('form_sucursales').reset( );
+				g('sucursalId').value	= '0';
+
+			}
+			function get_sucursal( sucursal_id ) {
+
+				var datos			= {};
+					datos._data1	= 'sucursal->get';
+					datos._data2	= sucursal_id;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('sucursalId').value			= objJSON.sucursalId;
+
+												g('sucursalNombre').value		= objJSON.sucursalNombre;
+												g('sucursalDomicilio').value	= objJSON.sucursalDomicilio;
+												g('sucursalTelefono').value		= objJSON.sucursalTelefono;
+												g('sucursalEmail').value		= objJSON.sucursalEmail;
+
+												g('sucursalStatus').checked		= objJSON.sucursalStatus == '0' ? false : true;
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_sucursales( ) {
+
+				g('listSucursales').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'sucursales->get';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listSucursales').innerHTML			= objJSON.html;
+												g('contador_sucursales').innerHTML	= objJSON.contador;
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_sucursal( ) {
+
+				var datos					= {};
+					datos._data1			= 'sucursal->set';
+
+					datos.sucursalId		= g('sucursalId').value;
+
+					datos.sucursalNombre	= g('sucursalNombre').value;
+					datos.sucursalDomicilio	= g('sucursalDomicilio').value;
+					datos.sucursalTelefono	= g('sucursalTelefono').value;
+					datos.sucursalEmail		= g('sucursalEmail').value;
+					datos.sucursalStatus	= g('sucursalStatus').checked ? '1' : '0';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_sucursales( );
+												limpia_sucursal( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_sucursal( ) {
+
+				var datos				= {};
+					datos._data1		= 'sucursal->delete';
+					datos.sucursalId	= g('sucursalId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_sucursal( );
+												get_sucursales( );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Sucursales*/
 
 		</script>
 	</head>

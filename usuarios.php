@@ -34,7 +34,7 @@ window.onload = function( ) { get_usuarios( ); }
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos del usuario</h4>
-                <form class="needs-validation" novalidate="" name="form_usuarios" onsubmit="event.preventDefault( );guarda_usuario( );">
+                <form class="needs-validation" novalidate="" id="form_usuarios" onsubmit="event.preventDefault( );guarda_usuario( );">
 					<input type="hidden" name="usuario_id" value="0" />
                     <div class="row">
                         <div class="col-md-6 mb-3">
