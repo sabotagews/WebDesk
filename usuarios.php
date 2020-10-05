@@ -1,9 +1,23 @@
 <?php
-session_start();
+session_start( );
 require_once('definitions.php');
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
+
+if( isset( $_POST['inputEmail'] ) ) {
+
+	$u = new Usuario( );
+	$login = $u->get_login( $_POST['inputEmail'], $_POST['inputPassword'] );
+
+	if( !$login ) {
+		header('location: ' . $_SESSION['PATH_HOME'] . '?error=Error en datos de inicio de sesi�n!' );
+	}
+
+}
 ?>
+<script type="text/javascript">
+window.onload = function( ) { get_usuarios( ); }
+</script>
 <main class="container" role="main">
     <div class="container pb-4">
         <div class="py-5 text-center">
@@ -14,57 +28,25 @@ require_once('./includes/admin/menu-admin.php');
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-color">Usuarios</span>
-                    <span class="badge badge-secondary badge-pill">5</span>
+                    <span class="badge badge-secondary badge-pill" id="contador_usuarios"></span>
                 </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'América Salomón' ); ?></h6>
-                                <small class="text-muted">Aministrador</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'Elizabeth Salomón' ); ?></h6>
-                                <small class="text-muted">Aministrador</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0"><?= utf8_decode( 'Paulina López' ); ?></h6>
-                                <small class="text-muted">Agente</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <a class="stretched-link" href="#">
-                            <div>
-                                <h6 class="my-0 text-muted">Carlos Morales</h6>
-                                <small class="text-muted">Agente</small>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="list-group mb-3" id="listUsuarios"></ul>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos del usuario</h4>
-                <form class="needs-validation" novalidate="">
+                <form class="needs-validation" novalidate="" name="form_usuarios" onsubmit="event.preventDefault( );guarda_usuario( );">
+					<input type="hidden" name="usuario_id" value="0" />
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="usuarioNombre">Nombre</label>
-                            <input type="text" class="form-control" id="usuarioNombre" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="usuarioNombre" name="usuarioNombre" placeholder="" value="" required="">
                             <div class="invalid-feedback">
                                 El nombre es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="usuarioApellido">Apellido</label>
-                            <input type="text" class="form-control" id="usuarioApellido" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="usuarioApellido" name="usuarioApellido" placeholder="" value="" required="">
                             <div class="invalid-feedback">
                                 El apellido es requerido.
                             </div>
@@ -77,7 +59,7 @@ require_once('./includes/admin/menu-admin.php');
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input type="text" class="form-control" id="usuarioUsername" placeholder="username" required="">
+                            <input type="text" class="form-control" id="usuarioUsername" name="usuarioUsername" placeholder="username" required="">
                             <div class="invalid-feedback" style="width: 100%;">
                                 El username es requerido.
                             </div>
@@ -85,7 +67,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                     <div class="mb-3">
                         <label for="usuarioPassword">Password</label>
-                        <input type="password" class="form-control" id="usuarioPassword" placeholder="" required="">
+                        <input type="password" class="form-control" id="usuarioPassword" name="usuarioPassword" placeholder="" required="">
                         <div class="invalid-feedback" style="width: 100%;">
                             El password es requerido.
                         </div>
@@ -93,14 +75,14 @@ require_once('./includes/admin/menu-admin.php');
 
                     <div class="mb-3">
                         <label for="usuarioEmail">Email</label>
-                        <input type="email" class="form-control" id="usuarioEmail" placeholder="usuario@turismosalomon.com.mx" required="">
+                        <input type="email" class="form-control" id="usuarioEmail" name="usuarioEmail" placeholder="usuario@turismosalomon.com.mx" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un email v&aacute;lido.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="usuarioMovil">M&oacute;vil</label>
-                        <input type="email" class="form-control" id="usuarioMovil" placeholder="10 d&iacute;gitos sin espacios ni separadores" required="">
+                        <label for="text">M&oacute;vil</label>
+                        <input type="text" class="form-control" id="usuarioMovil" name="usuarioMovil" placeholder="10 d&iacute;gitos sin espacios ni separadores" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un m&oacute;vil v&aacute;lido.
                         </div>
@@ -108,7 +90,7 @@ require_once('./includes/admin/menu-admin.php');
 
                     <hr class="mb-4">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usuarioStatus">
+                        <input type="checkbox" class="custom-control-input" id="usuarioStatus" name="usuarioStatus">
                         <label class="custom-control-label" for="usuarioStatus">Activo</label>
                     </div>
                     <hr class="mb-4">
@@ -119,7 +101,7 @@ require_once('./includes/admin/menu-admin.php');
                             <label class="custom-control-label" for="credit">Administrador</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="rolUsuario" type="radio" class="custom-control-input" checked="" required="">
+                            <input id="debit" name="rolUsuario" type="radio" class="custom-control-input" required="">
                             <label class="custom-control-label" for="debit">Agente</label>
                         </div>
                     </div>
