@@ -1,8 +1,6 @@
 <?php
 session_start( );
 
-
-
 require_once('definitions.php');
 if( isset( $_POST['inputEmail'] ) ) {
 

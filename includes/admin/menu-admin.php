@@ -12,6 +12,7 @@
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>reservaciones.php">Reservaciones</a>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>pagos.php">Pagos</a>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>cobros.php">Cobros</a>
+					<? if( $_SESSION['currentUser']['usuario_rol'] == 'A' ) { ?>
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle bg-transparent" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Administrar
@@ -24,9 +25,11 @@
 							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>cuentas.php">Cuentas</a>
 						</div>
 					</div>
+					<? } ?>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>">Salir</a>
 				</div>
 			</div>
+			<div class="float-right text-white"><?= $_SESSION['currentUser']['usuario_nombre']; ?></div>
 		</div>
 	</nav>
 </header>

@@ -23,6 +23,8 @@ class Usuario extends SQL_MySQL
 		$r = $this->ejecuta_query( $q, 'get_login( )' );
 
 		if( $r = $this->get_row( $r ) ) {
+			
+			$_SESSION['currentUser'] = $r;
 			return $r;
 		}
 

@@ -1,19 +1,23 @@
 <?php
 session_start( );
-require_once( 'definitions.php' );
+
+	session_destroy();
+	require_once( 'definitions.php' );
 require_once('./includes/layout/header.php');
 ?>
 <script>
+/*
 <? if( isset( $_GET['error'] ) ) { ?>
 	alert( '<?= $_GET['error']; ?>' );
 <? } ?>
-form.action = <?= $_SESSION['PATH_HOME']; ?> + 'usuarios.php';
+*/
+// form.action = <?= $_SESSION['PATH_HOME']; ?> + 'usuarios.php';
 </script>
 <div class="text-center align-self-center">
-	<form class="form-signin" action="<?= $_SESSION['PATH_HOME']; ?>usuarios.php" method="post">
+	<form class="form-signin" action="<?= $_SESSION['PATH_HOME']; ?>landing.php" method="post">
 		<img class="mb-4" src="./images/logo.png" alt="" width="200">
 		<h1 class="h3 mb-3 font-weight-normal">Hola!</h1>
-		<hr class="">
+ 		<hr class="">
 		<? if( isset( $_GET['error'] ) ) { ?>
 		<div class="text-info">
 			Los datos de inicio son incorrectos
