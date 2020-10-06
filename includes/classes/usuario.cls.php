@@ -14,7 +14,8 @@ class Usuario extends SQL_MySQL
 							FROM usuarios
 
 							WHERE 	usuario_username	= %s	AND
-									usuario_password	= %s		",
+									usuario_password	= %s	AND
+									usuario_status		= 1",
 
 						$this->toDBFromUtf8( $login ),
 						$this->toDBFromUtf8( $pass 	)
