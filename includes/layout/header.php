@@ -75,6 +75,14 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												g('usuarioStatus').checked	= objJSON.usuario_status == '0' ? false : true;
 
+												if( objJSON.usuario_rol == 'A' ) {
+													document.form_usuarios.usuarioRol[ 0 ].checked	= true;
+													document.form_usuarios.usuarioRol[ 1 ].checked	= false;
+												} else {
+													document.form_usuarios.usuarioRol[ 0 ].checked	= false;
+													document.form_usuarios.usuarioRol[ 1 ].checked	= true;
+												}
+
 											}
 
 						}
