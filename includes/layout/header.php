@@ -20,7 +20,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 		<link rel="icon" type="image/svg+xml" href="<?= $_SESSION['PATH_HOME']; ?>WebDesk.png">
 		<link rel="alternate icon" href="<?= $_SESSION['PATH_HOME']; ?>WebDesk.png">
 		<link rel="mask-icon" href="<?= $_SESSION['PATH_HOME']; ?>WebDesk.png">
-		<title>WebDesk</title>
+		<title>WebDesk Turismo Salom&oacute;n</title>
 		<script type="text/javascript">
 
 			var AJAX_catalogos_url = '<?= $_SESSION['PATH_AJAX'] . 'catalogos_AJAX.php'; ?>';
