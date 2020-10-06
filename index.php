@@ -14,10 +14,17 @@ require_once('./includes/layout/header.php');
 		</div>
 		<hr class="">
 		<? } ?>
-		<label for="inputEmail" class="sr-only">Email</label>
-		<input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+<!-- 		<div class="input-group"> -->
+<!--
+            <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+            </div>
+-->
+			<label for="inputEmail" class="sr-only">Email</label>
+			<input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="username" required="" autofocus="">
+<!-- 		</div> -->
 		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required="">
+		<input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="password" required="">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>
 		<p class="mt-5 mb-3 text-muted">
 			<img src="WebDesk-H.svg" alt="WebDesk 2020" width="150px">
