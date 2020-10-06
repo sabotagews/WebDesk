@@ -37,7 +37,7 @@ window.onload = function( ) { get_usuarios( ); }
                 </h4>
                 <ul class="list-group mb-3" id="listUsuarios"></ul>
                 <hr class="mb-4">
-                <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_usuario();">Nueva</button>
+                <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_usuario();">Nuevo</button>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos del usuario</h4>
