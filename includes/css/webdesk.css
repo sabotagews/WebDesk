@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a.navbar-brand {
-	background: url(./../../WebDesk-Light.svg);
+	background: url(./../../WebDesk.svg);
 }
 button.loupe {
     background-image: url(./../../images/loupe.svg);

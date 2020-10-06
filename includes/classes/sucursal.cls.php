@@ -15,7 +15,9 @@ class Sucursal extends SQL_MySQL
 
 							FROM sucursales
 
-							WHERE 	sucursalId LIKE %s		",
+							WHERE 	sucursalId LIKE %s		
+							
+							ORDER BY sucursalStatus DESC, sucursalNombre",
 
 						$this->toDBFromUtf8( $sucursalId )
 

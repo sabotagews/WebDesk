@@ -13,7 +13,7 @@ if( isset( $_POST['inputEmail'] ) ) {
 	$login = $u->get_login( $_POST['inputEmail'], $_POST['inputPassword'] );
 
 	if( !$login ) {
-		header('location: ' . $_SESSION['PATH_HOME'] . '?error=Error en datos de inicio de sesión!' );
+		header('location: ' . $_SESSION['PATH_HOME'] . '?error=1' );
 	}
 
 }

@@ -45,6 +45,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 				g('form_usuarios').reset( );
 				g('usuario_id').value		= '0';
+				$( '#form_usuarios' ).removeClass( 'was-validated' );
 
 			}
 			function get_usuario( usuario_id ) {

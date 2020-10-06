@@ -15,7 +15,9 @@ class Cliente extends SQL_MySQL
 
 							FROM	clientes
 
-							WHERE 	clienteId LIKE %s	",
+							WHERE 	clienteId LIKE %s
+							
+							ORDER BY clienteNombre ASC",
 
 						$this->toDBFromUtf8( $clienteId )
 

@@ -40,7 +40,9 @@ class Usuario extends SQL_MySQL
 
 							FROM usuarios
 
-							WHERE 	usuario_id LIKE %s		",
+							WHERE 	usuario_id LIKE %s
+							
+							ORDER BY usuario_status DESC, usuario_nombre",
 
 						$this->toDBFromUtf8( $usuario_id )
 
