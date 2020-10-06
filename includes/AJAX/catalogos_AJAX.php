@@ -189,7 +189,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$html .= '<tr onclick="get_cliente( \'' . $k . '\' );">';
 						$html .= '	<th scope="row">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</th>';
-						$html .= '	<td><a href="' . utf8_decode( $v['clienteEmail'] ) . '">' . utf8_decode( $v['clienteEmail'] ) . '</a></td>';
+						$html .= '	<td><a href="mailto:' . utf8_decode( $v['clienteEmail'] ) . '">' . utf8_decode( $v['clienteEmail'] ) . '</a></td>';
 						$html .= '	<td>' . utf8_decode( $v['clienteMovil'] ) . '</td>';
 						$html .= '	<td>' . utf8_decode( $v['sucursalNombre'] ) . '</td>';
 						$html .= '	<td></td>';
