@@ -36,6 +36,8 @@ window.onload = function( ) { get_usuarios( ); }
                     <span class="badge badge-secondary badge-pill" id="contador_usuarios"></span>
                 </h4>
                 <ul class="list-group mb-3" id="listUsuarios"></ul>
+                <hr class="mb-4">
+                <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_usuario();">Nueva</button>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos del usuario</h4>

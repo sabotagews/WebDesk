@@ -57,8 +57,11 @@ window.onload = function( ) { get_clientes( ); }
                     </div>
                     <hr class="mb-4">
                     <div class="row">
-	                    <div class="col-4">
+	                    <div class="col-2">
 							<button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar</button>
+                    	</div>
+	                    <div class="col-2">
+							<button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_cliente();">Nuevo</button>
                     	</div>
 	                    <div class="col-8">
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>

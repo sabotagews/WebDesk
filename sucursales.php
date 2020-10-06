@@ -23,7 +23,7 @@ window.onload = function( ) { get_sucursales( ); }
                 </h4>
                 <ul class="list-group mb-3" id="listSucursales"></ul>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="limpia_sucursal();">Nueva</button>
+                <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_sucursal();">Nueva</button>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos de la Sucursal</h4>
