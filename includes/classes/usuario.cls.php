@@ -14,8 +14,7 @@ class Usuario extends SQL_MySQL
 							FROM usuarios
 
 							WHERE 	usuario_username	= %s	AND
-									usuario_password	= %s	AND
-									usuario_status		= 1",
+									usuario_password	= %s",
 
 						$this->toDBFromUtf8( $login ),
 						$this->toDBFromUtf8( $pass 	)
@@ -24,12 +23,15 @@ class Usuario extends SQL_MySQL
 		$r = $this->ejecuta_query( $q, 'get_login( )' );
 
 		if( $r = $this->get_row( $r ) ) {
-			
-			$_SESSION['currentUser'] = $r;
-			return $r;
+			if( $r['usuario_status'] == '1' ) {
+				$_SESSION['currentUser'] = $r;
+				return $r;
+			} else {
+				return '2';
+			}
+		} else {
+			return '1';
 		}
-
-		return NULL;
 
 	}
 

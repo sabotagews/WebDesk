@@ -9,8 +9,8 @@ if( isset( $_POST['inputEmail'] ) ) {
 	$u = new Usuario( );
 	$login = $u->get_login( $_POST['inputEmail'], $_POST['inputPassword'] );
 
-	if( !$login ) {
-		header('location: ' . $_SESSION['PATH_HOME'] . '?error=1' );
+	if( $login == 1 || $login == 2 ) {
+		header('location: ' . $_SESSION['PATH_HOME'] . '?error=' . $login );
 	}
 
 }

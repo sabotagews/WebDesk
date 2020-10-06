@@ -1,18 +1,8 @@
 <?php
 session_start( );
-
-	session_destroy();
-	require_once( 'definitions.php' );
+require_once( 'definitions.php' );
 require_once('./includes/layout/header.php');
 ?>
-<script>
-/*
-<? if( isset( $_GET['error'] ) ) { ?>
-	alert( '<?= $_GET['error']; ?>' );
-<? } ?>
-*/
-// form.action = <?= $_SESSION['PATH_HOME']; ?> + 'usuarios.php';
-</script>
 <div class="text-center align-self-center">
 	<form class="form-signin" action="<?= $_SESSION['PATH_HOME']; ?>landing.php" method="post">
 		<img class="mb-4" src="./images/logo.png" alt="" width="200">
@@ -20,7 +10,7 @@ require_once('./includes/layout/header.php');
  		<hr class="">
 		<? if( isset( $_GET['error'] ) ) { ?>
 		<div class="text-info">
-			Los datos de inicio son incorrectos
+			<?= $_GET['error'] == '1' ? 'Los datos de inicio son incorrectos' : 'Tu cuenta está inactiva'; ?>
 		</div>
 		<hr class="">
 		<? } ?>
