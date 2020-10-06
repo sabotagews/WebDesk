@@ -6,6 +6,10 @@ h1, h2, h3, h4, h5, h6 {
 	color: #BC2041;
 }
 
+thead {
+	cursor: pointer;
+}
+
 .form-signin {
 	width: 100%;
 	max-width: 330px;
@@ -42,9 +46,6 @@ h1, h2, h3, h4, h5, h6 {
 	border-top-right-radius: 0;
 }
 
-a.navbar-brand {
-	background: url(./../../WebDesk.svg);
-}
 button.loupe {
     background-image: url(./../../images/loupe.svg);
     background-repeat: no-repeat;

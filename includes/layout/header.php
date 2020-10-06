@@ -43,9 +43,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Usuarios*/
 			function limpia_usuario( ) {
 
-				g('form_usuarios').reset( );
-				g('usuario_id').value		= '0';
+				g( 'form_usuarios' ).reset( );
 				$( '#form_usuarios' ).removeClass( 'was-validated' );
+				g( 'usuario_id' ).value		= '0';
 
 			}
 			function get_usuario( usuario_id ) {
@@ -189,8 +189,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Sucursales*/
 			function limpia_sucursal( ) {
 
-				g('form_sucursales').reset( );
-				g('sucursalId').value	= '0';
+				g( 'form_sucursales' ).reset( );
+				$( '#form_sucursales' ).removeClass( 'was-validated' );
+				g( 'sucursalId' ).value	= '0';
 
 			}
 			function get_sucursal( sucursal_id ) {
@@ -320,8 +321,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Clientes*/
 			function limpia_cliente( ) {
 
-				g('form_clientes').reset( );
-				g('clienteId').value	= '0';
+				g( 'form_clientes' ).reset( );
+				$( '#form_clientes' ).removeClass( 'was-validated' );
+				g( 'clienteId' ).value	= '0';
 
 			}
 			function get_cliente( cliente_id ) {

@@ -17,10 +17,11 @@
 							Administrar
 						</a>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>clientes.php">Clientes</a>
 							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>usuarios.php">Usuarios</a>
 							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>sucursales.php">Sucursales</a>
 							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>proveedores.php">Proveedores</a>
-							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>clientes.php">Clientes</a>
+							<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>cuentas.php">Cuentas</a>
 						</div>
 					</div>
 					<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>">Salir</a>

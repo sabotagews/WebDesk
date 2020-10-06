@@ -71,7 +71,7 @@ window.onload = function( ) { get_clientes( ); }
             </div>
         </div>
         <hr>
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" data-sort="string-ins" data-sort-onload="yes">Nombre</th>
