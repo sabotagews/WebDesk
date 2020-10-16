@@ -64,8 +64,11 @@ require_once('./includes/admin/menu-admin.php');
 	                        </div>
 	                    </div>
                     </div>
+                    
                     <hr class="mb-4">
-                    <h4 class="mb-3">Cuentas Bancarias del Proveedor</h4>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+                    <hr class="mb-5">
+                    <h4 class="mb-3 mt-5">Cuentas Bancarias del Proveedor</h4>
                     <table class="table table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
@@ -106,8 +109,6 @@ require_once('./includes/admin/menu-admin.php');
                     <div class="clearfix">
                         <a class="btn btn-outline-primary float-right">Agregar Nueva Cuenta</a>
                     </div>
-                    <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
                 </form>
             </div>
         </div>
