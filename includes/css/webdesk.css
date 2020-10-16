@@ -48,3 +48,17 @@ button.loupe {
     background-size: 50% 50%;
     fill: white;
 }
+input[type="text"],
+input[type="number"] {
+	text-transform: uppercase;
+}
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button.no-spinner,
+input::-webkit-inner-spin-button.no-spinner {
+	-webkit-appearance: none;
+	margin: 0;
+}
+/* Firefox */
+input[type=number].no-spinner {
+	-moz-appearance: textfield;
+}
