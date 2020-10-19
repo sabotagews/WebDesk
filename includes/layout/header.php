@@ -384,6 +384,33 @@ header('Content-type: text/html; charset=iso-8859-1');
 					);
 
 			}
+			function get_clientes_select( ) {
+
+				g('reservacionCliente').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'clientes->get_select';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('reservacionCliente').innerHTML			= objJSON.html;
+
+											}
+
+						}
+
+					);
+
+			}
 			function guarda_cliente( ) {
 
 				var datos					= {};

@@ -204,6 +204,27 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
+    	case 'clientes->get_select'	:
+
+					$aTmp = array( );
+					$html = '<option></option>';
+
+					$u			= new Cliente( );
+					$clientes	= $u->get_cliente( '%' );
+
+					foreach( $clientes as $k => $v ) {
+
+						$html .= '<option value="' . $k . '">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</option>';
+
+					}
+
+					$aTmp['html']		= $html;
+					$aTmp['contador']	= count( $clientes );
+
+					echo $u->toAJAX( $aTmp, 'json' );
+
+			break;
+
 	case 'cliente->get'		:
 
 					try {
