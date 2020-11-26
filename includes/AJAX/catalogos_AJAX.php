@@ -7,6 +7,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/usuario.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/sucursal.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cliente.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/proveedor.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
@@ -449,14 +450,26 @@ switch( strtolower( $_POST['_data1'] ) ) {
 			break;
 	/*Proveedores*/
 
-
-	/*
-	case 'proveedor->set'				:
+	/*Reservaciones*/
+	case 'reservaciones->get'			:
 
 					try {
 
-						$u		= new Proveedor( );
-						$u->set_proveedor( $_POST );
+						$html			= '';
+						$r				= new Reservacion( );
+						$reservaciones	= $r->reservaciones_get( );
+
+						foreach( $reservaciones as $k => $v ) {
+
+							$html .= '<tr onclick="get_reservacion( \'' . $k . '\' );" style="cursor: pointer;">';
+							$html .= '	<th scope="row">' . $v['reservacionServicioVer'] . '</th>';
+							$html .= '	<td>' . $v['reservacionStatusVer'] . '</td>';
+							$html .= '	<td>' . $v['reservacionCheckInVer'] . '</td>';
+							$html .= '	<td>' . $v['reservacionCheckOutVer'] . '</td>';
+							$html .= '	<td><a onclick="delete_reservacion( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';
+							$html .= '</tr>';
+
+						}
 
 					} catch( Exception $e ) {
 
@@ -464,27 +477,39 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					}
 
-					echo $u->toAJAX( true, 'json' );
+					echo $r->toAJAX( $html, 'json' );
 
 			break;
 
-	case 'proveedor->delete'			:
+	case 'reservacion->set'				:
 
 					try {
 
-						$u		= new Proveedor( );
-						$u->delete_proveedor( $_POST['proveedor_id'] );
+						$aTmp = array( );
+						$r = new Reservacion( );
+
+						$r->begin( );
+							$localizador = $r->set_reservacion( $_POST );
+						$r->commit( );
+
+						$aTmp['error']			= '0';
+						$aTmp['localizador']	= antepon_ceros( $localizador, LOCALIZADOR_LONGITUD );
 
 					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']			= '1';
+						$aTmp['error_msg']		= $e->getMessage( );
 
 						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
 
 					}
 
-					echo $u->toAJAX( true, 'json' );
+					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
-	*/
+	/*Reservaciones*/
 
 }
 

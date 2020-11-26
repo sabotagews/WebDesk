@@ -97,10 +97,9 @@ function utf8_decode_recursive( $a, $aplicar = false ) {
 }
 
 function fixObj( &$obj ) {
-	//if( !is_object( $obj ) && gettype( $obj ) == 'object' ) {
+
 		return unserialize( serialize( $obj ) );
-	//}
-	//return $obj;
+
 }
 
 function antepon_ceros( $numero, $formato, $prefijo = '' ) {
@@ -163,8 +162,10 @@ function toHTML( $v, $t = '', $ajax = false ) {
 
 		case 'date_num'								:
 
-							$v = implode( SEPARADOR_FECHA, array_reverse( explode( SEPARADOR_FECHA, $v ) ) );
-						//break;
+							//$v = implode( SEPARADOR_FECHA, array_reverse( explode( SEPARADOR_FECHA, $v ) ) );
+							//$v = implode( SEPARADOR_FECHA, array_reverse( explode( SEPARADOR_FECHA, $v ) ) );
+
+						break;
 		case 'date'									:
 		case 'datecompleto'							:
 		case 'datemesdia'							:

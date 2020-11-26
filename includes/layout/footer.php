@@ -26,37 +26,43 @@
 
 								switch( event.target.id.toLowerCase( ) ) {
 
-									case 'form_clientes'	:
+									case 'form_clientes'			:
 
-											setTimeout( guarda_cliente, 1000 );
-
-										break;
-
-									case 'form_usuarios'	:
-
-											setTimeout( guarda_usuario, 1000 );
+											setTimeout( guarda_cliente			, <?= DELAY_XHR * 1000; ?> );
 
 										break;
 
-									case 'form_sucursales'	:
+									case 'form_usuarios'			:
 
-											setTimeout( guarda_sucursal, 1000 );
+											setTimeout( guarda_usuario			, <?= DELAY_XHR * 1000; ?> );
 
 										break;
 
-									case 'form_proveedores'	:
+									case 'form_sucursales'			:
 
-											setTimeout( guarda_proveedor, 1000 );
+											setTimeout( guarda_sucursal			, <?= DELAY_XHR * 1000; ?> );
+
+										break;
+
+									case 'form_proveedores'			:
+
+											setTimeout( guarda_proveedor		, <?= DELAY_XHR * 1000; ?> );
 
 										break;
 
 									case 'form_proveedorcuentas'	:
 
-											setTimeout( guarda_proveedor_cuenta, 1000 );
+											setTimeout( guarda_proveedor_cuenta	, <?= DELAY_XHR * 1000; ?> );
 
 										break;
 
-									default					:
+									case 'form_reservacion'			:
+
+											setTimeout( guarda_reservacion		, <?= DELAY_XHR * 1000; ?> );
+
+										break;
+
+									default							:
 
 											console.log( event.target.id );
 

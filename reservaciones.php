@@ -6,7 +6,8 @@ require_once('./includes/admin/menu-admin.php');
 ?>
 <script type="text/javascript">
     window.onload = function() {
-        get_clientes_select();
+		get_clientes_select( );
+        get_reservaciones( );
     }
 </script>
 <main class="container" role="main">
@@ -18,44 +19,47 @@ require_once('./includes/admin/menu-admin.php');
     <div class="row">
         <div class="col order-md-1">
             <h4 class="mb-3">Datos de la Reservación</h4>
-            <form class="needs-validation" novalidate="" id="form_Reservacion" name="form_Reservacion" onsubmit="">
+            <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
+				<input type="hidden" name="reservacionId" value="0" />
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="reservacionCliente">Cliente</label>
-                        <select class="custom-select" id="reservacionCliente" onchange="" required></select>
-                        <!-- <div class="invalid-feedback">
-                            El Cliente es requerido.
-                        </div> -->
+                        <label for="reservacionClienteId">Cliente</label>
+                        <select class="custom-select" id="clienteId" onchange="" required></select>
                     </div>
                     <div class="col-md-8 mb-3">
                         <label for="reservacionServicio">Tipo de Servicio</label>
                         <div id="reservacionServicio" class="mt-1">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio1" value="option1" required>
-                                <label class="form-check-label" for="reservacionServicio1">Alojamiento</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio2" value="option2">
-                                <label class="form-check-label" for="reservacionServicio2">Charter</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio3" value="option3">
-                                <label class="form-check-label" for="reservacionServicio3">Aéreo</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio4" value="option4">
-                                <label class="form-check-label" for="reservacionServicio4">Autobús</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio5" value="option5">
-                                <label class="form-check-label" for="reservacionServicio5">Paquete</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio6" value="option6">
-                                <label class="form-check-label" for="reservacionServicio6">Grupo</label>
-                            </div>
+
+							<? $i = 0; ?>
+							<? foreach( RESERVACION_SERVICIOS as $k => $v ) { ?>
+
+								<div class="form-check form-check-inline">
+	                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio<?= $i; ?>" value="<?= $k; ?>" required>
+	                                <label class="form-check-label" for="reservacionServicio<?= $i; ?>"><?= $v; ?></label>
+	                            </div>
+
+							<? } unset( $i ); ?>
+
                         </div>
                     </div>
+
+					<div class="col-md-8 mb-3">
+                        <label for="reservacionStatus">Status</label>
+                        <div id="reservacionStatus" class="mt-1">
+
+							<? $i = 0; ?>
+							<? foreach( RESERVACION_STATUS as $k => $v ) { ?>
+
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="reservacionStatus" id="reservacionStatus<?= $i; ?>" value="<?= $k; ?>" required>
+									<label class="form-check-label" for="reservacionStatus<?= $i; ?>"><?= $v; ?></label>
+								</div>
+
+							<? } unset( $i ); ?>
+
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -71,10 +75,10 @@ require_once('./includes/admin/menu-admin.php');
                     <div class="col-md-4 mb-3">
                         <label for="reservacionPlan">Plan de Alimentos</label>
 						<select class="custom-select" id="reservacionPlan" name="reservacionPlan" required>
-							<option></option>
-							<option>Europeo</option>
-							<option>Con Desayuno</option>
-							<option>Todo Incluido</option>
+							<option value=""></option>
+							<? foreach( PLAN_ALIMENTOS as $k => $v ) { ?>
+								<option value="<?= $k; ?>"><?= $v; ?></option>
+							<? } ?>
 						</select>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -88,11 +92,10 @@ require_once('./includes/admin/menu-admin.php');
 					<div class="col-md-2 mb-3">
 						<label for="reservacionHabitaciones">Habitaciones</label>
 						<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones" required>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<option value=""></option>
+							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) { ?>
+								<option value="<?= $i; ?>"><?= $i; ?></option>
+							<? } ?>
 						</select>
 					</div>
                 </div>
@@ -101,6 +104,23 @@ require_once('./includes/admin/menu-admin.php');
             </form>
         </div>
     </div>
+
+	<div>
+		<h4 class="mb-3 mt-5">Cotizaciones / Reservaciones</h4>
+		<table class="table table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col" data-sort="string-ins" data-sort-onload="yes">Servicio</th>
+					<th scope="col">Status</th>
+					<th scope="col">CheckIn</th>
+					<th scope="col">CheckOut</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="listReservaciones"></tbody>
+		</table>
+	</div>
+
 </main>
 <?php
 require_once('./includes/layout/footer.php');

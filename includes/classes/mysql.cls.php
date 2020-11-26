@@ -1,7 +1,18 @@
 <?php
-define('S'				, '/' );
-define('R'				, chr( 13 ) );
-define('RJS'			, chr( 10 ) );
+
+define('S'							, '/' );
+define('R'							, chr( 13 ) );
+define('RJS'						, chr( 10 ) );
+define('SEPARADOR_FECHA'			, '/');
+
+define('DELAY_XHR'					, 1 ); //Segundos
+define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres
+
+define('RESERVACION_HABITACIONES'	, 5 );
+define('PLAN_ALIMENTOS'				, array( 'EP' => 'Europeo', 'CD' => 'Con Desayuno', 'TI' => 'Todo Incluido' ) );
+define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter', 'AE' => 'Aéreo', 'BUS' => 'Autobús', 'PQ' => 'Paquete', 'GPO' => 'Grupo' ) );
+define('RESERVACION_STATUS'			, array( '0' => 'Cotización', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
+
 
 define('DB_HOSTNAME'	, 'localhost'	);
 define('DB_USERNAME'	, 'root'		);
@@ -128,14 +139,6 @@ class SQL_MySQL {
 
 			global $__db;
 
-			/*
-			$q = sprintf(" SELECT last_insert_id( ) AS id_insertado ");
-
-			$rs = $this->ejecuta_query( $q, "ERROR: last_insert_id" );
-			$r = $this->get_row( $rs );
-
-			return $r['id_insertado'];
-			*/
 			return $__db->insert_id;
 
 	}
@@ -369,8 +372,6 @@ class SQL_MySQL {
 	public	static	function toDBFromUtf8( $v, $t = '', $entrecomillado = true ) {
 
 			global $__db;
-
-			define('SEPARADOR_FECHA', '/');
 
 			$v = strtoupper( $__db->real_escape_string( trim( utf8_decode( $v ) ) ) );
 
