@@ -12,11 +12,61 @@
                     // Loop over them and prevent submission
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
+
+							event.preventDefault( );
+							event.stopPropagation( );
+
+							form.classList.add('was-validated');
+
+							if( form.checkValidity( ) === false ) {
+
+								//Nada
+
+							} else {
+
+								switch( event.target.id.toLowerCase( ) ) {
+
+									case 'form_clientes'	:
+
+											setTimeout( guarda_cliente, 1000 );
+
+										break;
+
+									case 'form_usuarios'	:
+
+											setTimeout( guarda_usuario, 1000 );
+
+										break;
+
+									case 'form_sucursales'	:
+
+											setTimeout( guarda_sucursal, 1000 );
+
+										break;
+
+									case 'form_proveedores'	:
+
+											setTimeout( guarda_proveedor, 1000 );
+
+										break;
+
+									case 'form_proveedorcuentas'	:
+
+											setTimeout( guarda_proveedor_cuenta, 1000 );
+
+										break;
+
+									default					:
+
+											console.log( event.target.id );
+
+										break;
+
+								}
+
+							}
+
+
                         }, false);
                     });
                 }, false);

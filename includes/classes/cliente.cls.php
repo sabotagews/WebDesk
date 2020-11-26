@@ -16,7 +16,7 @@ class Cliente extends SQL_MySQL
 							FROM	clientes
 
 							WHERE 	clienteId LIKE %s
-							
+
 							ORDER BY clienteNombre ASC",
 
 						$this->toDBFromUtf8( $clienteId )
@@ -38,21 +38,25 @@ class Cliente extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO clientes
 
-									( clienteId	, clienteNombre	, clienteApellido	, clienteEmail	, clienteMovil	)
-							VALUES	( %s		, %s			, %s				, %s			, %s			)
+									( clienteId	, clienteNombre	, clienteApellido	, clienteEmail	, clienteMovil	, clienteDomicilio	, clienteFechaNacimiento	)
+							VALUES	( %s		, %s			, %s				, %s			, %s			, %s				, %s						)
 
 							ON DUPLICATE KEY UPDATE
 
-								clienteNombre	= VALUES( clienteNombre		),
-								clienteApellido	= VALUES( clienteApellido	),
-								clienteEmail	= VALUES( clienteEmail		),
-								clienteMovil	= VALUES( clienteMovil		)	",
+								clienteNombre			= VALUES( clienteNombre				),
+								clienteApellido			= VALUES( clienteApellido			),
+								clienteEmail			= VALUES( clienteEmail				),
+								clienteMovil			= VALUES( clienteMovil				),
+								clienteDomicilio		= VALUES( clienteDomicilio			),
+								clienteFechaNacimiento	= VALUES( clienteFechaNacimiento	)	",
 
-							$this->toDBFromUtf8( $data['clienteId']						),
-							$this->toDBFromUtf8( $data['clienteNombre']					),
-							$this->toDBFromUtf8( $data['clienteApellido']				),
-							$this->toDBFromUtf8( $data['clienteEmail']		, 'email'	),
-							$this->toDBFromUtf8( $data['clienteMovil']					)
+							$this->toDBFromUtf8( $data['clienteId']							),
+							$this->toDBFromUtf8( $data['clienteNombre']						),
+							$this->toDBFromUtf8( $data['clienteApellido']					),
+							$this->toDBFromUtf8( $data['clienteEmail']			, 'email'	),
+							$this->toDBFromUtf8( $data['clienteMovil']						),
+							$this->toDBFromUtf8( $data['clienteDomicilio']					),
+							$this->toDBFromUtf8( $data['clienteFechaNacimiento'],	'date'	)
 
 					);
 		$this->ejecuta_query( $q, 'set_cliente( )' );

@@ -39,8 +39,8 @@ window.onload = function( ) { get_usuarios( ); }
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos del usuario</h4>
-                <form class="needs-validation" novalidate="" id="form_usuarios" name="form_usuarios" onsubmit="event.preventDefault( );guarda_usuario( );">
-					<input type="hidden" name="usuario_id" value="0" />
+                <form class="needs-validation" novalidate="" id="form_usuarios" name="form_usuarios">
+					<input type="hidden" name="usuarioId" value="0" />
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="usuarioNombre">Nombre</label>
@@ -111,7 +111,8 @@ window.onload = function( ) { get_usuarios( ); }
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+					<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_usuario( );">Eliminar</button>
+                    <button class="btn btn-primary btn-lg btn-block" id="submit_usuarios" type="submit">Guardar</button>
                 </form>
             </div>
         </div>

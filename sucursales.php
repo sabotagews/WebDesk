@@ -27,7 +27,7 @@ window.onload = function( ) { get_sucursales( ); }
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos de la Sucursal</h4>
-                <form class="needs-validation" id="form_sucursales" onsubmit="event.preventDefault( );guarda_sucursal( );" novalidate="">
+                <form class="needs-validation" id="form_sucursales" novalidate="">
 					<input type="hidden" name="sucursalId" value="0" />
                     <div class="mb-3">
                         <label for="sucursalNombre">Nombre de la Sucursal</label>
@@ -65,6 +65,7 @@ window.onload = function( ) { get_sucursales( ); }
                         <label class="custom-control-label" for="sucursalStatus">Activo</label>
                     </div>
                     <hr class="mb-4">
+					<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_sucursal( );">Eliminar</button>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
                 </form>
             </div>

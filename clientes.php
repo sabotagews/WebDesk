@@ -6,7 +6,7 @@ require_once('./includes/admin/menu-admin.php');
 ?>
 <script type="text/javascript">
     window.onload = function() {
-        get_clientes();
+        get_clientes( );
     }
 
 </script>
@@ -23,7 +23,7 @@ require_once('./includes/admin/menu-admin.php');
     <div class="row">
         <div class="col-md-12">
             <h4 class="mb-3">Informaci&oacute;n del cliente</h4>
-            <form id="form_clientes" class="needs-validation" novalidate="" onsubmit="event.preventDefault( );guarda_cliente( );">
+            <form id="form_clientes" class="needs-validation" novalidate="">
                 <input type="hidden" name="clienteId" value="0" />
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -71,11 +71,11 @@ require_once('./includes/admin/menu-admin.php');
                 </div>
                 <hr class="mb-4">
                 <div class="row">
-                    <div class="col-2">
-                        <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar</button>
+                    <div style="display: none" class="col-2" id="contenedor_eliminiar">
+                        <button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cliente( );">Eliminar</button>
                     </div>
-                    <div class="col-2">
-                        <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="limpia_cliente();">Nuevo</button>
+                    <div style="display: none" class="col-2" id="contenedor_nuevo">
+                        <button class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_cliente( );">Nuevo</button>
                     </div>
                     <div class="col-8">
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>

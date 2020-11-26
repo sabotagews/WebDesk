@@ -15,8 +15,8 @@ class Sucursal extends SQL_MySQL
 
 							FROM sucursales
 
-							WHERE 	sucursalId LIKE %s		
-							
+							WHERE 	sucursalId LIKE %s
+
 							ORDER BY sucursalStatus DESC, sucursalNombre",
 
 						$this->toDBFromUtf8( $sucursalId )
@@ -63,7 +63,7 @@ class Sucursal extends SQL_MySQL
 
 	public	function delete_sucursal( $sucursalId ) {
 
-		$q = sprintf(" DELETE FROM sucursales WHERE $sucursalId = %s ",	$this->toDBFromUtf8( $sucursalId )	);
+		$q = sprintf(" DELETE FROM sucursales WHERE sucursalId = %s ",	$this->toDBFromUtf8( $sucursalId )	);
 		$this->ejecuta_query( $q, 'delete_sucursal( )' );
 
 	}

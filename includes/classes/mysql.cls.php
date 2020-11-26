@@ -370,30 +370,32 @@ class SQL_MySQL {
 
 			global $__db;
 
+			define('SEPARADOR_FECHA', '/');
+
 			$v = strtoupper( $__db->real_escape_string( trim( utf8_decode( $v ) ) ) );
 
 			switch( strtolower( $t ) ) {
 
 				case 'email'			: $v = strtolower( $v );									break;
 
-				case 'date'				: $v = explode( SEPARADOR_FECHA, $v );
+				case 'date'				:
 
-											$v[ 1 ] = SQL_MySQL::convierteMes( strtolower( $v[ 1 ] ), 'txt->int' );
-											$v = implode( SEPARADOR_FECHA, array_reverse( $v ) );
+								$v = explode( SEPARADOR_FECHA, $v );
+								$v = implode( '-', array_reverse( $v ) );
 
-																									break;
-
-				case 'date_num'			: $v = implode( SEPARADOR_FECHA, array_reverse( explode( '-', $v ) ) );	break;
-
-				case 'num_date_txt'		:
-
-										$y	= substr( $v, 0, 4 );
-										$m	= SQL_MySQL::convierteMes( substr( $v, 4, 2 ), 'int->txt' );
-										$d	= substr( $v, 6, 2 );
-
-										$v	= $d . '-' . $m . '-' . $y;
-
-									break;
+							break;
+				//
+				// case 'date_num'			: $v = implode( SEPARADOR_FECHA, array_reverse( explode( '-', $v ) ) );	break;
+				//
+				// case 'num_date_txt'		:
+				//
+				// 						$y	= substr( $v, 0, 4 );
+				// 						$m	= SQL_MySQL::convierteMes( substr( $v, 4, 2 ), 'int->txt' );
+				// 						$d	= substr( $v, 6, 2 );
+				//
+				// 						$v	= $d . '-' . $m . '-' . $y;
+				//
+				// 					break;
 
 			}
 

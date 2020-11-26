@@ -6,11 +6,12 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts/scripts.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/usuario.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/sucursal.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cliente.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/proveedor.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
 	/*Usuarios*/
-	case 'usuarios->get'	:
+	case 'usuarios->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -20,13 +21,13 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					foreach( $usuarios as $k => $v ) {
 
-						$class	= $v['usuario_status'] ? '' : ' text-muted';
-						$rol	= $v['usuario_rol']		== 'A' ? 'Administrador' : 'Agente';
+						$class	= $v['usuarioStatus'] ? '' : ' text-muted';
+						$rol	= $v['usuarioRol']		== 'A' ? 'Administrador' : 'Agente';
 
 						$html .= '<li class="list-group-item d-flex justify-content-between lh-condensed">';
 						$html .= '	<a class="stretched-link" href="#" onclick="get_usuario( \'' . $k . '\' );">';
 						$html .= '		<div>';
-						$html .= '			<h6 class="my-0' . $class . '">' . utf8_decode( $v['usuario_nombre'] . ' ' . $v['usuario_apellido'] ) . '</h6>';
+						$html .= '			<h6 class="my-0' . $class . '">' . utf8_decode( $v['usuarioNombre'] . ' ' . $v['usuarioApellido'] ) . '</h6>';
 						$html .= '			<small class="text-muted">' . $rol . '</small>';
 						$html .= '		</div>';
 						$html .= '	</a>';
@@ -41,7 +42,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->get'		:
+	case 'usuario->get'					:
 
 					try {
 
@@ -58,7 +59,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->set'		:
+	case 'usuario->set'					:
 
 					try {
 
@@ -75,7 +76,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->delete'	:
+	case 'usuario->delete'				:
 
 					try {
 
@@ -94,7 +95,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 	/*Usuarios*/
 
 	/*Sucursales*/
-	case 'sucursales->get'	:
+	case 'sucursales->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -124,7 +125,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->get'	:
+	case 'sucursal->get'				:
 
 					try {
 
@@ -141,7 +142,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->set'	:
+	case 'sucursal->set'				:
 
 					try {
 
@@ -158,7 +159,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->delete'	:
+	case 'sucursal->delete'				:
 
 					try {
 
@@ -177,7 +178,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 	/*Sucursales*/
 
 	/*Clientes*/
-	case 'clientes->get'	:
+	case 'clientes->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -225,7 +226,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->get'		:
+	case 'cliente->get'					:
 
 					try {
 
@@ -242,7 +243,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->set'		:
+	case 'cliente->set'					:
 
 					try {
 
@@ -259,7 +260,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->delete'	:
+	case 'cliente->delete'				:
 
 					try {
 
@@ -276,6 +277,214 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Clientes*/
+
+	/*Proveedores*/
+	case 'proveedores->get'				:
+
+					$aTmp = array( );
+					$html = '';
+
+					$u				= new Proveedor( );
+					$proveedores	= $u->get_proveedor( '%' );
+
+					foreach( $proveedores as $k => $v ) {
+
+						$class	= '';//$v['usuario_status'] ? '' : ' text-muted';
+						//$rol	= $v['usuario_rol']		== 'A' ? 'Administrador' : 'Agente';
+
+						$html .= '<li class="list-group-item d-flex justify-content-between lh-condensed">';
+						$html .= '	<a class="stretched-link" href="#" onclick="get_proveedor( \'' . $k . '\' );">';
+						$html .= '		<div>';
+						$html .= '			<h6 class="my-0' . $class . '">' . utf8_decode( $v['proveedorAlias'] ) . '</h6>';
+						$html .= '			<small class="text-muted">' . $v['proveedorRazonSocial'] . '</small>';
+						$html .= '		</div>';
+						$html .= '	</a>';
+						$html .= '</li>';
+
+					}
+
+					$aTmp['html']		= $html;
+					$aTmp['contador']	= count( $proveedores );
+
+					echo $u->toAJAX( $aTmp, 'json' );
+
+			break;
+
+    	case 'clientes->get_select'	:
+
+					$aTmp = array( );
+					$html = '<option></option>';
+
+					$u			= new Cliente( );
+					$clientes	= $u->get_cliente( '%' );
+
+					foreach( $clientes as $k => $v ) {
+
+						$html .= '<option value="' . $k . '">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</option>';
+
+					}
+
+					$aTmp['html']		= $html;
+					$aTmp['contador']	= count( $clientes );
+
+					echo $u->toAJAX( $aTmp, 'json' );
+
+			break;
+
+	case 'proveedor->get'				:
+
+					try {
+
+						$u			= new Proveedor( );
+						$proveedor	= $u->get_proveedor( $_POST['_data2'] );
+						$cuentas	= $u->get_proveedor_cuentas( $_POST['_data2'] );
+
+						$htmlCuentas = '';
+						foreach( $cuentas as $k => $v ) {
+
+							$htmlCuentas .= '<tr onclick="get_proveedor_cuenta( \'' . $k . '\' );" style="cursor: pointer;">';
+							$htmlCuentas .= '	<th scope="row">' . $v['proveedorCuentaAlias'] . ' ' . $v['proveedorCuentaNumero'] . '</th>';
+							$htmlCuentas .= '	<td>' . $v['proveedorCuentaNumero'] . '</td>';
+							$htmlCuentas .= '	<td><a onclick="delete_proveedor_cuenta( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';
+							$htmlCuentas .= '</tr>';
+
+						}
+
+						$proveedor[ $_POST['_data2'] ]['cuentasHtml'] = $htmlCuentas;
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( $proveedor[ $_POST['_data2'] ], 'json' );
+
+			break;
+
+	case 'proveedor->set'				:
+
+					try {
+
+						$u		= new Proveedor( );
+						$u->set_proveedor( $_POST );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+	case 'proveedor->delete'			:
+
+					try {
+
+						$u		= new Proveedor( );
+						$u->delete_proveedor( $_POST['proveedor_id'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+
+	case 'proveedor->cuenta->get'		:
+
+					try {
+
+						$u			= new Proveedor( );
+						$cuenta		= $u->get_proveedor_cuentas( $_POST['_data2'], $_POST['_data3'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( $cuenta[ $_POST['_data3'] ], 'json' );
+
+			break;
+
+	case 'proveedor->cuenta->set'		:
+
+					try {
+
+						$u		= new Proveedor( );
+						$u->set_proveedor_cuenta( $_POST );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+	case 'proveedor->cuenta->delete'	:
+
+					try {
+
+						$u			= new Proveedor( );
+						$cuenta		= $u->delete_proveedor_cuenta( $_POST['proveedorCuentaId'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+	/*Proveedores*/
+
+
+	/*
+	case 'proveedor->set'				:
+
+					try {
+
+						$u		= new Proveedor( );
+						$u->set_proveedor( $_POST );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+	case 'proveedor->delete'			:
+
+					try {
+
+						$u		= new Proveedor( );
+						$u->delete_proveedor( $_POST['proveedor_id'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+	*/
 
 }
 

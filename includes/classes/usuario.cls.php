@@ -13,8 +13,8 @@ class Usuario extends SQL_MySQL
 
 							FROM usuarios
 
-							WHERE 	usuario_username	= %s	AND
-									usuario_password	= %s",
+							WHERE 	usuarioUsername	= %s	AND
+									usuarioPassword	= %s",
 
 						$this->toDBFromUtf8( $login ),
 						$this->toDBFromUtf8( $pass 	)
@@ -23,7 +23,7 @@ class Usuario extends SQL_MySQL
 		$r = $this->ejecuta_query( $q, 'get_login( )' );
 
 		if( $r = $this->get_row( $r ) ) {
-			if( $r['usuario_status'] == '1' ) {
+			if( $r['usuarioStatus'] == '1' ) {
 				$_SESSION['currentUser'] = $r;
 				return $r;
 			} else {
@@ -35,7 +35,7 @@ class Usuario extends SQL_MySQL
 
 	}
 
-	public	function get_usuario( $usuario_id ) {
+	public	function get_usuario( $usuarioId ) {
 
 		$aTmp = array( );
 
@@ -45,18 +45,18 @@ class Usuario extends SQL_MySQL
 
 							FROM usuarios
 
-							WHERE 	usuario_id LIKE %s
-							
-							ORDER BY usuario_status DESC, usuario_nombre",
+							WHERE 	usuarioId LIKE %s
 
-						$this->toDBFromUtf8( $usuario_id )
+							ORDER BY usuarioStatus DESC, usuarioNombre",
+
+						$this->toDBFromUtf8( $usuarioId )
 
 					);
 		$rs = $this->ejecuta_query( $q, 'get_usuario( )' );
 
 		while( $r = $this->get_row( $rs ) ) {
 
-			$aTmp[ $r['usuario_id'] ] = $r;
+			$aTmp[ $r['usuarioId'] ] = $r;
 
 		}
 
@@ -68,38 +68,38 @@ class Usuario extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO usuarios
 
-									( usuario_id, usuario_nombre, usuario_apellido	, usuario_username	, usuario_password	, usuario_email , usuario_movil	, usuario_status, usuario_rol	)
+									( usuarioId	, usuarioNombre	, usuarioApellido	, usuarioUsername	, usuarioPassword	, usuarioEmail	, usuarioMovil	, usuarioStatus	, usuarioRol	)
 							VALUES	( %s		, %s			, %s				, %s				, %s				, %s			, %s			, %s			, %s			)
 
 							ON DUPLICATE KEY UPDATE
 
-								usuario_nombre		= VALUES( usuario_nombre	),
-								usuario_apellido	= VALUES( usuario_apellido	),
-								usuario_username	= VALUES( usuario_username	),
-								usuario_password	= VALUES( usuario_password	),
-								usuario_email		= VALUES( usuario_email		),
-								usuario_movil		= VALUES( usuario_movil		),
-								usuario_status		= VALUES( usuario_status	),
-								usuario_rol			= VALUES( usuario_rol		)	",
+								usuarioNombre	= VALUES( usuarioNombre		),
+								usuarioApellido	= VALUES( usuarioApellido	),
+								usuarioUsername	= VALUES( usuarioUsername	),
+								usuarioPassword	= VALUES( usuarioPassword	),
+								usuarioEmail	= VALUES( usuarioEmail		),
+								usuarioMovil	= VALUES( usuarioMovil		),
+								usuarioStatus	= VALUES( usuarioStatus		),
+								usuarioRol		= VALUES( usuarioRol		)	",
 
-							$this->toDBFromUtf8( $data['usuario_id']					),
-							$this->toDBFromUtf8( $data['usuario_nombre']				),
-							$this->toDBFromUtf8( $data['usuario_apellido']				),
-							$this->toDBFromUtf8( $data['usuario_username']				),
-							$this->toDBFromUtf8( $data['usuario_password']				),
-							$this->toDBFromUtf8( $data['usuario_email']		, 'email'	),
-							$this->toDBFromUtf8( $data['usuario_movil']					),
-							$this->toDBFromUtf8( $data['usuario_status']				),
-							$this->toDBFromUtf8( $data['usuario_rol']					)
+							$this->toDBFromUtf8( $data['usuarioId']						),
+							$this->toDBFromUtf8( $data['usuarioNombre']					),
+							$this->toDBFromUtf8( $data['usuarioApellido']				),
+							$this->toDBFromUtf8( $data['usuarioUsername']				),
+							$this->toDBFromUtf8( $data['usuarioPassword']				),
+							$this->toDBFromUtf8( $data['usuarioEmail']		, 'email'	),
+							$this->toDBFromUtf8( $data['usuarioMovil']					),
+							$this->toDBFromUtf8( $data['usuarioStatus']					),
+							$this->toDBFromUtf8( $data['usuarioRol']					)
 
 					);
 		$this->ejecuta_query( $q, 'get_usuario( )' );
 
 	}
 
-	public	function delete_usuario( $usuario_id ) {
+	public	function delete_usuario( $usuarioId ) {
 
-		$q = sprintf(" DELETE FROM usuarios WHERE usuario_id = %s ",	$this->toDBFromUtf8( $usuario_id )	);
+		$q = sprintf(" DELETE FROM usuarios WHERE usuarioId = %s ",	$this->toDBFromUtf8( $usuarioId )	);
 		$this->ejecuta_query( $q, 'delete_usuario( )' );
 
 	}

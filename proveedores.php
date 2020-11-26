@@ -4,6 +4,9 @@ require_once( 'definitions.php' );
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
 ?>
+<script type="text/javascript">
+window.onload = function( ) { get_proveedores( ); }
+</script>
 <main class="container" role="main">
 
     <div class="py-5 text-center">
@@ -23,8 +26,8 @@ require_once('./includes/admin/menu-admin.php');
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Datos del Proveedor</h4>
-            <form class="needs-validation" novalidate="" id="form_Proveedores" name="form_Proveedores" onsubmit="event.preventDefault( );guarda_proveedor( );">
-                <input type="hidden" name="proveedor_id" value="0" />
+            <form class="needs-validation" novalidate="" id="form_Proveedores" name="form_Proveedores">
+                <input type="hidden" name="proveedorId" value="0" />
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="proveedorRazonSocial">Razón Social</label>
@@ -66,50 +69,49 @@ require_once('./includes/admin/menu-admin.php');
                 </div>
 
                 <hr class="mb-4">
+				<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_proveedor( );">Eliminar</button>
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+			</form>
                 <hr class="mb-5">
-                <h4 class="mb-3 mt-5">Cuentas Bancarias del Proveedor</h4>
-                <table class="table table-striped table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col" data-sort="string-ins" data-sort-onload="yes">Banco</th>
-                            <th scope="col">Cuenta</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="listProveedorCuentas">
-                        <? for( $i=0; $i<5; $i++ ) { ?>
-                            <? $r = mt_rand(100000000, 999999999); ?>
-                            <tr onclick="get_proveedorcuenta( '' );" style="cursor: pointer;">
-                                <th scope="row">BBVA <?= $r; ?></th>
-                                <td><?= $r; ?></td>
-                                <td><a href="" class="btn btn-outline-danger btn-sm">X</a></td>
-                            </tr>
-                        <? } ?>
-                    </tbody>
-                </table>
 
-                <hr class="mb-4">
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="proveedorCuentaBanco1">Banco</label>
-                        <input type="text" class="form-control" id="proveedorCuentaBanco1" name="proveedorCuentaBanco1" placeholder="" required="">
-                        <div class="invalid-feedback">
-                            Por favor ingresa un Banco.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="proveedorCuentaNumero1">Número de Cuenta</label>
-                        <input type="number" class="form-control no-spinner" id="proveedorCuentaNumero1" name="proveedorCuentaNumero1" placeholder="Solo números" required="">
-                        <div class="invalid-feedback">
-                            Por favor ingresa un número de cuenta válido.
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix">
-                    <a class="btn btn-outline-primary float-right">Agregar Nueva Cuenta</a>
-                </div>
-            </form>
+			<div id="contenedor_cuentas" style="display: none">
+	            <h4 class="mb-3 mt-5">Cuentas Bancarias del Proveedor</h4>
+				<form class="needs-validation" novalidate="" id="form_proveedorCuentas" name="form_proveedorCuentas">
+					<input type="hidden" name="proveedorCuentaId" value="0" />
+	                <table class="table table-striped table-hover">
+	                    <thead class="thead-dark">
+	                        <tr>
+	                            <th scope="col" data-sort="string-ins" data-sort-onload="yes">Banco</th>
+	                            <th scope="col">Cuenta</th>
+	                            <th></th>
+	                        </tr>
+	                    </thead>
+	                    <tbody id="listProveedorCuentas"></tbody>
+	                </table>
+
+	                <hr class="mb-4">
+	                <div class="form-row">
+	                    <div class="col-md-6 mb-3">
+	                        <label for="proveedorCuentaBanco1">Banco</label>
+	                        <input type="text" class="form-control" id="proveedorCuentaAlias" name="proveedorCuentaAlias" placeholder="" required="">
+	                        <div class="invalid-feedback">
+	                            Por favor ingresa un Banco.
+	                        </div>
+	                    </div>
+	                    <div class="col-md-6 mb-3">
+	                        <label for="proveedorCuentaNumero1">Número de Cuenta</label>
+	                        <input type="number" class="form-control no-spinner" id="proveedorCuentaNumero" name="proveedorCuentaNumero" placeholder="Solo números" required="">
+	                        <div class="invalid-feedback">
+	                            Por favor ingresa un número de cuenta válido.
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="clearfix">
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar Cuenta</button>
+	                </div>
+				</form>
+			</div>
+
         </div>
     </div>
 

@@ -40,19 +40,22 @@ header('Content-type: text/html; charset=iso-8859-1');
 				}
 			}
 
-			/*Usuarios*/
-			function limpia_usuario( ) {
+			/*Clientes*/
+			function limpia_cliente( ) {
 
-				g( 'form_usuarios' ).reset( );
-				$( '#form_usuarios' ).removeClass( 'was-validated' );
-				g( 'usuario_id' ).value		= '0';
+				g( 'form_clientes' ).reset( );
+				$( '#form_clientes' ).removeClass( 'was-validated' );
+				g( 'clienteId' ).value	= '0';
+
+				$('#contenedor_eliminiar').hide( );
+				$('#contenedor_nuevo').hide( );
 
 			}
-			function get_usuario( usuario_id ) {
+			function get_cliente( clienteId ) {
 
 				var datos			= {};
-					datos._data1	= 'usuario->get';
-					datos._data2	= usuario_id;
+					datos._data1	= 'cliente->get';
+					datos._data2	= clienteId;
 
 				$.ajax(
 
@@ -65,14 +68,181 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('usuario_id').value		= objJSON.usuario_id;
+												g('clienteId').value				= objJSON.clienteId;
 
-												g('usuarioNombre').value	= objJSON.usuario_nombre;
-												g('usuarioApellido').value	= objJSON.usuario_apellido;
-												g('usuarioUsername').value	= objJSON.usuario_username;
-												g('usuarioPassword').value	= objJSON.usuario_password;
-												g('usuarioEmail').value		= objJSON.usuario_email;
-												g('usuarioMovil').value		= objJSON.usuario_movil;
+												g('clienteNombre').value			= objJSON.clienteNombre;
+												g('clienteApellido').value			= objJSON.clienteApellido;
+												g('clienteEmail').value				= objJSON.clienteEmail;
+												g('clienteMovil').value				= objJSON.clienteMovil;
+
+												g('clienteDomicilio').value			= objJSON.clienteDomicilio;
+												g('clienteFechaNacimiento').value	= objJSON.clienteFechaNacimiento;
+
+												$('#contenedor_eliminiar').show( );
+												$('#contenedor_nuevo').show( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_clientes( ) {
+
+				g('listClientes').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'clientes->get';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listClientes').innerHTML = objJSON.html;
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_clientes_select( ) {
+
+				g('reservacionCliente').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'clientes->get_select';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('reservacionCliente').innerHTML = objJSON.html;
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_cliente( ) {
+
+				var datos							= {};
+					datos._data1					= 'cliente->set';
+
+					datos.clienteId					= g('clienteId').value;
+
+					datos.clienteNombre				= g('clienteNombre').value;
+					datos.clienteApellido			= g('clienteApellido').value;
+					datos.clienteEmail				= g('clienteEmail').value;
+					datos.clienteMovil				= g('clienteMovil').value;
+					datos.clienteDomicilio			= g('clienteDomicilio').value;
+					datos.clienteFechaNacimiento	= g('clienteFechaNacimiento').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_clientes( );
+												limpia_cliente( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_cliente( ) {
+
+				if( !confirm( '¿Desea eliminar el cliente?' ) ) return;
+
+				var datos			= {};
+					datos._data1	= 'cliente->delete';
+					datos.clienteId	= g('clienteId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_cliente( );
+												get_clientes( );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Clientes*/
+
+			/*Usuarios*/
+			function limpia_usuario( ) {
+
+				g( 'form_usuarios' ).reset( );
+				$( '#form_usuarios' ).removeClass( 'was-validated' );
+				g( 'usuarioId' ).value		= '0';
+
+				$('#contenedor_eliminiar').hide( );
+
+			}
+			function get_usuario( usuarioId ) {
+
+				var datos			= {};
+					datos._data1	= 'usuario->get';
+					datos._data2	= usuarioId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('usuarioId').value		= objJSON.usuarioId;
+
+												g('usuarioNombre').value	= objJSON.usuarioNombre;
+												g('usuarioApellido').value	= objJSON.usuarioApellido;
+												g('usuarioUsername').value	= objJSON.usuarioUsername;
+												g('usuarioPassword').value	= objJSON.usuarioPassword;
+												g('usuarioEmail').value		= objJSON.usuarioEmail;
+												g('usuarioMovil').value		= objJSON.usuarioMovil;
 
 												g('usuarioStatus').checked	= objJSON.usuario_status == '0' ? false : true;
 
@@ -83,6 +253,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 													document.form_usuarios.usuarioRol[ 0 ].checked	= false;
 													document.form_usuarios.usuarioRol[ 1 ].checked	= true;
 												}
+
+												$('#contenedor_eliminiar').show( );
 
 											}
 
@@ -149,7 +321,6 @@ header('Content-type: text/html; charset=iso-8859-1');
 												get_usuarios( );
 												limpia_usuario( );
 
-
 											}
 
 						}
@@ -159,9 +330,11 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function delete_usuario( ) {
 
-				var datos				= {};
-					datos._data1		= 'usuario->delete';
-					datos.usuario_id	= g('usuario_id').value;
+				if( !confirm( '¿Desea eliminar el usuario?' ) ) return;
+
+				var datos			= {};
+					datos._data1	= 'usuario->delete';
+					datos.usuarioId	= g('usuarioId').value;
 
 				$.ajax(
 
@@ -193,12 +366,14 @@ header('Content-type: text/html; charset=iso-8859-1');
 				$( '#form_sucursales' ).removeClass( 'was-validated' );
 				g( 'sucursalId' ).value	= '0';
 
+				$('#contenedor_eliminiar').hide( );
+
 			}
-			function get_sucursal( sucursal_id ) {
+			function get_sucursal( sucursalId ) {
 
 				var datos			= {};
 					datos._data1	= 'sucursal->get';
-					datos._data2	= sucursal_id;
+					datos._data2	= sucursalId;
 
 				$.ajax(
 
@@ -219,6 +394,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('sucursalEmail').value		= objJSON.sucursalEmail;
 
 												g('sucursalStatus').checked		= objJSON.sucursalStatus == '0' ? false : true;
+
+												$('#contenedor_eliminiar').show( );
 
 											}
 
@@ -291,6 +468,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function delete_sucursal( ) {
 
+				if( !confirm( '¿Desea eliminar el la sucursal?' ) ) return;
+
 				var datos				= {};
 					datos._data1		= 'sucursal->delete';
 					datos.sucursalId	= g('sucursalId').value;
@@ -318,19 +497,22 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			/*Sucursales*/
 
-			/*Clientes*/
-			function limpia_cliente( ) {
+			/*Proveedores*/
+			function limpia_proveedor( ) {
 
-				g( 'form_clientes' ).reset( );
-				$( '#form_clientes' ).removeClass( 'was-validated' );
-				g( 'clienteId' ).value	= '0';
+				g( 'form_Proveedores' ).reset( );
+				$( '#form_Proveedores' ).removeClass( 'was-validated' );
+				g( 'proveedorId' ).value = '0';
+
+				$('#contenedor_eliminiar').hide( );
+				$('#contenedor_cuentas').hide( );
 
 			}
-			function get_cliente( cliente_id ) {
+			function get_proveedor( proveedorId ) {
 
 				var datos			= {};
-					datos._data1	= 'cliente->get';
-					datos._data2	= cliente_id;
+					datos._data1	= 'proveedor->get';
+					datos._data2	= proveedorId;
 
 				$.ajax(
 
@@ -343,39 +525,20 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('clienteId').value		= objJSON.clienteId;
+												g('proveedorId').value			= objJSON.proveedorId;
 
-												g('clienteNombre').value	= objJSON.clienteNombre;
-												g('clienteApellido').value	= objJSON.clienteApellido;
-												g('clienteEmail').value		= objJSON.clienteEmail;
-												g('clienteMovil').value		= objJSON.clienteMovil;
+												g('proveedorRazonSocial').value	= objJSON.proveedorRazonSocial;
+												g('proveedorAlias').value		= objJSON.proveedorAlias;
+												g('proveedorDomicilio').value	= objJSON.proveedorDomicilio;
+												g('proveedorEmail').value		= objJSON.proveedorEmail;
+												g('proveedorTelefono').value	= objJSON.proveedorTelefono;
 
-											}
+												limpia_proveedor_cuentas( );
 
-						}
+												g('listProveedorCuentas').innerHTML = objJSON.cuentasHtml;
+												$('#contenedor_cuentas').show( );
 
-					);
-
-			}
-			function get_clientes( ) {
-
-				g('listClientes').innerHTML = '';
-
-				var datos					= {};
-					datos._data1			= 'clientes->get';
-
-				$.ajax(
-
-						{
-
-							url			:	AJAX_catalogos_url	,
-							type		:	'POST'				,
-							dataType	:	'JSON'				,
-							data		:	datos				,
-							beforeSend	:	function( ) {}		,
-							success		:	function( objJSON ) {
-
-												g('listClientes').innerHTML			= objJSON.html;
+												$('#contenedor_eliminiar').show( );
 
 											}
 
@@ -384,71 +547,12 @@ header('Content-type: text/html; charset=iso-8859-1');
 					);
 
 			}
-			function get_clientes_select( ) {
+			function get_proveedores( ) {
 
-				g('reservacionCliente').innerHTML = '';
-
-				var datos					= {};
-					datos._data1			= 'clientes->get_select';
-
-				$.ajax(
-
-						{
-
-							url			:	AJAX_catalogos_url	,
-							type		:	'POST'				,
-							dataType	:	'JSON'				,
-							data		:	datos				,
-							beforeSend	:	function( ) {}		,
-							success		:	function( objJSON ) {
-
-												g('reservacionCliente').innerHTML			= objJSON.html;
-
-											}
-
-						}
-
-					);
-
-			}
-			function guarda_cliente( ) {
-
-				var datos					= {};
-					datos._data1			= 'cliente->set';
-
-					datos.clienteId			= g('clienteId').value;
-
-					datos.clienteNombre		= g('clienteNombre').value;
-					datos.clienteApellido	= g('clienteApellido').value;
-					datos.clienteEmail		= g('clienteEmail').value;
-					datos.clienteMovil		= g('clienteMovil').value;
-
-				$.ajax(
-
-						{
-
-							url			:	AJAX_catalogos_url	,
-							type		:	'POST'				,
-							dataType	:	'JSON'				,
-							data		:	datos				,
-							beforeSend	:	function( ) {}		,
-							success		:	function( objJSON ) {
-
-												get_clientes( );
-												limpia_cliente( );
-
-											}
-
-						}
-
-					);
-
-			}
-			function delete_cliente( ) {
+				g('listProveedores').innerHTML = '';
 
 				var datos			= {};
-					datos._data1	= 'cliente->delete';
-					datos.clienteId	= g('clienteId').value;
+					datos._data1	= 'proveedores->get';
 
 				$.ajax(
 
@@ -461,8 +565,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												limpia_cliente( );
-												get_clientes( );
+												g('listProveedores').innerHTML		= objJSON.html;
+												g('contador_Proveedores').innerHTML	= objJSON.contador;
 
 											}
 
@@ -471,8 +575,168 @@ header('Content-type: text/html; charset=iso-8859-1');
 					);
 
 			}
-			/*Clientes*/
+			function guarda_proveedor( ) {
 
+				var datos						= {};
+					datos._data1				= 'proveedor->set';
+
+					datos.proveedorId			= g('proveedorId').value;
+
+					datos.proveedorRazonSocial	= g('proveedorRazonSocial').value;
+					datos.proveedorAlias		= g('proveedorAlias').value;
+					datos.proveedorDomicilio	= g('proveedorDomicilio').value;
+					datos.proveedorEmail		= g('proveedorEmail').value;
+					datos.proveedorTelefono		= g('proveedorTelefono').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_proveedores( );
+												limpia_proveedor( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_proveedor( ) {
+
+				if( !confirm( '¿Desea eliminar el proveedor?' ) ) return;
+
+				var datos				= {};
+					datos._data1		= 'proveedor->delete';
+					datos.proveedorId	= g('proveedorId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_proveedor( );
+												get_proveedores( );
+
+											}
+
+						}
+
+					);
+
+			}
+
+			function limpia_proveedor_cuentas( ) {
+
+				g( 'form_proveedorCuentas' ).reset( );
+				$( '#form_proveedorCuentas' ).removeClass( 'was-validated' );
+				g( 'proveedorCuentaId' ).value = '0';
+
+			}
+			function get_proveedor_cuenta( proveedorCuentaId ) {
+
+				var datos			= {};
+					datos._data1	= 'proveedor->cuenta->get';
+					datos._data2	= g('proveedorId').value;
+					datos._data3	= proveedorCuentaId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('proveedorCuentaId').value		= objJSON.proveedorCuentaId;
+
+												g('proveedorCuentaAlias').value		= objJSON.proveedorCuentaAlias;
+												g('proveedorCuentaNumero').value	= objJSON.proveedorCuentaNumero;
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_proveedor_cuenta( ) {
+
+				var datos						= {};
+					datos._data1				= 'proveedor->cuenta->set';
+
+					datos.proveedorId			= g('proveedorId').value;
+					datos.proveedorCuentaId		= g('proveedorCuentaId').value;
+
+					datos.proveedorCuentaAlias	= g('proveedorCuentaAlias').value;
+					datos.proveedorCuentaNumero	= g('proveedorCuentaNumero').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_proveedor( g('proveedorId').value );
+												limpia_proveedor_cuentas( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_proveedor_cuenta( proveedorCuentaId ) {
+
+				if( !confirm( '¿Desea eliminar la cuenta del proveedor?' ) ) return;
+
+				var datos					= {};
+					datos._data1			= 'proveedor->cuenta->delete';
+					datos.proveedorCuentaId	= proveedorCuentaId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_proveedor( g('proveedorId').value );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Proveedores*/
 		</script>
 	</head>
 	<body>
