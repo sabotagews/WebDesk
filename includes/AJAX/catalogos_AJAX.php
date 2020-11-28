@@ -287,14 +287,11 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					foreach( $proveedores as $k => $v ) {
 
-						$class	= '';//$v['usuario_status'] ? '' : ' text-muted';
-						//$rol	= $v['usuario_rol']		== 'A' ? 'Administrador' : 'Agente';
-
 						$html .= '<li class="list-group-item d-flex justify-content-between lh-condensed">';
 						$html .= '	<a class="stretched-link" href="#" onclick="get_proveedor( \'' . $k . '\' );">';
 						$html .= '		<div>';
-						$html .= '			<h6 class="my-0' . $class . '">' . utf8_decode( $v['proveedorAlias'] ) . '</h6>';
-						$html .= '			<small class="text-muted">' . $v['proveedorRazonSocial'] . '</small>';
+						$html .= '			<h6 class="my-0">' . utf8_decode( $v['proveedorAlias'] ) . ' [ ' . antepon_ceros( $v['conteoReservaciones'], 2 ) . ' ]' . '</h6>';
+						$html .= '			<small class="text-muted">' . $v['proveedorRazonSocial'] . ' -> ' . $v['totalSaldo'] . '</small>';
 						$html .= '		</div>';
 						$html .= '	</a>';
 						$html .= '</li>';

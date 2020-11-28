@@ -11,9 +11,28 @@ class Proveedor extends SQL_MySQL
 
 		$q = sprintf(" SELECT
 
-								*
+								p.*										,
+								( SELECT
 
-							FROM	proveedores
+										COUNT( reservacionId )
+
+									FROM reservaciones
+
+									WHERE proveedorId = p.proveedorId
+
+								) AS conteoReservaciones				,
+
+								( SELECT
+
+										SUM( reservacionCoste )
+
+									FROM reservaciones
+
+									WHERE proveedorId = p.proveedorId
+
+								) AS totalSaldo
+
+							FROM	proveedores	p
 
 							WHERE 	proveedorId LIKE %s
 
