@@ -124,7 +124,7 @@ class Proveedor extends SQL_MySQL
 
 	public	function delete_proveedor_cuenta( $cuentaId ) {
 
-		$q = sprintf(" DELETE FROM proveedorCuentas WHERE proveedorCuentaId = %s ",	$this->toDBFromUtf8( $cuentaId ) );echo '<pre>';print_r( $q );echo '</pre>';
+		$q = sprintf(" DELETE FROM proveedorCuentas WHERE proveedorCuentaId = %s ",	$this->toDBFromUtf8( $cuentaId ) );
 		$this->ejecuta_query( $q, 'delete_proveedor_cuenta( )' );
 
 	}

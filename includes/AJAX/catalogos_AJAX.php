@@ -7,6 +7,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/usuario.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/sucursal.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cliente.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/proveedor.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cuenta.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
@@ -449,6 +450,91 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Proveedores*/
+
+	/*Cuentas*/
+	case 'cuentas->get'					:
+
+					try {
+
+						$u			= new Cuenta( );
+						$cuentas	= $u->get_cuenta( );
+
+						$html = '';
+						foreach( $cuentas as $k => $v ) {
+
+							$html .= '<li class="list-group-item d-flex justify-content-between lh-condensed">';
+							$html .= '	<a class="stretched-link" href="#" onclick="get_cuenta( \'' . $k . '\' );">';
+							$html .= '		<div>';
+							$html .= '			<h6 class="my-0">' . $v['cuentaAlias'] . '</h6>';
+							$html .= '			<small class="text-muted">' . $v['cuentaNumero'] . '</small>';
+							$html .= '		</div>';
+							$html .= '	</a>';
+							$html .= '</li>';
+
+						}
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( $html, 'json' );
+
+			break;
+
+	case 'cuenta->get'					:
+
+					try {
+
+						$u			= new Cuenta( );
+						$cuenta		= $u->get_cuenta( $_POST['_data2'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( $cuenta[ $_POST['_data2'] ], 'json' );
+
+			break;
+
+	case 'cuenta->set'					:
+
+					try {
+
+						$u		= new Cuenta( );
+						$u->set_cuenta( $_POST );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+
+	case 'cuenta->delete'				:
+
+					try {
+
+						$u			= new Cuenta( );
+						$u->delete_cuenta( $_POST['cuentaId'] );
+
+					} catch( Exception $e ) {
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $u->toAJAX( true, 'json' );
+
+			break;
+	/*Cuentas*/
+
 
 	/*Reservaciones*/
 	case 'reservaciones->get'			:

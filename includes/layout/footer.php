@@ -62,6 +62,12 @@
 
 										break;
 
+									case 'form_cuentas'				:
+
+											setTimeout( guarda_cuenta			, <?= DELAY_XHR * 1000; ?> );
+
+										break;
+
 									default							:
 
 											console.log( event.target.id );
