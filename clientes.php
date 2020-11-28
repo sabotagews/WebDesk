@@ -91,7 +91,6 @@ require_once('./includes/admin/menu-admin.php');
                 <th scope="col" data-sort="string-ins" data-sort-onload="yes">Nombre</th>
                 <th scope="col" data-sort="string-ins">Email</th>
                 <th scope="col" data-sort="int">M&oacute;vil</th>
-                <th scope="col" data-sort="string-ins">Sucursal</th>
                 <th scope="col" data-sort="int">Reservaciones</th>
             </tr>
         </thead>
