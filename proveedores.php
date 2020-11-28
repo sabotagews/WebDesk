@@ -69,8 +69,14 @@ window.onload = function( ) { get_proveedores( ); }
                 </div>
 
                 <hr class="mb-4">
-				<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_proveedor( );">Eliminar</button>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+				<div class="form-row">
+					<div class="col-6">
+						<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_proveedor( );">Eliminar</button>
+					</div>
+					<div class="col-6">
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+					</div>
+				</div>
 			</form>
                 <hr class="mb-5">
 
