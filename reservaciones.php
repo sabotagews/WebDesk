@@ -24,8 +24,6 @@ require_once('./includes/admin/menu-admin.php');
 				<input type="hidden" name="reservacionId" value="0" />
                 <div class="row">
                     <div class="col-md-4 mb-3">
-						<label for="proveedorId">Proveedor</label>
-                        <select class="custom-select" id="proveedorId" onchange="" required></select>
                         <label for="clienteId">Cliente</label>
                         <select class="custom-select" id="clienteId" onchange="" required></select>
                     </div>
@@ -108,10 +106,15 @@ require_once('./includes/admin/menu-admin.php');
                         <textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="5" required=""></textarea>
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-md-3 mb-3">
                         <label for="reservacionDestino">Coste</label>
-                        <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
+                    </div>
+ 
+                    <div class="col-6">
+						<label for="proveedorId">Proveedor</label>
+                        <select class="custom-select" id="proveedorId" onchange=""></select>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="reservacionHotel">Precio</label>

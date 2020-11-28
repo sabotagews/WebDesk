@@ -19,7 +19,7 @@ require_once('./includes/admin/menu-admin.php');
 ?>
 <main class="container" role="main">
 	<div class="mt-5 mx-auto" style="width: 300px;">
-		<h1>HOLA <?= $_SESSION['currentUser']['usuario_nombre']; ?>!</h1>
+		<h1>HOLA <?= $_SESSION['currentUser']['usuarioNombre']; ?>!</h1>
 	</div>
 </main>
 <?php
