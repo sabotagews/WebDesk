@@ -25,7 +25,7 @@ require_once('./includes/admin/menu-admin.php');
             <h4 class="mb-3">Informaci&oacute;n del cliente</h4>
             <form id="form_clientes" class="needs-validation" novalidate="">
                 <input type="hidden" name="clienteId" value="0" />
-                <div class="row">
+                <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="clienteNombre">Nombre(s)</label>
                         <input type="text" class="form-control" id="clienteNombre" placeholder="" value="" required="">
@@ -42,7 +42,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="clienteEmail">Email</label>
                         <input type="email" class="form-control" id="clienteEmail" placeholder="cliente@dominio.com" required="">
@@ -59,7 +59,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="form-row">
                     <div class="col-md-9 mb-3">
                         <label for="clienteDomicilio">Domicilio</label>
                         <input type="text" class="form-control" id="clienteDomicilio">
@@ -71,11 +71,11 @@ require_once('./includes/admin/menu-admin.php');
                 </div>
                 <hr class="mb-4">
                 <div class="form-row">
-                    <div style="display: none" class="col-2" id="contenedor_eliminiar">
-                        <button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cliente( );">Eliminar</button>
+                    <div class="col-2">
+                        <button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cliente( );">Eliminar</button>
                     </div>
-                    <div style="display: none" class="col-2" id="contenedor_nuevo">
-                        <button class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_cliente( );">Nuevo</button>
+                    <div class="col-2">
+                        <button style="display: none" id="contenedor_nuevo"	 class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_cliente( );">Nuevo</button>
                     </div>
                     <div class="col-8">
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>

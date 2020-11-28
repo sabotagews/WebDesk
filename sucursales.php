@@ -15,7 +15,7 @@ window.onload = function( ) { get_sucursales( ); }
                 Gestiona los datos de las diferentes <strong>sucursales</strong>, para fines de despliegue en cupones de servicio, cotizaciones, notificaciones de correo, y reportes de movimientos y ventas.
             </p>
         </div>
-        <div class="row">
+        <div class="form-row">
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-color">Sucursales</span>
@@ -65,8 +65,14 @@ window.onload = function( ) { get_sucursales( ); }
                         <label class="custom-control-label" for="sucursalStatus">Activo</label>
                     </div>
                     <hr class="mb-4">
-					<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_sucursal( );">Eliminar</button>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+					<div class="form-row">
+						<div class="col-6">
+							<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_sucursal( );">Eliminar</button>
+						</div>
+						<div class="col-6">
+							<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+						</div>
+					</div>
                 </form>
             </div>
         </div>

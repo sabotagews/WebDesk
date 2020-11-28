@@ -41,7 +41,7 @@ window.onload = function( ) { get_usuarios( ); }
                 <h4 class="mb-3">Datos del usuario</h4>
                 <form class="needs-validation" novalidate="" id="form_usuarios" name="form_usuarios">
 					<input type="hidden" name="usuarioId" value="0" />
-                    <div class="row">
+                    <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="usuarioNombre">Nombre</label>
                             <input type="text" class="form-control" id="usuarioNombre" name="usuarioNombre" placeholder="" value="" required="">
@@ -111,8 +111,14 @@ window.onload = function( ) { get_usuarios( ); }
                         </div>
                     </div>
                     <hr class="mb-4">
-					<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_usuario( );">Eliminar</button>
-                    <button class="btn btn-primary btn-lg btn-block" id="submit_usuarios" type="submit">Guardar</button>
+					<div class="form-row">
+						<div class="col-6">
+							<button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_usuario( );">Eliminar</button>
+                    	</div>
+						<div class="col-6">
+							<button class="btn btn-primary btn-lg btn-block" id="submit_usuarios" type="submit">Guardar</button>
+						</div>
+					</div>
                 </form>
             </div>
         </div>

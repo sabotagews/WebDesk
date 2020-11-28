@@ -113,7 +113,7 @@ window.onload = function( ) { get_proveedores( ); }
 	                    </div>
 	                </div>
 	                <div class="clearfix">
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar Cuenta</button>
+						<button class="btn btn-primary btn-lg btn-block col-6 float-right" type="submit">Guardar Cuenta</button>
 	                </div>
 				</form>
 			</div>
