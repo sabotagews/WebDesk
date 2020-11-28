@@ -268,17 +268,16 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 				var datos					= {};
 					datos._data1			= 'usuario->set';
+					datos.usuarioId			= g('usuarioId').value;
 
-					datos.usuario_id		= g('usuario_id').value;
-
-					datos.usuario_nombre	= g('usuarioNombre').value;
-					datos.usuario_apellido	= g('usuarioApellido').value;
-					datos.usuario_username	= g('usuarioUsername').value;
-					datos.usuario_password	= g('usuarioPassword').value;
-					datos.usuario_email		= g('usuarioEmail').value;
-					datos.usuario_movil		= g('usuarioMovil').value;
-					datos.usuario_status	= g('usuarioStatus').checked ? '1' : '0';
-					datos.usuario_rol		= $('input[name=usuarioRol]:checked').val();
+					datos.usuarioNombre		= g('usuarioNombre').value;
+					datos.usuarioApellido	= g('usuarioApellido').value;
+					datos.usuarioUsername	= g('usuarioUsername').value;
+					datos.usuarioPassword	= g('usuarioPassword').value;
+					datos.usuarioEmail		= g('usuarioEmail').value;
+					datos.usuarioMovil		= g('usuarioMovil').value;
+					datos.usuarioStatus		= g('usuarioStatus').checked ? '1' : '0';
+					datos.usuarioRol		= $('input[name=usuarioRol]:checked').val( );
 
 				$.ajax(
 
@@ -745,6 +744,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 				$( '#form_reservacion' ).removeClass( 'was-validated' );
 				g( 'reservacionId' ).value = '0';
 
+				$('#btn_eliminar').hide( );
+				$('#btn_nueva').hide( );
+
 			}
 			function get_reservaciones( ) {
 
@@ -821,6 +823,114 @@ header('Content-type: text/html; charset=iso-8859-1');
 					);
 
 			}
+			function get_reservacion( reservacionId ) {
+
+				var datos			= {};
+					datos._data1	= 'reservacion->get';
+					datos._data2	= reservacionId
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												$('#clienteId').val( objJSON.clienteId );
+												$('#reservacionHabitaciones').val( objJSON.reservacionHabitaciones );
+												$('#reservacionPlan').val( objJSON.reservacionPlan );
+
+												switch( objJSON.reservacionServicio ) {
+
+													<? $i = 0; ?>
+													<? foreach( RESERVACION_SERVICIOS as $k => $v ) { ?>
+
+														case '<?= $k; ?>':
+
+																$( "#reservacionServicio<?= $i++; ?>" ).prop( "checked", true );
+
+															break;
+
+													<? } unset( $i ); ?>
+												}
+
+												switch( objJSON.reservacionStatus ) {
+
+													<? $i = 0; ?>
+													<? foreach( RESERVACION_STATUS as $k => $v ) { ?>
+
+														case '<?= $k; ?>':
+
+																$( "#reservacionStatus<?= $i++; ?>" ).prop( "checked", true );
+
+															break;
+
+													<? } unset( $i ); ?>
+												}
+
+												g('reservacionId').value		= objJSON.reservacionId;
+												g('reservacionDestino').value	= objJSON.reservacionDestino;
+												g('reservacionHotel').value		= objJSON.reservacionHotel;
+												g('reservacionCheckIn').value	= objJSON.reservacionCheckIn;
+												g('reservacionCheckOut').value	= objJSON.reservacionCheckOut;
+
+												$('#btn_eliminar').show( );
+												$('#btn_nueva').show( );
+
+												//g('reservacionObservaciones').value	= objJSON.reservacionObservaciones;
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_reservacion( ) {
+
+				if( !confirm('¿Desea eliinar la reservación?') ) return;
+
+				var datos			= {};
+					datos._data1	= 'reservacion->delete';
+					datos._data2	= g('reservacionId').value;
+
+					$.ajax(
+
+							{
+
+								url			:	AJAX_catalogos_url	,
+								type		:	'POST'				,
+								dataType	:	'JSON'				,
+								data		:	datos				,
+								beforeSend	:	function( ) {}		,
+								success		:	function( objJSON ) {
+
+													if( objJSON.error == 0 ) {
+
+														limpia_reservacion( );
+														get_reservaciones( );
+
+														alert('¡Se eliminó la reservación correctamente!');
+
+													} else {
+
+														alert( objJSON.error_msg );
+
+													}
+
+												}
+
+							}
+
+						);
+
+			}
+
+
 			/*Reservaciones*/
 
 		</script>

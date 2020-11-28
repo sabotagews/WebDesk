@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.5-10.5.8-MariaDB)
 # Base de datos: WebDesk
-# Tiempo de Generación: 2020-11-26 06:09:45 +0000
+# Tiempo de Generación: 2020-11-27 20:09:53 +0000
 # ************************************************************
 
 
@@ -158,8 +158,8 @@ LOCK TABLES `reservaciones` WRITE;
 
 INSERT INTO `reservaciones` (`reservacionId`, `clienteId`, `reservacionServicio`, `reservacionDestino`, `reservacionHotel`, `reservacionPlan`, `reservacionCheckIn`, `reservacionCheckOut`, `reservacionHabitaciones`, `reservacionObservaciones`, `reservacionStatus`)
 VALUES
-	(1,2,'CH','ACAPULCO','IBEROSTAR','TI','2020-11-27','2020-11-30','3',NULL,'0'),
-	(2,1,'BUS','ACAPULCO','IBEROSTAR','EP','2020-12-17','2020-11-10','2',NULL,'0');
+	(2,1,'BUS','ACAPULCO','IBEROSTAR','EP','2020-12-18','2020-11-10','2',NULL,'2'),
+	(3,3,'PQ','ACAPULCO','IBEROSTAR','CD','2020-11-28','2020-11-30','2',NULL,'3');
 
 /*!40000 ALTER TABLE `reservaciones` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -215,7 +215,7 @@ LOCK TABLES `usuarios` WRITE;
 
 INSERT INTO `usuarios` (`usuarioId`, `usuarioNombre`, `usuarioApellido`, `usuarioUsername`, `usuarioPassword`, `usuarioEmail`, `usuarioMovil`, `usuarioStatus`, `usuarioRol`)
 VALUES
-	(1,'MANUEL','BALLEZA','AIRWALK','MEXICO','test@quattro.ws','4774049649',1,'A');
+	(1,'MANUEL','BALLEZA','AIRWALK','MEXICO','test@quattro.ws','4774049649',1,NULL);
 
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
