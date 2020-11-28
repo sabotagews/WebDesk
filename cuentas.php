@@ -47,9 +47,13 @@ window.onload = function( ) { get_cuentas( ); }
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="clearfix">
-						<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cuenta( );" id="btn_eliminar" style="display: none">Eliminar</button>
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+	                <div class="form-row">
+		                <div class="col-6">
+							<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cuenta( );" id="btn_eliminar" style="display: none">Eliminar</button>
+		                </div>
+		                <div class="col-6">
+							<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+		                </div>
 	                </div>
 				</form>
 			</div>

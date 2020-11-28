@@ -70,7 +70,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                 </div>
                 <hr class="mb-4">
-                <div class="row">
+                <div class="form-row">
                     <div style="display: none" class="col-2" id="contenedor_eliminiar">
                         <button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cliente( );">Eliminar</button>
                     </div>
