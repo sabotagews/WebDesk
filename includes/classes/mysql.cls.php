@@ -14,7 +14,7 @@ define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter
 define('RESERVACION_STATUS'			, array( '0' => 'Cotización', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
 
 
-if( 1 ) {
+if( 0 ) {
 
 	define('DB_HOSTNAME'	, 'localhost'				);
 	define('DB_USERNAME'	, 'root'					);
