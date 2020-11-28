@@ -35,7 +35,7 @@ require_once('./includes/admin/menu-admin.php');
 
 								<div class="form-check form-check-inline">
 	                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio<?= $i; ?>" value="<?= $k; ?>" required>
-	                                <label class="form-check-label" for="reservacionServicio<?= $i; ?>"><?= $v; ?></label>
+	                                <label class="form-check-label" for="reservacionServicio<?= $i++; ?>"><?= $v; ?></label>
 	                            </div>
 
 							<? } unset( $i ); ?>
@@ -52,7 +52,7 @@ require_once('./includes/admin/menu-admin.php');
 
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="reservacionStatus" id="reservacionStatus<?= $i; ?>" value="<?= $k; ?>" required>
-									<label class="form-check-label" for="reservacionStatus<?= $i; ?>"><?= $v; ?></label>
+									<label class="form-check-label" for="reservacionStatus<?= $i++; ?>"><?= $v; ?></label>
 								</div>
 
 							<? } unset( $i ); ?>
@@ -100,7 +100,9 @@ require_once('./includes/admin/menu-admin.php');
 					</div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+				<button style="display: none" id="btn_nueva" class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
+				<button style="display: none" id="btn_eliminar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_reservacion( );">Eliminar</button>
+				<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
             </form>
         </div>
     </div>

@@ -97,6 +97,13 @@ class Reservacion extends SQL_MySQL
 
 	}
 
+	public	function delete_reservacion( $reservacionId ) {
+
+		$q = sprintf(" DELETE FROM reservaciones WHERE reservacionId = %s ", $this->toDBFromUtf8( $reservacionId ) );
+		$this->ejecuta_query( $q, 'delete_reservacion( )' );
+
+	}
+
 }
 
 ?>

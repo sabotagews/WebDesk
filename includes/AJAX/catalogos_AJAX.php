@@ -82,7 +82,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					try {
 
 						$u		= new Usuario( );
-						$u->delete_usuario( $_POST['usuario_id'] );
+						$u->delete_usuario( $_POST['usuarioId'] );
 
 					} catch( Exception $e ) {
 
@@ -498,6 +498,55 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					} catch( Exception $e ) {
 
 						$r->rollback( );
+
+						$aTmp['error']			= '1';
+						$aTmp['error_msg']		= $e->getMessage( );
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $r->toAJAX( $aTmp, 'json' );
+
+			break;
+
+	case 'reservacion->get'				:
+
+					try {
+
+						$aTmp	= array( );
+						$r		= new Reservacion( );
+						$aTmp	= $r->reservaciones_get( $_POST['_data2'] );
+
+					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']			= '1';
+						$aTmp['error_msg']		= $e->getMessage( );
+
+						//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+					}
+
+					echo $r->toAJAX( $aTmp[ $_POST['_data2'] ], 'json' );
+
+			break;
+
+	case 'reservacion->delete'			:
+
+					try {
+
+						$aTmp	= array( );
+						$r		= new Reservacion( );
+						$aTmp	= $r->delete_reservacion( $_POST['_data2'] );
+
+						$aTmp['error']			= '0';
+						$aTmp['error_msg']		= NULL;
+
+					} catch( Exception $e ) {
+
+						//$r->rollback( );
 
 						$aTmp['error']			= '1';
 						$aTmp['error_msg']		= $e->getMessage( );
