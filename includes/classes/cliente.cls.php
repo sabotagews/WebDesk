@@ -11,13 +11,20 @@ class Cliente extends SQL_MySQL
 
 		$q = sprintf(" SELECT
 
-								*
+								c.*															,
+								( SELECT
 
-							FROM	clientes
+										COUNT( reservacionId )
 
-							WHERE 	clienteId LIKE %s
+									FROM reservaciones
 
-							ORDER BY clienteNombre ASC",
+									WHERE clienteId = c.clienteId ) AS conteoReservaciones
+
+							FROM	clientes c
+
+							WHERE 	c.clienteId LIKE %s
+
+							ORDER BY c.clienteNombre ASC",
 
 						$this->toDBFromUtf8( $clienteId )
 
