@@ -838,6 +838,33 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Cuentas*/
 
 			/*Reservaciones*/
+			function get_proveedores_select( ) {
+
+				g('proveedorId').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'proveedores->get_select';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('proveedorId').innerHTML = objJSON;
+
+											}
+
+						}
+
+					);
+
+			}
 			function get_clientes_select( ) {
 
 				g('clienteId').innerHTML = '';
@@ -856,7 +883,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('clienteId').innerHTML = objJSON.html;
+												g('clienteId').innerHTML = objJSON;
 
 											}
 
@@ -908,6 +935,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 					datos._data1					= 'reservacion->set';
 
 					datos.reservacionId				= g('reservacionId').value;
+					datos.proveedorId				= g('proveedorId').value;
 					datos.clienteId					= g('clienteId').value;
 					datos.reservacionServicio		= $('input[name=reservacionServicio]:checked').val( );
 					datos.reservacionDestino		= g('reservacionDestino').value;
@@ -916,7 +944,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 					datos.reservacionCheckIn		= g('reservacionCheckIn').value;
 					datos.reservacionCheckOut		= g('reservacionCheckOut').value;
 					datos.reservacionHabitaciones	= g('reservacionHabitaciones').value;
-					//datos.reservacionObservaciones	= g('reservacionObservaciones').value;
+					datos.reservacionDetalle		= g('reservacionDetalle').value;
+					datos.reservacionCoste			= g('reservacionCoste').value;
+					datos.reservacionPrecio			= g('reservacionPrecio').value;
 					datos.reservacionStatus			= $('input[name=reservacionStatus]:checked').val( );
 
 				$.ajax(
@@ -967,6 +997,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
+												$('#proveedorId').val( objJSON.proveedorId );
 												$('#clienteId').val( objJSON.clienteId );
 												$('#reservacionHabitaciones').val( objJSON.reservacionHabitaciones );
 												$('#reservacionPlan').val( objJSON.reservacionPlan );
@@ -1004,11 +1035,14 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionHotel').value		= objJSON.reservacionHotel;
 												g('reservacionCheckIn').value	= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').value	= objJSON.reservacionCheckOut;
+												g('reservacionDetalle').value	= objJSON.reservacionDetalle;
+												g('reservacionCoste').value		= objJSON.reservacionCoste;
+												g('reservacionPrecio').value	= objJSON.reservacionPrecio;
 
 												$('#btn_eliminar').show( );
 												$('#btn_nueva').show( );
 
-												//g('reservacionObservaciones').value	= objJSON.reservacionObservaciones;
+
 
 											}
 

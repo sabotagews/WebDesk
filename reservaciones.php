@@ -7,6 +7,7 @@ require_once('./includes/admin/menu-admin.php');
 <script type="text/javascript">
     window.onload = function() {
 		get_clientes_select( );
+		get_proveedores_select( );
         get_reservaciones( );
     }
 </script>
@@ -23,7 +24,9 @@ require_once('./includes/admin/menu-admin.php');
 				<input type="hidden" name="reservacionId" value="0" />
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="reservacionClienteId">Cliente</label>
+						<label for="proveedorId">Proveedor</label>
+                        <select class="custom-select" id="proveedorId" onchange="" required></select>
+                        <label for="clienteId">Cliente</label>
                         <select class="custom-select" id="clienteId" onchange="" required></select>
                     </div>
                     <div class="col-md-8 mb-3">

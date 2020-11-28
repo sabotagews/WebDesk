@@ -62,11 +62,12 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO reservaciones
 
-									( reservacionId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionObservaciones	, reservacionStatus	)
-							VALUES	( %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s						, %s				)
+									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionStatus	)
+							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s				)
 
 							ON DUPLICATE KEY UPDATE
 
+								proveedorId					= VALUES( proveedorId			 	),
 								clienteId					= VALUES( clienteId				 	),
 								reservacionServicio			= VALUES( reservacionServicio		),
 								reservacionDestino			= VALUES( reservacionDestino		),
@@ -75,10 +76,13 @@ class Reservacion extends SQL_MySQL
 								reservacionCheckIn			= VALUES( reservacionCheckIn		),
 								reservacionCheckOut			= VALUES( reservacionCheckOut		),
 								reservacionHabitaciones		= VALUES( reservacionHabitaciones	),
-								reservacionObservaciones	= VALUES( reservacionObservaciones	),
+								reservacionDetalle			= VALUES( reservacionDetalle		),
+								reservacionCoste			= VALUES( reservacionCoste			),
+								reservacionPrecio			= VALUES( reservacionPrecio			),
 								reservacionStatus			= VALUES( reservacionStatus			)	",
 
 							$this->toDBFromUtf8( $data['reservacionId']							),
+							$this->toDBFromUtf8( $data['proveedorId']							),
 							$this->toDBFromUtf8( $data['clienteId']								),
 							$this->toDBFromUtf8( $data['reservacionServicio']					),
 							$this->toDBFromUtf8( $data['reservacionDestino']					),
@@ -87,7 +91,9 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $data['reservacionCheckIn']		, 'date'	),
 							$this->toDBFromUtf8( $data['reservacionCheckOut']		, 'date'	),
 							$this->toDBFromUtf8( $data['reservacionHabitaciones']				),
-							$this->toDBFromUtf8( $data['reservacionObservaciones']				),
+							$this->toDBFromUtf8( $data['reservacionDetalle']					),
+							$this->toDBFromUtf8( $data['reservacionCoste']						),
+							$this->toDBFromUtf8( $data['reservacionPrecio']						),
 							$this->toDBFromUtf8( $data['reservacionStatus']						)
 
 					);

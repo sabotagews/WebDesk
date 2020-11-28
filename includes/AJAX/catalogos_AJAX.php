@@ -207,26 +207,23 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-    	case 'clientes->get_select'	:
+	case 'clientes->get_select'			:
 
-					$aTmp = array( );
-					$html = '<option></option>';
+				$aTmp = array( );
+				$html = '<option></option>';
 
-					$u			= new Cliente( );
-					$clientes	= $u->get_cliente( '%' );
+				$u			= new Cliente( );
+				$clientes	= $u->get_cliente( '%' );
 
-					foreach( $clientes as $k => $v ) {
+				foreach( $clientes as $k => $v ) {
 
-						$html .= '<option value="' . $k . '">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</option>';
+					$html .= '<option value="' . $k . '">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</option>';
 
-					}
+				}
 
-					$aTmp['html']		= $html;
-					$aTmp['contador']	= count( $clientes );
+				echo $u->toAJAX( $html, 'json' );
 
-					echo $u->toAJAX( $aTmp, 'json' );
-
-			break;
+		break;
 
 	case 'cliente->get'					:
 
@@ -312,26 +309,23 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-    	case 'clientes->get_select'	:
+	case 'proveedores->get_select'		:
 
-					$aTmp = array( );
-					$html = '<option></option>';
+				$aTmp = array( );
+				$html = '<option></option>';
 
-					$u			= new Cliente( );
-					$clientes	= $u->get_cliente( '%' );
+				$u				= new Proveedor( );
+				$proveedores	= $u->get_proveedor( '%' );
 
-					foreach( $clientes as $k => $v ) {
+				foreach( $proveedores as $k => $v ) {
 
-						$html .= '<option value="' . $k . '">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</option>';
+					$html .= '<option value="' . $k . '">' . utf8_decode( $v['proveedorAlias'] ) . '</option>';
 
-					}
+				}
 
-					$aTmp['html']		= $html;
-					$aTmp['contador']	= count( $clientes );
+				echo $u->toAJAX( $html, 'json' );
 
-					echo $u->toAJAX( $aTmp, 'json' );
-
-			break;
+		break;
 
 	case 'proveedor->get'				:
 
