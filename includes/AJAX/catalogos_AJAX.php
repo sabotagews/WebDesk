@@ -194,8 +194,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th scope="row">' . utf8_decode( $v['clienteNombre'] ) . ' ' . utf8_decode( $v['clienteApellido'] ) . '</th>';
 						$html .= '	<td><a href="mailto:' . utf8_decode( $v['clienteEmail'] ) . '">' . utf8_decode( $v['clienteEmail'] ) . '</a></td>';
 						$html .= '	<td>' . utf8_decode( $v['clienteMovil'] ) . '</td>';
-						$html .= '	<td>' . utf8_decode( $v['sucursalNombre'] ) . '</td>';
-						$html .= '	<td></td>';
+						$html .= '	<td>' . utf8_decode( $v['sucursalUltimaReservacion'] ) . '</td>';
+						$html .= '	<td>' . utf8_decode( $v['conteoReservaciones'] ) . '</td>';
 						$html .= '</tr>';
 
 					}
