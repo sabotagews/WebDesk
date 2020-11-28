@@ -710,6 +710,133 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			/*Proveedores*/
 
+			/*Cuentas*/
+			function limpia_cuenta( ) {
+
+				g( 'form_cuentas' ).reset( );
+				$( '#form_cuentas' ).removeClass( 'was-validated' );
+				g( 'cuentaId' ).value = '0';
+
+				$('#btn_eliminar').hide( );
+
+			}
+			function get_cuentas( ) {
+
+				var datos			= {};
+					datos._data1	= 'cuentas->get';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listCuentas').innerHTML = objJSON;
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_cuenta( cuentaId ) {
+
+				var datos			= {};
+					datos._data1	= 'cuenta->get';
+					datos._data2	= cuentaId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('cuentaId').value		= objJSON.cuentaId;
+
+												g('cuentaAlias').value	= objJSON.cuentaAlias;
+												g('cuentaNumero').value	= objJSON.cuentaNumero;
+
+												$('#btn_eliminar').show( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_cuenta( ) {
+
+				var datos				= {};
+					datos._data1		= 'cuenta->set';
+
+					datos.cuentaId		= g('cuentaId').value;
+					datos.cuentaAlias	= g('cuentaAlias').value;
+					datos.cuentaNumero	= g('cuentaNumero').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_cuentas( );
+												limpia_cuenta( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_cuenta( ) {
+
+				if( !confirm( '¿Desea eliminar la cuenta bancaria?' ) ) return;
+
+				var datos			= {};
+					datos._data1	= 'cuenta->delete';
+					datos.cuentaId	= g('cuentaId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												get_cuentas( );
+												limpia_cuenta( );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Cuentas*/
+
 			/*Reservaciones*/
 			function get_clientes_select( ) {
 
@@ -929,8 +1056,6 @@ header('Content-type: text/html; charset=iso-8859-1');
 						);
 
 			}
-
-
 			/*Reservaciones*/
 
 		</script>
