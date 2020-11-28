@@ -99,6 +99,12 @@ require_once('./includes/admin/menu-admin.php');
 						</select>
 					</div>
                 </div>
+                <div class="row">
+	                <div class="col-md-12 mb-3">
+                        <label for="reservacionHotel">Detalle</label>
+                        <textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="5" required=""></textarea>
+                    </div>
+                </div>
                 <hr class="mb-4">
 				<button style="display: none" id="btn_nueva" class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
 				<button style="display: none" id="btn_eliminar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_reservacion( );">Eliminar</button>

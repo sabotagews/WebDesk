@@ -14,11 +14,11 @@ define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter
 define('RESERVACION_STATUS'			, array( '0' => 'Cotización', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
 
 
-define('DB_HOSTNAME'	, 'localhost'	);
-define('DB_USERNAME'	, 'root'		);
-define('DB_PASSWORD'	, 'XSmotif7'	);
-define('DB_DATABASE'	, 'WebDesk'		);
-define('DEBUGGER'		, true			);
+define('DB_HOSTNAME'	, 'localhost'				);
+define('DB_USERNAME'	, 'turismosalo_webdeskuser'	);
+define('DB_PASSWORD'	, '211506WebDesk0310'		);
+define('DB_DATABASE'	, 'turismosalo_webdesk'		);
+define('DEBUGGER'		, true						);
 
 try {
 
