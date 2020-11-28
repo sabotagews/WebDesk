@@ -122,7 +122,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
 				</div>
                 <hr class="mb-4">
-                <div class="row">
+                <div class="form-row">
 	                <div class="col-2">
 						<button style="display: none" id="btn_nueva" class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
 	                </div>
