@@ -12,7 +12,7 @@ define('RESERVACION_HABITACIONES'	, 5 );
 define('PLAN_ALIMENTOS'				, array( 'EP' => 'Europeo', 'CD' => 'Con Desayuno', 'TI' => 'Todo Incluido' ) );
 define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter', 'AE' => 'Aéreo', 'BUS' => 'Autobús', 'PQ' => 'Paquete', 'GPO' => 'Grupo' ) );
 define('RESERVACION_STATUS'			, array( '0' => 'Cotización', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
-
+define('COBRO_TIPOS'				, array( 'E' => 'Efectivo', 'TC' => 'Tarjeta Crédito', 'TD' => 'Tarjeta Débito' ) );
 
 if( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 
@@ -442,7 +442,7 @@ class SQL_MySQL {
 
 	}
 
-	public	static	function toAJAX( $v, $type = 'json', $utf8_encode = false, $aplicar = false ) {
+	public	static	function toAJAX( $v, $type = 'json', $utf8_encode = true, $aplicar = false ) {
 
 			switch( strtolower( $type ) ) {
 

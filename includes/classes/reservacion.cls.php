@@ -6,24 +6,6 @@ class Reservacion extends SQL_MySQL
 	function __construct( ) {}
 
 
-	public	function get_servicio_nombre( $servicio ) {
-
-		switch( strtolower( $servicio ) ) {
-
-			case 'al'	:	$servicio	=	'Alojamiento';				break;
-			case 'ch'	:	$servicio	=	'Charter';					break;
-			case 'ae'	:	$servicio	=	'Aéreo';					break;
-			case 'bus'	:	$servicio	=	'Autobús';					break;
-			case 'gpo'	:	$servicio	=	'Grupo';					break;
-
-			default		:	$servicio	=	'!Servicio Desconocido!';	break;
-
-		}
-
-		return $servicio;
-
-	}
-
 	public	function reservaciones_get( $reservacionId = '%' ) {
 
 		$aTmp	= array( );
@@ -62,8 +44,8 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO reservaciones
 
-									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionStatus	)
-							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s				)
+									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionStatus	)
+							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s					, %s				)
 
 							ON DUPLICATE KEY UPDATE
 
@@ -79,6 +61,7 @@ class Reservacion extends SQL_MySQL
 								reservacionDetalle			= VALUES( reservacionDetalle		),
 								reservacionCoste			= VALUES( reservacionCoste			),
 								reservacionPrecio			= VALUES( reservacionPrecio			),
+								reservacionUtilidad			= VALUES( reservacionPrecio ) - VALUES( reservacionCoste ),
 								reservacionStatus			= VALUES( reservacionStatus			)	",
 
 							$this->toDBFromUtf8( $data['reservacionId']							),

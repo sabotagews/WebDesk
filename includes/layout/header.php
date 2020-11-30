@@ -1092,6 +1092,102 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			/*Reservaciones*/
 
+			/*Cobros*/
+			function get_reservacion_cobro( reservacionId ) {
+
+				var datos				= {};
+					datos._data1		= 'cobro->reservacion->get';
+					datos.reservacionId	= reservacionId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('reservacionId').value				= objJSON.reservacionId;
+												g('reservacionLocalizador').innerHTML	= objJSON.reservacionLocalizador;
+												g('reservacionProveedor').innerHTML 	= objJSON.proveedorAlias;
+												g('cliente').innerHTML					= objJSON.cliente;
+												g('reservacionServicio').innerHTML		= objJSON.reservacionServicioVer;
+												g('reservacionDestino').innerHTML		= objJSON.reservacionDestino;
+												g('reservacionHotel').innerHTML			= objJSON.reservacionHotel;
+												g('reservacionPlan').innerHTML			= objJSON.reservacionPlanVer;
+												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
+												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
+												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
+												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
+												g('reservacionCoste').innerHTML			= objJSON.reservacionCoste;
+												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecio;
+												g('reservacionStatus').innerHTML		= objJSON.reservacionStatusVer;
+
+												$('#contenedor_reservacion').show( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function limpia_cobro( ) {
+
+				g( 'form_cobro' ).reset( );
+				$( '#form_cobro' ).removeClass( 'was-validated' );
+				g( 'cobroId' ).value = '0';
+
+				$('#btn_eliminar').hide( );
+				$('#btn_nuevo').hide( );
+
+			}
+			function guarda_cobro( ) {
+
+				var datos				= {};
+					datos._data1		= 'cobro->set';
+
+					datos.reservacionId	= g('reservacionId').value;
+					datos.cobroId		= g('cobroId').value;
+					datos.cobroTipo		= g('cobroTipo').value;
+					datos.cobroMonto	= g('cobroMonto').value;
+					datos.cobroDetalle	= g('cobroDetalle').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												if( objJSON.error == '0' ) {
+
+													alert('¡Se guardo el cobro correctamente!');
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
+
+												limpia_cobro( );
+
+											}
+
+						}
+
+					);
+
+			}
+			/*Cobros*/
+
 		</script>
 	</head>
 	<body>

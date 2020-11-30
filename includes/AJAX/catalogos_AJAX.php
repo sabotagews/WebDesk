@@ -9,6 +9,8 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cliente.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/proveedor.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cuenta.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reporte.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cobro.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
@@ -635,6 +637,59 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Reservaciones*/
+
+
+	/*Cobros*/
+	case 'cobro->reservacion->get'		:
+
+					$aTmp	= array( );
+					$r		= new Cobro( );
+					$aTmp	= $r->get_reservacion( $_POST['reservacionId'] );
+
+					echo $r->toAJAX( $aTmp, 'json' );
+
+			break;
+	case 'cobro->set'					:
+
+					try {
+
+						$aTmp = array( );
+						$r = new Cobro( );
+
+						$r->begin( );
+
+							$r->set_cobro( $_POST );
+							//actualiza status
+
+						$r->commit( );
+
+						$aTmp['error'] = '0';
+
+					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']			= '1';
+						$aTmp['error_msg']		= $e->getMessage( );
+
+					}
+
+					echo $r->toAJAX( $aTmp, 'json' );
+
+			break;
+	/*Cobros*/
+
+
+	/*Autocomplete*/
+	case 'reservacion->search'			:
+
+					$r			= new Reporte( );
+					$resultado	= $r->reservaciones_search( $_POST['search'] );
+
+					echo $r->toAJAX( $resultado, 'json' );
+
+			break;
+	/*Autocomplete*/
 
 }
 
