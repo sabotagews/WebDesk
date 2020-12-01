@@ -1093,6 +1093,65 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Reservaciones*/
 
 			/*Cobros*/
+			function get_cobro( cobroId ) {
+
+				var datos			= {};
+					datos._data1	= 'cobro->get';
+					datos.cobroId	= cobroId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												$('#cobroTipo').val( objJSON.cobroTipo );
+
+												g('cobroId').value		= objJSON.cobroId;
+												g('cobroMonto').value	= objJSON.cobroMonto;
+												g('cobroDetalle').value = objJSON.cobroDetalle;
+
+												$('#btn_nuevo').show( );
+												$('#btn_eliminar').show( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_cobros( reservacionId ) {
+
+				var datos				= {};
+					datos._data1		= 'cobros->get';
+					datos.reservacionId	= reservacionId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listCobros').innerHTML = objJSON;
+
+											}
+
+						}
+
+					);
+
+			}
 			function get_reservacion_cobro( reservacionId ) {
 
 				var datos				= {};
@@ -1112,6 +1171,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												g('reservacionId').value				= objJSON.reservacionId;
 												g('reservacionLocalizador').innerHTML	= objJSON.reservacionLocalizador;
+												g('reservacionSaldo').innerHTML			= objJSON.reservacionSaldoVer;
 												g('reservacionProveedor').innerHTML 	= objJSON.proveedorAlias;
 												g('cliente').innerHTML					= objJSON.cliente;
 												g('reservacionServicio').innerHTML		= objJSON.reservacionServicioVer;
@@ -1122,9 +1182,11 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
 												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
 												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML			= objJSON.reservacionCoste;
-												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecio;
+												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
+												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
 												g('reservacionStatus').innerHTML		= objJSON.reservacionStatusVer;
+
+												get_cobros( reservacionId );
 
 												$('#contenedor_reservacion').show( );
 

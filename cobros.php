@@ -88,9 +88,13 @@ window.onload = function( ) {
 
 				<!--Detalle-->
 				<div class="form-row">
-	                <div class="col-md-6 mb-3">
-	                    <label for="reservacionLocalizador">Localizador</label>
+					<div class="col-md-6 mb-3">
+						<label for="reservacionLocalizador">Localizador</label>
 						<span id="reservacionLocalizador"></span>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="reservacionLocalizador">Saldo</label>
+						<span id="reservacionSaldo"></span>
 	                </div>
 					<div class="col-md-6 mb-3">
 	                    <label for="reservacionProveedor">Proveedor</label>
@@ -196,19 +200,8 @@ window.onload = function( ) {
 		</div>
 
 		<div class="col-md-12">
-
 			<hr class="mb-4">
-			<table class="table table-striped table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col" data-sort="string-ins" data-sort-onload="yes">Tipo</th>
-						<th scope="col" data-sort="string-ins">Monto</th>
-						<th scope="col" data-sort="int">Saldo</th>
-					</tr>
-				</thead>
-				<div id="listCobros"></div>
-			</table>
-
+			<table class="table table-striped table-hover" id="listCobros"></table>
 		</div>
 
 	</div>

@@ -677,6 +677,45 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
+	case 'cobros->get'					:
+
+					$r		= new Cobro( );
+					$cobros	= $r->get_cobros( $_POST['reservacionId'] );
+
+					$html  = '';
+					$html .= '<thead class="thead-dark">';
+					$html .= '	<tr>';
+					$html .= '		<th scope="col" data-sort="int" data-sort-onload="yes">Consecutivo</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
+					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
+					$html .= '		<th></th>';
+					$html .= '	</tr>';
+					$html .= '</thead>';
+
+					foreach( $cobros as $k => $v ) {
+
+						$html .= '<tr onclick="get_cobro( \'' . $k . '\' );" style="cursor: pointer;">';
+						$html .= '	<th scope="row">' . antepon_ceros( $v['cobroConsecutivo'], 2 ) . '</th>';
+						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
+						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
+						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
+						$html .= '	<td><a onclick="delete_cobro( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';
+						$html .= '</tr>';
+
+					}
+
+					echo $r->toAJAX( $html, 'json' );
+
+			break;
+	case 'cobro->get'					:
+
+					$r		= new Cobro( );
+					$cobro	= $r->get_cobro( $_POST['cobroId'] );
+
+					echo $r->toAJAX( $cobro, 'json' );
+
+			break;
 	/*Cobros*/
 
 

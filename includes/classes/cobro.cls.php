@@ -17,7 +17,8 @@ class Cobro extends SQL_MySQL
 										c.clienteApellido
 
 									  ) AS cliente			,
-								r.*
+								r.*	,
+								( SELECT saldoFinal FROM cobros WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo DESC LIMIT 0, 1 ) AS reservacionSaldo
 
 							FROM	reservaciones	r,
 									clientes		c,
@@ -39,10 +40,63 @@ class Cobro extends SQL_MySQL
 		$r['reservacionPlanVer']		= PLAN_ALIMENTOS[ $r['reservacionPlan'] ];
 		$r['reservacionStatusVer']		= RESERVACION_STATUS[ $r['reservacionStatus'] ];
 		$r['reservacionLocalizador']	= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
+		$r['reservacionCosteVer']		= '$ '. number_format( $r['reservacionCoste'] , 2 );
+		$r['reservacionPrecioVer']		= '$ '. number_format( $r['reservacionPrecio'] , 2 );
+		$r['reservacionSaldoVer']		= '$ '. number_format( $r['reservacionSaldo'] , 2 );
 
 		return $r;
 
 	}
+
+	public	function get_cobros( $reservacionId ) {
+
+		$aTmp	= array( );
+		$q		= sprintf(" SELECT
+
+									cobroConsecutivo	,
+									cobroTipo			,
+									cobroMonto			,
+									cobroDetalle		,
+									saldoFinal
+
+								FROM	cobros
+
+								WHERE		reservacionId	= %s	",
+
+							$this->toDBFromUtf8( $reservacionId )
+
+						);
+		$rs = $this->ejecuta_query( $q, 'get_cobros( )' );
+
+		while( $r = $this->get_row( $rs ) ) {
+
+			$aTmp[ $r['cobroConsecutivo'] ] = $r;
+
+		}
+
+		return $aTmp;
+
+	}
+
+	public	function get_cobro( $cobroId ) {
+
+		$q		= sprintf(" SELECT
+
+									*
+
+								FROM	cobros
+
+								WHERE	cobroId	= %s	",
+
+							$this->toDBFromUtf8( $cobroId )
+
+						);
+		$rs = $this->ejecuta_query( $q, 'get_cobro( )' );
+
+		return $this->get_row( $rs );
+
+	}
+
 
 	public	function get_consecutivo( $reservacionId ) {
 
