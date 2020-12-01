@@ -188,7 +188,7 @@ window.onload = function( ) {
 						<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_cobro( );">Nuevo</button>
 					</div>
 					<div class="col-5" id="btn_eliminar" style="display: none">
-						<button class="btn btn-danger btn-lg btn-block" type="button">Eliminar</button>
+						<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cobro( );">Eliminar</button>
 					</div>
 					<div class="col-5" id="btn_guardar">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>

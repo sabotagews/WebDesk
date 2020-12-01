@@ -53,10 +53,11 @@ class Cobro extends SQL_MySQL
 		$aTmp	= array( );
 		$q		= sprintf(" SELECT
 
-									cobroConsecutivo	,
-									cobroTipo			,
-									cobroMonto			,
-									cobroDetalle		,
+									cobroId			,
+									cobroConsecutivo,
+									cobroTipo		,
+									cobroMonto		,
+									cobroDetalle	,
 									saldoFinal
 
 								FROM	cobros
@@ -70,7 +71,7 @@ class Cobro extends SQL_MySQL
 
 		while( $r = $this->get_row( $rs ) ) {
 
-			$aTmp[ $r['cobroConsecutivo'] ] = $r;
+			$aTmp[ $r['cobroId'] ] = $r;
 
 		}
 
@@ -98,9 +99,29 @@ class Cobro extends SQL_MySQL
 	}
 
 
-	public	function get_consecutivo( $reservacionId ) {
+	public	function get_consecutivo( $reservacionId, $cobroId ) {
 
 		if( $reservacionId == 0 ) return 1;
+
+		if( $cobroId != 0 ) {
+
+			$q	= sprintf(" SELECT
+
+								cobroConsecutivo
+
+								FROM	cobros
+
+								WHERE	cobroId	= %s			",
+
+							$this->toDBFromUtf8( $cobroId )
+
+						);
+			$rs = $this->ejecuta_query( $q, 'get_consecutivo( )' );
+			$r = $this->get_row( $rs );
+
+			return $r['cobroConsecutivo'] - 1;
+
+		}
 
 		$q	= sprintf(" SELECT
 
@@ -169,9 +190,62 @@ class Cobro extends SQL_MySQL
 
 	}
 
+	public	function set_saldos( $reservacionId ) {
+
+		$primero			= true;
+		$cobroConsecutivo	= 1;
+		$acumulado			= 0;
+		$saldoAnterior		= $this->get_saldo( $reservacionId, 0 );
+
+		$q = sprintf(" SELECT
+
+							cobroId		,
+							cobroMonto
+
+						FROM	cobros
+
+						WHERE	reservacionId	 = %s
+
+						ORDER BY cobroConsecutivo	ASC		",
+
+						$this->toDBFromUtf8( $reservacionId	),
+						$this->toDBFromUtf8( $cobroId		)
+
+					);
+		$rs = $this->ejecuta_query( $q, 'set_saldos( )' );
+
+		while( $r = $this->get_row( $rs ) ) {
+
+			$saldoInicial	= $saldoAnterior;
+			$acumulado		+= $r['cobroMonto'];
+			$saldoFinal		= $saldoInicial - $r['cobroMonto'];
+			$saldoAnterior	= $saldoFinal;
+
+			$q = sprintf(" UPDATE cobros
+
+								SET	cobroConsecutivo	= %s,
+									acumulado			= %s,
+									saldoInicial		= %s,
+									saldoFinal			= %s
+
+									WHERE cobroId = %s				",
+
+							$this->toDBFromDB( $cobroConsecutivo++	),
+							$this->toDBFromDB( $acumulado			),
+							$this->toDBFromDB( $saldoInicial		),
+							$this->toDBFromDB( $saldoFinal			),
+							$this->toDBFromDB( $r['cobroId']		)
+
+						);
+			$this->ejecuta_query( $q, 'set_saldos( )' );
+
+		}
+
+	}
+
 	public	function set_cobro( $data ) {
 
-		$cobroConsecutivo	= $this->get_consecutivo( $data['reservacionId'] );
+		$cobroConsecutivo	= $this->get_consecutivo( $data['reservacionId'], $data['cobroId'] );
 		$cobroAcumulado		= $this->get_acumulado( $data['reservacionId'] ) + $data['cobroMonto'];
 		$saldoInicial		= $this->get_saldo( $data['reservacionId'], $cobroConsecutivo );
 		$saldoFinal			= $saldoInicial - $data['cobroMonto'];
@@ -203,6 +277,17 @@ class Cobro extends SQL_MySQL
 
 					);
 		$this->ejecuta_query( $q, 'set_cobro( )' );
+
+		$this->set_saldos( $data['reservacionId'], $data['cobroId'] );
+
+	}
+
+	public	function cobro_delete( $data ) {
+
+		$q = sprintf(" DELETE FROM cobros WHERE cobroId = %s ", $data['cobroId'] );
+		$this->ejecuta_query( $q, 'cobro_delete( )' );
+
+		$this->set_saldos( $data['reservacionId'], $data['cobroId'] );
 
 	}
 

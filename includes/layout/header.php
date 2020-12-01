@@ -1112,9 +1112,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												$('#cobroTipo').val( objJSON.cobroTipo );
 
-												g('cobroId').value		= objJSON.cobroId;
-												g('cobroMonto').value	= objJSON.cobroMonto;
-												g('cobroDetalle').value = objJSON.cobroDetalle;
+												g('cobroId').value			= objJSON.cobroId;
+												g('cobroMonto').value		= objJSON.cobroMonto;
+												g('cobroDetalle').value		= objJSON.cobroDetalle;
 
 												$('#btn_nuevo').show( );
 												$('#btn_eliminar').show( );
@@ -1240,6 +1240,46 @@ header('Content-type: text/html; charset=iso-8859-1');
 												}
 
 												limpia_cobro( );
+												get_cobros( g('reservacionId').value );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_cobro( ) {
+
+				var datos				= {};
+					datos._data1		= 'cobro->delete';
+
+					datos.reservacionId	= g('reservacionId').value;
+					datos.cobroId		= g('cobroId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_cobro( );
+												get_cobros( g('reservacionId').value );
+
+												if( objJSON.error == '0' ) {
+
+													alert('¡Se elimino el cobro correctamente!');
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
 
 											}
 

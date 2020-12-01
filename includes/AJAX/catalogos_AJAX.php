@@ -653,14 +653,11 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					try {
 
-						$aTmp = array( );
-						$r = new Cobro( );
+						$aTmp	= array( );
+						$r		= new Cobro( );
 
 						$r->begin( );
-
 							$r->set_cobro( $_POST );
-							//actualiza status
-
 						$r->commit( );
 
 						$aTmp['error'] = '0';
@@ -669,8 +666,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$r->rollback( );
 
-						$aTmp['error']			= '1';
-						$aTmp['error_msg']		= $e->getMessage( );
+						$aTmp['error']		= '1';
+						$aTmp['error_msg']	= $e->getMessage( );
 
 					}
 
@@ -689,7 +686,6 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
-					$html .= '		<th></th>';
 					$html .= '	</tr>';
 					$html .= '</thead>';
 
@@ -700,7 +696,6 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
-						$html .= '	<td><a onclick="delete_cobro( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';
 						$html .= '</tr>';
 
 					}
@@ -714,6 +709,31 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$cobro	= $r->get_cobro( $_POST['cobroId'] );
 
 					echo $r->toAJAX( $cobro, 'json' );
+
+			break;
+	case 'cobro->delete'				:
+
+					try {
+
+						$aTmp	= array( );
+						$r		= new Cobro( );
+
+						$r->begin( );
+							$r->cobro_delete( $_POST );
+						$r->commit( );
+
+						$aTmp['error'] = '0';
+
+					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']		= '1';
+						$aTmp['error_msg']	= $e->getMessage( );
+
+					}
+
+					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
 	/*Cobros*/
