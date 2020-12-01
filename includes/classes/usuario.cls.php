@@ -68,11 +68,12 @@ class Usuario extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO usuarios
 
-									( usuarioId	, usuarioNombre	, usuarioApellido	, usuarioUsername	, usuarioPassword	, usuarioEmail	, usuarioMovil	, usuarioStatus	, usuarioRol	)
-							VALUES	( %s		, %s			, %s				, %s				, %s				, %s			, %s			, %s			, %s			)
+									( usuarioId	, sucursalId	, usuarioNombre	, usuarioApellido	, usuarioUsername	, usuarioPassword	, usuarioEmail	, usuarioMovil	, usuarioStatus	, usuarioRol	)
+							VALUES	( %s		, %s		, %s			, %s				, %s				, %s				, %s			, %s			, %s			, %s			)
 
 							ON DUPLICATE KEY UPDATE
 
+								sucursalId		= VALUES( sucursalId 		),
 								usuarioNombre	= VALUES( usuarioNombre		),
 								usuarioApellido	= VALUES( usuarioApellido	),
 								usuarioUsername	= VALUES( usuarioUsername	),
@@ -83,6 +84,7 @@ class Usuario extends SQL_MySQL
 								usuarioRol		= VALUES( usuarioRol		)	",
 
 							$this->toDBFromUtf8( $data['usuarioId']						),
+							$this->toDBFromUtf8( $data['sucursalId']					),
 							$this->toDBFromUtf8( $data['usuarioNombre']					),
 							$this->toDBFromUtf8( $data['usuarioApellido']				),
 							$this->toDBFromUtf8( $data['usuarioUsername']				),

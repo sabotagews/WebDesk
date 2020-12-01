@@ -14,7 +14,26 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cobro.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
+
 	/*Usuarios*/
+	case 'sucursales->get_select'		:
+
+				$aTmp = array( );
+				$html = '<option></option>';
+
+				$u			= new Sucursal( );
+				$sucursales	= $u->get_sucursal( '%' );
+
+				foreach( $sucursales as $k => $v ) {
+
+					$html .= '<option value="' . $k . '">' . utf8_decode( $v['sucursalNombre'] ) . '</option>';
+
+				}
+
+				echo $u->toAJAX( $html, 'json' );
+
+		break;
+
 	case 'usuarios->get'				:
 
 					$aTmp = array( );
@@ -98,6 +117,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 			break;
 	/*Usuarios*/
 
+
 	/*Sucursales*/
 	case 'sucursales->get'				:
 
@@ -180,6 +200,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Sucursales*/
+
 
 	/*Clientes*/
 	case 'clientes->get'				:
@@ -277,6 +298,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Clientes*/
+
 
 	/*Proveedores*/
 	case 'proveedores->get'				:
@@ -442,6 +464,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Proveedores*/
+
 
 	/*Cuentas*/
 	case 'cuentas->get'					:
@@ -749,6 +772,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Autocomplete*/
+
 
 }
 

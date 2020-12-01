@@ -208,6 +208,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
+												$('#sucursalId').val( objJSON.sucursalId );
+
 												g('usuarioId').value		= objJSON.usuarioId;
 
 												g('usuarioNombre').value	= objJSON.usuarioNombre;
@@ -270,6 +272,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 					datos._data1			= 'usuario->set';
 					datos.usuarioId			= g('usuarioId').value;
 
+					datos.sucursalId		= g('sucursalId').value;
 					datos.usuarioNombre		= g('usuarioNombre').value;
 					datos.usuarioApellido	= g('usuarioApellido').value;
 					datos.usuarioUsername	= g('usuarioUsername').value;
@@ -321,6 +324,33 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												limpia_usuario( );
 												get_usuarios( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_sucursales_select( ) {
+
+				g('sucursalId').innerHTML = '';
+
+				var datos					= {};
+					datos._data1			= 'sucursales->get_select';
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('sucursalId').innerHTML = objJSON;
 
 											}
 
