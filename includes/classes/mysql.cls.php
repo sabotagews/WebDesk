@@ -10,9 +10,9 @@ define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres
 
 define('RESERVACION_HABITACIONES'	, 5 );
 define('PLAN_ALIMENTOS'				, array( 'EP' => 'Europeo', 'CD' => 'Con Desayuno', 'TI' => 'Todo Incluido' ) );
-define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter', 'AE' => 'Aéreo', 'BUS' => 'Autobús', 'PQ' => 'Paquete', 'GPO' => 'Grupo' ) );
-define('RESERVACION_STATUS'			, array( '0' => 'Cotización', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
-define('COBRO_TIPOS'				, array( 'E' => 'Efectivo', 'TC' => 'Tarjeta Crédito', 'TD' => 'Tarjeta Débito' ) );
+define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter', 'AE' => 'Aereo', 'BUS' => 'Autobus', 'PQ' => 'Paquete', 'GPO' => 'Grupo' ) );
+define('RESERVACION_STATUS'			, array( '0' => 'Cotizacion', '1' => 'Confirmada', '2' => 'Pagada', '3' => 'Cobrada' ) );
+define('COBRO_TIPOS'				, array( 'E' => 'Efectivo', 'TC' => 'Tarjeta Credito', 'TD' => 'Tarjeta Debito' ) );
 
 if( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 
