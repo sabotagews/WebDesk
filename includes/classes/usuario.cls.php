@@ -68,7 +68,7 @@ class Usuario extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO usuarios
 
-									( usuarioId	, sucursalId	, usuarioNombre	, usuarioApellido	, usuarioUsername	, usuarioPassword	, usuarioEmail	, usuarioMovil	, usuarioStatus	, usuarioRol	)
+									( usuarioId	, sucursalId, usuarioNombre	, usuarioApellido	, usuarioUsername	, usuarioPassword	, usuarioEmail	, usuarioMovil	, usuarioStatus	, usuarioRol	)
 							VALUES	( %s		, %s		, %s			, %s				, %s				, %s				, %s			, %s			, %s			, %s			)
 
 							ON DUPLICATE KEY UPDATE
