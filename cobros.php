@@ -68,10 +68,10 @@ window.onload = function( ) {
 <main class="container" role="main">
 	<div class="py-5 text-center">
 		<h2>Cobros</h2>
-		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservación.</strong></p>
+		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></p>
 	</div>
 	<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservación" aria-label="Buscar">
+		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaciï¿½n" aria-label="Buscar">
 		<button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
 	</form>
 
@@ -181,7 +181,7 @@ window.onload = function( ) {
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<label for="cobroDetalle">Detalle</label>
-						<textarea class="form-control" id="cobroDetalle" name="cobroDetalle" rows="5"></textarea>
+						<textarea class="form-control" id="cobroDetalle" name="cobroDetalle" rows="15"></textarea>
 					</div>
 				</div>
 
