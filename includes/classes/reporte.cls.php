@@ -54,6 +54,47 @@ class Reporte extends SQL_MySQL
 
 	}
 
+	public	function cliente_search( $search ) {
+
+		$search	= '%' . ltrim( trim( $search ), '0' ) . '%';
+
+		$aTmp	= array( );
+
+		$q		= sprintf(" SELECT
+
+									c.clienteId													,
+									CONCAT( c.clienteNombre, ' ', c.clienteApellido ) AS cliente
+
+								FROM	clientes		c
+
+								WHERE		(
+												c.clienteNombre		LIKE %s	OR
+												c.clienteApellido	LIKE %s
+											)
+
+								ORDER BY	c.clienteApellido 	ASC	,
+											c.clienteNombre		ASC		",
+
+							$this->toDBFromUtf8( $search ),
+							$this->toDBFromUtf8( $search )
+
+						);//echo '<pre>';print_r( $q );echo '</pre>';
+		$rs = $this->ejecuta_query( $q, 'cliente_search( )' );
+
+		while( $r = $this->get_row( $rs ) ) {
+
+			$a						= array( );
+			$a['clienteId'] 		= $r['clienteId'];
+			$a['busquedaResultado']	= $r['cliente'];
+
+			$aTmp[ ] = $a;
+
+		}
+
+		return $aTmp;
+
+	}
+
 }
 
 ?>

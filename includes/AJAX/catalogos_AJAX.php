@@ -771,6 +771,15 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $resultado, 'json' );
 
 			break;
+
+	case 'cliente->search'				:
+
+					$r			= new Reporte( );
+					$resultado	= $r->cliente_search( $_POST['search'] );
+
+					echo $r->toAJAX( $resultado, 'json' );
+
+			break;
 	/*Autocomplete*/
 
 

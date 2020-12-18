@@ -5,9 +5,66 @@ require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
 ?>
 <script type="text/javascript">
-    window.onload = function() {
-        get_clientes( );
-    }
+	function inicializa( ) {
+
+		$("#search").autocomplete(
+									{
+
+										minLength	: 2 	,
+										delay		: 500	,
+										source		: function( request, response ) {
+
+														$.ajax(
+
+																{
+																	url 		: AJAX_catalogos_url,
+																	type		: 'POST'			,
+																	dataType	: 'json'			,
+																	data		:	{
+																						_data1	: 'cliente->search',
+																						search	: request.term
+																					}				,
+																	success		: function( data ) {
+
+																					response( $.map( data, function( item ) {
+
+																											return	{
+
+																														label	: item.busquedaResultado,
+																														value	: item.clienteId
+
+																													}
+
+																										}
+
+																									)
+																							)
+
+																					}
+
+																}
+
+															)
+
+													}	,
+										select		: function( event, ui ) {
+
+														event.preventDefault( );
+														g( event.target.id ).value = '';
+
+														get_cliente( ui.item.value );
+
+													}
+									}
+
+		);
+
+	}
+
+	window.onload = function( ) {
+		inicializa( );
+		get_clientes( );
+	}
 
 </script>
 <main class="container" role="main">
@@ -16,7 +73,7 @@ require_once('./includes/admin/menu-admin.php');
         <p class="lead">Cat&aacute;logo hist&oacute;rico con los datos de los pasajeros que han sido registrados ya sea por cotizaci&oacute;n o reservaci&oacute;n efectiva, permitir&aacute; dar seguimiento efectivo, prospecci&oacute;n a futuro y contacto v&iacute;a <strong>Tel&eacute;fono, Email y WhatsApp.</strong></p>
     </div>
     <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar cliente" aria-label="Buscar">
+        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Buscar cliente" aria-label="Buscar">
         <button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
     </form>
     <hr class="mb-4">
