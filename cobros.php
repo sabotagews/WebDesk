@@ -68,7 +68,7 @@ window.onload = function( ) {
 <main class="container" role="main">
 	<div class="py-5 text-center">
 		<h2>Cobros</h2>
-		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci�n.</strong></p>
+		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></p>
 	</div>
 	<form class="form-inline my-2 my-lg-0">
 		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci�n" aria-label="Buscar">
