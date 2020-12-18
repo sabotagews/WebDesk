@@ -34,7 +34,8 @@ class Reservacion extends SQL_MySQL
 			$aTmp[ $r['reservacionId'] ] = $r;
 
 			$aTmp[ $r['reservacionId'] ]['reservacionServicioVer']	= toHTML( RESERVACION_SERVICIOS[ $r['reservacionServicio'] ], ''		, true );
-			$aTmp[ $r['reservacionId'] ]['reservacionStatusVer']	= toHTML( RESERVACION_STATUS[ $r['reservacionStatus'] ]		, ''		, true );
+			$aTmp[ $r['reservacionId'] ]['reservacionStatusCobro']	= toHTML( RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ]		, ''		, true );
+			$aTmp[ $r['reservacionId'] ]['reservacionStatusPago']	= toHTML( RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ]		, ''		, true );
 			$aTmp[ $r['reservacionId'] ]['reservacionCheckInVer']	= toHTML( $r['reservacionCheckIn']							, 'date_num', true );
 			$aTmp[ $r['reservacionId'] ]['reservacionCheckOutVer']	= toHTML( $r['reservacionCheckOut']							, 'date_num', true );
 
@@ -48,7 +49,7 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO reservaciones
 
-									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionLocalizadorExterno	, reservacionStatus	)
+									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionLocalizadorExterno	, reservacionStatusCobro, reservacionStatusPago	)
 							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s					, %s							, %s				)
 
 							ON DUPLICATE KEY UPDATE
@@ -67,7 +68,8 @@ class Reservacion extends SQL_MySQL
 								reservacionPrecio				= VALUES( reservacionPrecio									),
 								reservacionUtilidad				= VALUES( reservacionPrecio ) - VALUES( reservacionCoste ),
 								reservacionLocalizadorExterno	= VALUES( reservacionLocalizadorExterno						),
-								reservacionStatus				= VALUES( reservacionStatus									)	",
+								reservacionStatusCobro			= VALUES( reservacionStatusCobro							),
+								reservacionStatusPago			= VALUES( reservacionStatusPago								)	",
 
 							$this->toDBFromUtf8( $data['reservacionId']									),
 							$this->toDBFromUtf8( $data['proveedorId']									),
@@ -84,7 +86,8 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $data['reservacionPrecio']								),
 							$this->toDBFromUtf8( $data['reservacionPrecio'] - $data['reservacionCoste']	),
 							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']					),
-							$this->toDBFromUtf8( $data['reservacionStatus']								)
+							$this->toDBFromUtf8( $data['reservacionStatusCobro']						),
+							$this->toDBFromUtf8( $data['reservacionStatusPago']							)
 
 					);
 		$this->ejecuta_query( $q, 'set_reservacion( )' );

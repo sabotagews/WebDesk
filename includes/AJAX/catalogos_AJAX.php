@@ -564,7 +564,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$html .= '<tr onclick="get_reservacion( \'' . $k . '\' );" style="cursor: pointer;">';
 							$html .= '	<th scope="row">' . $v['reservacionServicioVer'] . '</th>';
-							$html .= '	<td>' . $v['reservacionStatusVer'] . '</td>';
+							$html .= '	<td>' . $v['reservacionStatusCobro'] . '</td>';
+							$html .= '	<td>' . $v['reservacionStatusPago'] . '</td>';
 							$html .= '	<td>' . $v['reservacionCheckInVer'] . '</td>';
 							$html .= '	<td>' . $v['reservacionCheckOutVer'] . '</td>';
 							$html .= '	<td><a onclick="delete_reservacion( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';

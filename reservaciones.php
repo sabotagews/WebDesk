@@ -116,24 +116,6 @@ require_once('./includes/admin/menu-admin.php');
 
                         </div>
                     </div>
-
-					<div class="col-md-8 mb-3">
-                        <label for="reservacionStatus">Status</label>
-                        <div id="reservacionStatus" class="mt-1">
-
-							<? $i = 0; ?>
-							<? foreach( RESERVACION_STATUS as $k => $v ) { ?>
-
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="reservacionStatus" id="reservacionStatus<?= $i; ?>" value="<?= $k; ?>" required>
-									<label class="form-check-label" for="reservacionStatus<?= $i++; ?>"><?= $v; ?></label>
-								</div>
-
-							<? } unset( $i ); ?>
-
-                        </div>
-                    </div>
-
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -196,6 +178,40 @@ require_once('./includes/admin/menu-admin.php');
                         <label for="reservacionHotel">Precio</label>
                         <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
                     </div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 mb-6">
+						<label for="reservacionStatusCobro">Status de Cobro</label>
+						<div id="reservacionStatusCobro" class="mt-1">
+
+							<? $i = 0; ?>
+							<? foreach( RESERVACION_STATUS_COBRO as $k => $v ) { ?>
+
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="reservacionStatusCobro" id="reservacionStatusCobro<?= $i; ?>" value="<?= $k; ?>" required>
+									<label class="form-check-label" for="reservacionStatusCobro<?= $i++; ?>"><?= $v; ?></label>
+								</div>
+
+							<? } unset( $i ); ?>
+
+						</div>
+					</div>
+					<div class="col-md-6 mb-6">
+						<label for="reservacionStatus">Status de Pago</label>
+						<div id="reservacionStatusPago" class="mt-1">
+
+							<? $i = 0; ?>
+							<? foreach( RESERVACION_STATUS_PAGO as $k => $v ) { ?>
+
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="reservacionStatusPago" id="reservacionStatusPago<?= $i; ?>" value="<?= $k; ?>" required>
+									<label class="form-check-label" for="reservacionStatusPago<?= $i++; ?>"><?= $v; ?></label>
+								</div>
+
+							<? } unset( $i ); ?>
+
+						</div>
+					</div>
 				</div>
                 <hr class="mb-4">
                 <div class="form-row justify-content-end">

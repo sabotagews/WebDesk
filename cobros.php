@@ -146,8 +146,8 @@ window.onload = function( ) {
 						<span id="reservacionPrecio"></span>
 	                </div>
 					<div class="col-md-6 mb-3">
-	                    <label for="reservacionStatus">Status</label>
-						<span id="reservacionStatus"></span>
+	                    <label for="reservacionStatusCobro">Status de Cobro</label>
+						<span id="reservacionStatusCobro"></span>
 	                </div>
 
 				</div>

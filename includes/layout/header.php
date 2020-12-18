@@ -978,7 +978,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 					datos.reservacionCoste				= g('reservacionCoste').value;
 					datos.reservacionPrecio				= g('reservacionPrecio').value;
 					datos.reservacionLocalizadorExterno	= g('reservacionLocalizadorExterno').value;
-					datos.reservacionStatus				= $('input[name=reservacionStatus]:checked').val( );
+					datos.reservacionStatusCobro		= $('input[name=reservacionStatusCobro]:checked').val( );
+					datos.reservacionStatusPago			= $('input[name=reservacionStatusPago]:checked').val( );
 
 				$.ajax(
 
@@ -1048,14 +1049,28 @@ header('Content-type: text/html; charset=iso-8859-1');
 													<? } unset( $i ); ?>
 												}
 
-												switch( objJSON.reservacionStatus ) {
+												switch( objJSON.reservacionStatusCobro ) {
 
 													<? $i = 0; ?>
-													<? foreach( RESERVACION_STATUS as $k => $v ) { ?>
+													<? foreach( RESERVACION_STATUS_COBRO as $k => $v ) { ?>
 
 														case '<?= $k; ?>':
 
-																$( "#reservacionStatus<?= $i++; ?>" ).prop( "checked", true );
+																$( "#reservacionStatusCobro" ).prop( "checked", true );
+
+															break;
+
+													<? } unset( $i ); ?>
+												}
+
+												switch( objJSON.reservacionStatusPago ) {
+
+													<? $i = 0; ?>
+													<? foreach( RESERVACION_STATUS_PAGO as $k => $v ) { ?>
+
+														case '<?= $k; ?>':
+
+																$( "#reservacionStatusPago" ).prop( "checked", true );
 
 															break;
 
@@ -1216,7 +1231,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
 												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
 												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
-												g('reservacionStatus').innerHTML		= objJSON.reservacionStatusVer;
+												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
+												g('reservacionStatusPago').innerHTML	= objJSON.reservacionStatusPago;
 
 												get_cobros( reservacionId );
 

@@ -38,7 +38,8 @@ class Cobro extends SQL_MySQL
 
 		$r['reservacionServicioVer']	= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];
 		$r['reservacionPlanVer']		= PLAN_ALIMENTOS[ $r['reservacionPlan'] ];
-		$r['reservacionStatusVer']		= RESERVACION_STATUS[ $r['reservacionStatus'] ];
+		$r['reservacionStatusCobro']	= RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ];
+		$r['reservacionStatusPago']		= RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ];
 		$r['reservacionLocalizador']	= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
 		$r['reservacionCosteVer']		= '$ '. number_format( $r['reservacionCoste'] , 2 );
 		$r['reservacionPrecioVer']		= '$ '. number_format( $r['reservacionPrecio'] , 2 );
