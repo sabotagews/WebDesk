@@ -53,11 +53,12 @@ class Cobro extends SQL_MySQL
 		$aTmp	= array( );
 		$q		= sprintf(" SELECT
 
-									cobroId			,
-									cobroConsecutivo,
-									cobroTipo		,
-									cobroMonto		,
-									cobroDetalle	,
+									cobroId				,
+									cobroConsecutivo	,
+									cobroFechaAplicacion,
+									cobroTipo			,
+									cobroMonto			,
+									cobroDetalle		,
 									saldoFinal
 
 								FROM	cobros
@@ -252,28 +253,30 @@ class Cobro extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO cobros
 
-									( cobroId	, reservacionId	, cobroConsecutivo	, cobroTipo	, cobroMonto, cobroDetalle	, acumulado	, saldoInicial	, saldoFinal	)
-							VALUES	( %s		, %s			, %s				, %s		, %s		, %s			, %s		, %s			, %s			)
+									( cobroId	, reservacionId	, cobroConsecutivo	, cobroFecha, cobroFechaAplicacion	, cobroTipo	, cobroMonto, cobroDetalle	, acumulado	, saldoInicial	, saldoFinal	)
+							VALUES	( %s		, %s			, %s				, %s		, %s					, %s		, %s		, %s			, %s		, %s			, %s			)
 
 							ON DUPLICATE KEY UPDATE
 
-								cobroConsecutivo	= VALUES( cobroConsecutivo	),
-								cobroTipo			= VALUES( cobroTipo			),
-								cobroMonto			= VALUES( cobroMonto		),
-								cobroDetalle		= VALUES( cobroDetalle		),
-								acumulado			= VALUES( acumulado			),
-								saldoInicial		= VALUES( saldoInicial		),
-								saldoFinal			= VALUES( saldoFinal		)	",
+								cobroFechaAplicacion	= VALUES( cobroFechaAplicacion	),
+								cobroTipo				= VALUES( cobroTipo				),
+								cobroMonto				= VALUES( cobroMonto			),
+								cobroDetalle			= VALUES( cobroDetalle			),
+								acumulado				= VALUES( acumulado				),
+								saldoInicial			= VALUES( saldoInicial			),
+								saldoFinal				= VALUES( saldoFinal			)	",
 
-							$this->toDBFromUtf8( $data['cobroId']		),
-							$this->toDBFromUtf8( $data['reservacionId']	),
-							$this->toDBFromUtf8( $cobroConsecutivo + 1	),
-							$this->toDBFromUtf8( $data['cobroTipo']		),
-							$this->toDBFromUtf8( $data['cobroMonto']	),
-							$this->toDBFromUtf8( $data['cobroDetalle']	),
-							$this->toDBFromUtf8( $cobroAcumulado		),
-							$this->toDBFromUtf8( $saldoInicial			),
-							$this->toDBFromUtf8( $saldoFinal			)
+							$this->toDBFromUtf8( $data['cobroId']				),
+							$this->toDBFromUtf8( $data['reservacionId']			),
+							$this->toDBFromUtf8( $cobroConsecutivo + 1			),
+							$this->get_sysTimeStamp( )							 ,
+							$this->toDBFromUtf8( $data['cobroFechaAplicacion']	),
+							$this->toDBFromUtf8( $data['cobroTipo']				),
+							$this->toDBFromUtf8( $data['cobroMonto']			),
+							$this->toDBFromUtf8( $data['cobroDetalle']			),
+							$this->toDBFromUtf8( $cobroAcumulado				),
+							$this->toDBFromUtf8( $saldoInicial					),
+							$this->toDBFromUtf8( $saldoFinal					)
 
 					);
 		$this->ejecuta_query( $q, 'set_cobro( )' );

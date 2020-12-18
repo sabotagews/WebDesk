@@ -1142,9 +1142,10 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												$('#cobroTipo').val( objJSON.cobroTipo );
 
-												g('cobroId').value			= objJSON.cobroId;
-												g('cobroMonto').value		= objJSON.cobroMonto;
-												g('cobroDetalle').value		= objJSON.cobroDetalle;
+												g('cobroId').value				= objJSON.cobroId;
+												g('cobroFechaAplicacion').value	= objJSON.cobroFechaAplicacion;
+												g('cobroMonto').value			= objJSON.cobroMonto;
+												g('cobroDetalle').value			= objJSON.cobroDetalle;
 
 												$('#btn_nuevo').show( );
 												$('#btn_eliminar').show( );
@@ -1239,14 +1240,15 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function guarda_cobro( ) {
 
-				var datos				= {};
-					datos._data1		= 'cobro->set';
+				var datos						= {};
+					datos._data1				= 'cobro->set';
 
-					datos.reservacionId	= g('reservacionId').value;
-					datos.cobroId		= g('cobroId').value;
-					datos.cobroTipo		= g('cobroTipo').value;
-					datos.cobroMonto	= g('cobroMonto').value;
-					datos.cobroDetalle	= g('cobroDetalle').value;
+					datos.reservacionId			= g('reservacionId').value;
+					datos.cobroId				= g('cobroId').value;
+					datos.cobroFechaAplicacion	= g('cobroFechaAplicacion').value;
+					datos.cobroTipo				= g('cobroTipo').value;
+					datos.cobroMonto			= g('cobroMonto').value;
+					datos.cobroDetalle			= g('cobroDetalle').value;
 
 				$.ajax(
 
