@@ -14,12 +14,12 @@ require_once('./includes/admin/menu-admin.php');
 <main class="container" role="main">
     <div class="py-5 text-center">
         <h2>Reservaciones</h2>
-        <p class="lead">Formulario para carga de una cotización o reservación.</p>
+        <p class="lead">Formulario para carga de una cotizaci&oacute;n o reservaci&oacute;n.</p>
     </div>
 
     <div class="row">
         <div class="col order-md-1">
-            <h4 class="mb-3">Datos de la Reservación</h4>
+            <h4 class="mb-3">Datos de la Reservaci&oacute;n</h4>
             <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
 				<input type="hidden" name="reservacionId" value="0" />
                 <div class="row">
@@ -94,7 +94,7 @@ require_once('./includes/admin/menu-admin.php');
 						<label for="reservacionHabitaciones">Habitaciones</label>
 						<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones" required>
 							<option value=""></option>
-							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) { ?>
+							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) {ï¿½?>
 								<option value="<?= $i; ?>"><?= $i; ?></option>
 							<? } ?>
 						</select>
@@ -103,7 +103,7 @@ require_once('./includes/admin/menu-admin.php');
                 <div class="row">
 	                <div class="col-md-12 mb-3">
                         <label for="reservacionHotel">Detalle</label>
-                        <textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="5" required=""></textarea>
+                        <textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="15" required=""></textarea>
                     </div>
                 </div>
                 <div class="form-row">
