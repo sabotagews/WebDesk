@@ -111,7 +111,7 @@ require_once('./includes/admin/menu-admin.php');
                         <label for="reservacionDestino">Coste</label>
                         <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
                     </div>
- 
+
                     <div class="col-6">
 						<label for="proveedorId">Proveedor</label>
                         <select class="custom-select" id="proveedorId" onchange=""></select>
@@ -120,6 +120,14 @@ require_once('./includes/admin/menu-admin.php');
                         <label for="reservacionHotel">Precio</label>
                         <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
                     </div>
+
+
+					<div class="col-md-3 mb-3">
+						<label for="reservacionLocalizadorExterno">Localizador Externo</label>
+						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="" required="">
+					</div>
+
+
 				</div>
                 <hr class="mb-4">
                 <div class="form-row">

@@ -44,41 +44,43 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO reservaciones
 
-									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionStatus	)
-							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s					, %s				)
+									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionLocalizadorExterno	, reservacionStatus	)
+							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s					, %s							, %s				)
 
 							ON DUPLICATE KEY UPDATE
 
-								proveedorId					= VALUES( proveedorId			 	),
-								clienteId					= VALUES( clienteId				 	),
-								reservacionServicio			= VALUES( reservacionServicio		),
-								reservacionDestino			= VALUES( reservacionDestino		),
-								reservacionHotel			= VALUES( reservacionHotel			),
-								reservacionPlan				= VALUES( reservacionPlan			),
-								reservacionCheckIn			= VALUES( reservacionCheckIn		),
-								reservacionCheckOut			= VALUES( reservacionCheckOut		),
-								reservacionHabitaciones		= VALUES( reservacionHabitaciones	),
-								reservacionDetalle			= VALUES( reservacionDetalle		),
-								reservacionCoste			= VALUES( reservacionCoste			),
-								reservacionPrecio			= VALUES( reservacionPrecio			),
-								reservacionUtilidad			= VALUES( reservacionPrecio ) - VALUES( reservacionCoste ),
-								reservacionStatus			= VALUES( reservacionStatus			)	",
+								proveedorId						= VALUES( proveedorId								 		),
+								clienteId						= VALUES( clienteId									 		),
+								reservacionServicio				= VALUES( reservacionServicio								),
+								reservacionDestino				= VALUES( reservacionDestino								),
+								reservacionHotel				= VALUES( reservacionHotel									),
+								reservacionPlan					= VALUES( reservacionPlan									),
+								reservacionCheckIn				= VALUES( reservacionCheckIn								),
+								reservacionCheckOut				= VALUES( reservacionCheckOut								),
+								reservacionHabitaciones			= VALUES( reservacionHabitaciones							),
+								reservacionDetalle				= VALUES( reservacionDetalle								),
+								reservacionCoste				= VALUES( reservacionCoste									),
+								reservacionPrecio				= VALUES( reservacionPrecio									),
+								reservacionUtilidad				= VALUES( reservacionPrecio ) - VALUES( reservacionCoste ),
+								reservacionLocalizadorExterno	= VALUES( reservacionLocalizadorExterno						),
+								reservacionStatus				= VALUES( reservacionStatus									)	",
 
-							$this->toDBFromUtf8( $data['reservacionId']							),
-							$this->toDBFromUtf8( $data['proveedorId']							),
-							$this->toDBFromUtf8( $data['clienteId']								),
-							$this->toDBFromUtf8( $data['reservacionServicio']					),
-							$this->toDBFromUtf8( $data['reservacionDestino']					),
-							$this->toDBFromUtf8( $data['reservacionHotel']						),
-							$this->toDBFromUtf8( $data['reservacionPlan']						),
-							$this->toDBFromUtf8( $data['reservacionCheckIn']		, 'date'	),
-							$this->toDBFromUtf8( $data['reservacionCheckOut']		, 'date'	),
-							$this->toDBFromUtf8( $data['reservacionHabitaciones']				),
-							$this->toDBFromUtf8( $data['reservacionDetalle']					),
-							$this->toDBFromUtf8( $data['reservacionCoste']						),
-							$this->toDBFromUtf8( $data['reservacionPrecio']						),
+							$this->toDBFromUtf8( $data['reservacionId']									),
+							$this->toDBFromUtf8( $data['proveedorId']									),
+							$this->toDBFromUtf8( $data['clienteId']										),
+							$this->toDBFromUtf8( $data['reservacionServicio']							),
+							$this->toDBFromUtf8( $data['reservacionDestino']							),
+							$this->toDBFromUtf8( $data['reservacionHotel']								),
+							$this->toDBFromUtf8( $data['reservacionPlan']								),
+							$this->toDBFromUtf8( $data['reservacionCheckIn']		, 'date'			),
+							$this->toDBFromUtf8( $data['reservacionCheckOut']		, 'date'			),
+							$this->toDBFromUtf8( $data['reservacionHabitaciones']						),
+							$this->toDBFromUtf8( $data['reservacionDetalle']							),
+							$this->toDBFromUtf8( $data['reservacionCoste']								),
+							$this->toDBFromUtf8( $data['reservacionPrecio']								),
 							$this->toDBFromUtf8( $data['reservacionPrecio'] - $data['reservacionCoste']	),
-							$this->toDBFromUtf8( $data['reservacionStatus']						)
+							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']					),
+							$this->toDBFromUtf8( $data['reservacionStatus']								)
 
 					);
 		$this->ejecuta_query( $q, 'set_reservacion( )' );

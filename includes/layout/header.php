@@ -961,23 +961,24 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function guarda_reservacion( ) {
 
-				var datos							= {};
-					datos._data1					= 'reservacion->set';
+				var datos								= {};
+					datos._data1						= 'reservacion->set';
 
-					datos.reservacionId				= g('reservacionId').value;
-					datos.proveedorId				= g('proveedorId').value;
-					datos.clienteId					= g('clienteId').value;
-					datos.reservacionServicio		= $('input[name=reservacionServicio]:checked').val( );
-					datos.reservacionDestino		= g('reservacionDestino').value;
-					datos.reservacionHotel			= g('reservacionHotel').value;
-					datos.reservacionPlan			= g('reservacionPlan').value;
-					datos.reservacionCheckIn		= g('reservacionCheckIn').value;
-					datos.reservacionCheckOut		= g('reservacionCheckOut').value;
-					datos.reservacionHabitaciones	= g('reservacionHabitaciones').value;
-					datos.reservacionDetalle		= g('reservacionDetalle').value;
-					datos.reservacionCoste			= g('reservacionCoste').value;
-					datos.reservacionPrecio			= g('reservacionPrecio').value;
-					datos.reservacionStatus			= $('input[name=reservacionStatus]:checked').val( );
+					datos.reservacionId					= g('reservacionId').value;
+					datos.proveedorId					= g('proveedorId').value;
+					datos.clienteId						= g('clienteId').value;
+					datos.reservacionServicio			= $('input[name=reservacionServicio]:checked').val( );
+					datos.reservacionDestino			= g('reservacionDestino').value;
+					datos.reservacionHotel				= g('reservacionHotel').value;
+					datos.reservacionPlan				= g('reservacionPlan').value;
+					datos.reservacionCheckIn			= g('reservacionCheckIn').value;
+					datos.reservacionCheckOut			= g('reservacionCheckOut').value;
+					datos.reservacionHabitaciones		= g('reservacionHabitaciones').value;
+					datos.reservacionDetalle			= g('reservacionDetalle').value;
+					datos.reservacionCoste				= g('reservacionCoste').value;
+					datos.reservacionPrecio				= g('reservacionPrecio').value;
+					datos.reservacionLocalizadorExterno	= g('reservacionLocalizadorExterno').value;
+					datos.reservacionStatus				= $('input[name=reservacionStatus]:checked').val( );
 
 				$.ajax(
 
@@ -1060,19 +1061,18 @@ header('Content-type: text/html; charset=iso-8859-1');
 													<? } unset( $i ); ?>
 												}
 
-												g('reservacionId').value		= objJSON.reservacionId;
-												g('reservacionDestino').value	= objJSON.reservacionDestino;
-												g('reservacionHotel').value		= objJSON.reservacionHotel;
-												g('reservacionCheckIn').value	= objJSON.reservacionCheckIn;
-												g('reservacionCheckOut').value	= objJSON.reservacionCheckOut;
-												g('reservacionDetalle').value	= objJSON.reservacionDetalle;
-												g('reservacionCoste').value		= objJSON.reservacionCoste;
-												g('reservacionPrecio').value	= objJSON.reservacionPrecio;
+												g('reservacionId').value					= objJSON.reservacionId;
+												g('reservacionDestino').value				= objJSON.reservacionDestino;
+												g('reservacionHotel').value					= objJSON.reservacionHotel;
+												g('reservacionCheckIn').value				= objJSON.reservacionCheckIn;
+												g('reservacionCheckOut').value				= objJSON.reservacionCheckOut;
+												g('reservacionDetalle').value				= objJSON.reservacionDetalle;
+												g('reservacionCoste').value					= objJSON.reservacionCoste;
+												g('reservacionPrecio').value				= objJSON.reservacionPrecio;
+												g('reservacionLocalizadorExterno').value	= objJSON.reservacionLocalizadorExterno;
 
 												$('#btn_eliminar').show( );
 												$('#btn_nueva').show( );
-
-
 
 											}
 
