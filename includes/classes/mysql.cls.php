@@ -385,7 +385,8 @@ class SQL_MySQL {
 
 			global $__db;
 
-			$v = strtoupper( $__db->real_escape_string( trim( utf8_decode( $v ) ) ) );
+			//$v = strtoupper( $__db->real_escape_string( trim( utf8_decode( $v ) ) ) );
+			$v = strtoupper( $__db->real_escape_string( trim( $v ) ) );
 
 			switch( strtolower( $t ) ) {
 
@@ -442,7 +443,7 @@ class SQL_MySQL {
 
 	}
 
-	public	static	function toAJAX( $v, $type = 'json', $utf8_encode = true, $aplicar = false ) {
+	public	static	function toAJAX( $v, $type = 'json', $utf8_encode = false, $aplicar = false ) {
 
 			switch( strtolower( $type ) ) {
 

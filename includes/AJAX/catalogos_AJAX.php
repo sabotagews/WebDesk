@@ -706,6 +706,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '<thead class="thead-dark">';
 					$html .= '	<tr>';
 					$html .= '		<th scope="col" data-sort="int" data-sort-onload="yes">Consecutivo</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Fecha Aplicación</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
@@ -716,6 +717,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$html .= '<tr onclick="get_cobro( \'' . $k . '\' );" style="cursor: pointer;">';
 						$html .= '	<th scope="row">' . antepon_ceros( $v['cobroConsecutivo'], 2 ) . '</th>';
+						$html .= '	<th>' . $v['cobroFechaAplicacion' ] . '</th>';
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';

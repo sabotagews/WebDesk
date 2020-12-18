@@ -155,6 +155,10 @@ window.onload = function( ) {
 				<!--Inputs-->
 				<div class="form-row">
 					<div class="col-md-6 mb-3">
+						<label for="cobroFechaAplicacion">Fecha Aplicación</label>
+						<input type="date" class="form-control" id="cobroFechaAplicacion" name="cobroFechaAplicacion" placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)" required>
+					</div>
+					<div class="col-md-6 mb-3">
 						<label for="cobroTipo">Cobro tipo</label>
 						<select class="custom-select" id="cobroTipo" onchange="" required>
 							<option></option>
