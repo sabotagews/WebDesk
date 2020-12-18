@@ -107,37 +107,32 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-2 mb-2">
                         <label for="reservacionDestino">Coste</label>
                         <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
                     </div>
-
-                    <div class="col-6">
+                    <div class="col-5">
 						<label for="proveedorId">Proveedor</label>
                         <select class="custom-select" id="proveedorId" onchange=""></select>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="reservacionHotel">Precio</label>
-                        <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
-                    </div>
-
-
 					<div class="col-md-3 mb-3">
 						<label for="reservacionLocalizadorExterno">Localizador Externo</label>
 						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="" required="">
 					</div>
-
-
+                    <div class="col-md-2 mb-2">
+                        <label for="reservacionHotel">Precio</label>
+                        <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
+                    </div>
 				</div>
                 <hr class="mb-4">
-                <div class="form-row">
+                <div class="form-row justify-content-end">
 	                <div class="col-2">
 						<button style="display: none" id="btn_nueva" class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
 	                </div>
-	                <div class="col-2">
+	                <div class="col-2 offset-6">
 						<button style="display: none" id="btn_eliminar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_reservacion( );">Eliminar</button>
 	                </div>
-					<div class="col-8">
+					<div class="col-2">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
 					</div>
                 </div>
