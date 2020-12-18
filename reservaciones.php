@@ -5,7 +5,79 @@ require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
 ?>
 <script type="text/javascript">
-    window.onload = function() {
+	function inicializa( ) {
+
+		$("#search").bind("focus", function( ) {
+  			this.value = '';
+			g('clienteId').value = '';
+		});
+		$("#search").bind("blur", function( ) {
+			if( g('clienteId').value == '' ) {
+				this.value = '';
+			}
+		});
+
+		$("#search").autocomplete(
+									{
+
+										minLength	: 2 	,
+										delay		: 500	,
+										source		: function( request, response ) {
+
+														$.ajax(
+
+																{
+																	url 		: AJAX_catalogos_url,
+																	type		: 'POST'			,
+																	dataType	: 'json'			,
+																	data		:	{
+																						_data1	: 'cliente->search',
+																						search	: request.term
+																					}				,
+																	success		: function( data ) {
+
+																					response( $.map( data, function( item ) {
+
+																											return	{
+
+																														label	: item.busquedaResultado,
+																														value	: item.clienteId
+
+																													}
+
+																										}
+
+																									)
+																							)
+
+																					}
+
+																}
+
+															)
+
+													}	,
+										select		: function( event, ui ) {
+
+														event.preventDefault( );
+
+														g( event.target.id ).blur( );
+														g( event.target.id ).value = ui.item.label;
+														set_cliente( ui.item.value );
+
+													}
+									}
+
+		);
+
+	}
+	function set_cliente( id ) {
+
+		g('clienteId').value = id;
+
+	}
+	window.onload = function( ) {
+		inicializa( );
 		get_clientes_select( );
 		get_proveedores_select( );
         get_reservaciones( );
@@ -23,9 +95,10 @@ require_once('./includes/admin/menu-admin.php');
             <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
 				<input type="hidden" name="reservacionId" value="0" />
                 <div class="row">
+					<input type="hidden" id="clienteId" name="clienteId" value="" />
                     <div class="col-md-4 mb-3">
-                        <label for="clienteId">Cliente</label>
-                        <select class="custom-select" id="clienteId" onchange="" required></select>
+                        <label for="search">Cliente</label>
+                        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Buscar cliente" aria-label="Buscar" required="">
                     </div>
                     <div class="col-md-8 mb-3">
                         <label for="reservacionServicio">Tipo de Servicio</label>
@@ -35,7 +108,7 @@ require_once('./includes/admin/menu-admin.php');
 							<? foreach( RESERVACION_SERVICIOS as $k => $v ) { ?>
 
 								<div class="form-check form-check-inline">
-	                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio<?= $i; ?>" value="<?= $k; ?>" required>
+	                                <input class="form-check-input" type="radio" name="reservacionServicio" id="reservacionServicio<?= $i; ?>" value="<?= $k; ?>" required="">
 	                                <label class="form-check-label" for="reservacionServicio<?= $i++; ?>"><?= $v; ?></label>
 	                            </div>
 

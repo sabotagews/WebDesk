@@ -12,13 +12,17 @@ class Reservacion extends SQL_MySQL
 
 		$q		= sprintf(" SELECT
 
-									*
+									r.*																	,
+									CONCAT( c.clienteNombre, ' ', c.clienteApellido )	AS clienteNombre
 
-								FROM	reservaciones
+								FROM	reservaciones	r,
+										clientes		c
 
-								WHERE	reservacionId LIKE %s
+								WHERE	r.reservacionId LIKE %s	AND
 
-								ORDER BY reservacionId ASC		",
+										r.clienteId	= c.clienteId
+
+								ORDER BY r.reservacionId ASC		",
 
 							$this->toDBFromUtf8( $reservacionId )
 

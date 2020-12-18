@@ -1030,6 +1030,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												$('#proveedorId').val( objJSON.proveedorId );
 												$('#clienteId').val( objJSON.clienteId );
+												$('#search').val( objJSON.clienteNombre );
 												$('#reservacionHabitaciones').val( objJSON.reservacionHabitaciones );
 												$('#reservacionPlan').val( objJSON.reservacionPlan );
 
