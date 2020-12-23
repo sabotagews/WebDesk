@@ -235,7 +235,8 @@ require_once('./includes/admin/menu-admin.php');
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col" data-sort="string-ins" data-sort-onload="yes">Servicio</th>
-					<th scope="col">Status</th>
+					<th scope="col">Status Cobro</th>
+					<th scope="col">Status Pago</th>
 					<th scope="col">CheckIn</th>
 					<th scope="col">CheckOut</th>
 					<th></th>

@@ -47,10 +47,44 @@ class Reservacion extends SQL_MySQL
 
 	public	function set_reservacion( $data ) {
 
-		$q = sprintf(" INSERT INTO reservaciones
-
-									( reservacionId	, proveedorId	, clienteId	, reservacionServicio	, reservacionDestino	, reservacionHotel	, reservacionPlan	, reservacionCheckIn	, reservacionCheckOut	, reservacionHabitaciones	, reservacionDetalle, reservacionCoste	, reservacionPrecio	, reservacionUtilidad	, reservacionLocalizadorExterno	, reservacionStatusCobro, reservacionStatusPago	)
-							VALUES	( %s			, %s			, %s		, %s					, %s					, %s				, %s				, %s					, %s					, %s						, %s				, %s				, %s				, %s					, %s							, %s				)
+		$q = sprintf(" INSERT INTO reservaciones(
+										reservacionId,
+										proveedorId,
+										clienteId,
+										reservacionServicio,
+										reservacionDestino,
+										reservacionHotel,
+										reservacionPlan,
+										reservacionCheckIn,
+										reservacionCheckOut,
+										reservacionHabitaciones,
+										reservacionDetalle,
+										reservacionCoste,
+										reservacionPrecio,
+										reservacionUtilidad,
+										reservacionLocalizadorExterno,
+										reservacionStatusCobro,
+										reservacionStatusPago
+									)
+							VALUES	(
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s,
+										%s
+									)
 
 							ON DUPLICATE KEY UPDATE
 

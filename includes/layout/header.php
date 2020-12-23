@@ -1054,9 +1054,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 													<? $i = 0; ?>
 													<? foreach( RESERVACION_STATUS_COBRO as $k => $v ) { ?>
 
-														case '<?= $k; ?>':
+														case '<?= $v; ?>':
 
-																$( "#reservacionStatusCobro" ).prop( "checked", true );
+																$( "#reservacionStatusCobro<?= $i++; ?>" ).prop( "checked", true );
 
 															break;
 
@@ -1068,9 +1068,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 													<? $i = 0; ?>
 													<? foreach( RESERVACION_STATUS_PAGO as $k => $v ) { ?>
 
-														case '<?= $k; ?>':
+														case '<?= $v; ?>':
 
-																$( "#reservacionStatusPago" ).prop( "checked", true );
+																$( "#reservacionStatusPago<?= $i++; ?>" ).prop( "checked", true );
 
 															break;
 
