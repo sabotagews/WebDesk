@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.5.8-MariaDB)
 # Database: turismosalo_webdesk
-# Generation Time: 2020-11-28 03:18:26 +0000
+# Generation Time: 2020-12-23 19:53:26 +0000
 # ************************************************************
 
 
@@ -71,6 +71,37 @@ VALUES
 	(3,'ERNESTO','MOLINA','ernesto@yahoo.com','4772989098',NULL,NULL);
 
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table cobros
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `cobros`;
+
+CREATE TABLE `cobros` (
+  `cobroId` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `reservacionId` smallint(5) unsigned NOT NULL,
+  `cobroConsecutivo` tinyint(4) unsigned NOT NULL,
+  `cobroTipo` char(3) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
+  `cobroMonto` decimal(12,2) NOT NULL,
+  `cobroDetalle` char(255) CHARACTER SET latin1 DEFAULT NULL,
+  `acumulado` decimal(12,2) NOT NULL,
+  `saldoInicial` decimal(12,2) NOT NULL,
+  `saldoFinal` decimal(12,2) NOT NULL,
+  PRIMARY KEY (`cobroId`),
+  UNIQUE KEY `UNICO` (`reservacionId`,`cobroConsecutivo`),
+  CONSTRAINT `cobros_reservaciones` FOREIGN KEY (`reservacionId`) REFERENCES `reservaciones` (`reservacionId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+LOCK TABLES `cobros` WRITE;
+/*!40000 ALTER TABLE `cobros` DISABLE KEYS */;
+
+INSERT INTO `cobros` (`cobroId`, `reservacionId`, `cobroConsecutivo`, `cobroTipo`, `cobroMonto`, `cobroDetalle`, `acumulado`, `saldoInicial`, `saldoFinal`)
+VALUES
+	(1,6,1,'E',2000.00,'ANTICIPO',2000.00,18000.00,16000.00);
+
+/*!40000 ALTER TABLE `cobros` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -175,9 +206,12 @@ CREATE TABLE `reservaciones` (
   `reservacionCheckOut` date NOT NULL,
   `reservacionHabitaciones` char(255) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
   `reservacionDetalle` text COLLATE utf8_spanish_ci DEFAULT NULL,
-  `reservacionCoste` decimal(6,2) unsigned DEFAULT NULL,
-  `reservacionPrecio` decimal(6,2) unsigned DEFAULT NULL,
-  `reservacionStatus` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
+  `reservacionCoste` decimal(12,2) unsigned DEFAULT NULL,
+  `reservacionPrecio` decimal(12,2) unsigned DEFAULT NULL,
+  `reservacionUtilidad` decimal(12,2) DEFAULT NULL,
+  `reservacionLocalizadorExterno` char(255) COLLATE utf8_spanish_ci NOT NULL,
+  `reservacionStatusCobro` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
+  `reservacionStatusPago` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`reservacionId`),
   KEY `reservaciones_clientes` (`clienteId`),
   KEY `reservaciones_proeveedores` (`proveedorId`),
@@ -188,10 +222,13 @@ CREATE TABLE `reservaciones` (
 LOCK TABLES `reservaciones` WRITE;
 /*!40000 ALTER TABLE `reservaciones` DISABLE KEYS */;
 
-INSERT INTO `reservaciones` (`reservacionId`, `proveedorId`, `clienteId`, `reservacionServicio`, `reservacionDestino`, `reservacionHotel`, `reservacionPlan`, `reservacionCheckIn`, `reservacionCheckOut`, `reservacionHabitaciones`, `reservacionDetalle`, `reservacionCoste`, `reservacionPrecio`, `reservacionStatus`)
+INSERT INTO `reservaciones` (`reservacionId`, `proveedorId`, `clienteId`, `reservacionServicio`, `reservacionDestino`, `reservacionHotel`, `reservacionPlan`, `reservacionCheckIn`, `reservacionCheckOut`, `reservacionHabitaciones`, `reservacionDetalle`, `reservacionCoste`, `reservacionPrecio`, `reservacionUtilidad`, `reservacionLocalizadorExterno`, `reservacionStatusCobro`, `reservacionStatusPago`)
 VALUES
-	(2,1,1,'BUS','ACAPULCO','IBEROSTAR','EP','2020-12-18','2020-11-10','2','DETALLE TEST',100.00,200.00,'2'),
-	(3,2,3,'PQ','ACAPULCO','IBEROSTAR','CD','2020-11-28','2020-11-30','2','TEST',400.00,500.00,'3');
+	(2,1,1,'BUS','ACAPULCO','IBEROSTAR','EP','2020-12-18','2020-11-10','2','DETALLE TEST',100.00,200.00,100.00,'','2','0'),
+	(3,2,3,'PQ','ACAPULCO','IBEROSTAR','CD','2020-11-28','2020-11-30','2',NULL,25000.00,27000.00,2000.00,'WEWRETR','2','0'),
+	(4,1,2,'AL','ACAPULCO','FOUR SEASONS','TI','2020-11-30','2020-12-02','2','ESTE ES EL DETALLE DE LA RESERVACION',5000.00,6500.00,1500.00,'','0','0'),
+	(5,1,2,'AL','ACAPULCO','IBEROSTAR','CD','2020-11-21','2020-11-28','1','TEST',12000.00,14000.00,2000.00,'','1','0'),
+	(6,1,3,'AL','PUERTO VALLARTA','IBEROSTAR PLAYA MITA','TI','2021-02-18','2021-02-21','1','1 ADL',15000.00,18000.00,3000.00,'','0','0');
 
 /*!40000 ALTER TABLE `reservaciones` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -231,10 +268,11 @@ DROP TABLE IF EXISTS `usuarios`;
 
 CREATE TABLE `usuarios` (
   `usuarioId` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `sucursalId` smallint(5) unsigned NOT NULL,
   `usuarioNombre` char(255) DEFAULT NULL,
   `usuarioApellido` char(255) DEFAULT NULL,
   `usuarioUsername` char(255) DEFAULT NULL,
-  `usuarioPassword` char(6) DEFAULT NULL,
+  `usuarioPassword` char(10) DEFAULT NULL,
   `usuarioEmail` char(255) DEFAULT NULL,
   `usuarioMovil` char(255) DEFAULT NULL,
   `usuarioStatus` tinyint(1) DEFAULT NULL,
@@ -245,10 +283,10 @@ CREATE TABLE `usuarios` (
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 
-INSERT INTO `usuarios` (`usuarioId`, `usuarioNombre`, `usuarioApellido`, `usuarioUsername`, `usuarioPassword`, `usuarioEmail`, `usuarioMovil`, `usuarioStatus`, `usuarioRol`)
+INSERT INTO `usuarios` (`usuarioId`, `sucursalId`, `usuarioNombre`, `usuarioApellido`, `usuarioUsername`, `usuarioPassword`, `usuarioEmail`, `usuarioMovil`, `usuarioStatus`, `usuarioRol`)
 VALUES
-	(1,'MANUEL','BALLEZA','AIRWALK','MEXICO','test@quattro.ws','4774049649',1,'A'),
-	(2,'SABO','BALLEZA','SABOBALLEZA','180810','sabo@sabotage.ws','4775777372',1,'A');
+	(1,0,'MANUEL','BALLEZA','AIRWALK','MEXICO','test@quattro.ws','4774049649',1,NULL),
+	(2,0,'SABO','BALLEZA','SABOBALLEZA','180810','sabo@sabotage.ws','4775777372',1,'A');
 
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
