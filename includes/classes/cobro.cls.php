@@ -274,7 +274,7 @@ class Cobro extends SQL_MySQL
 							$this->toDBFromUtf8( $data['cobroFechaAplicacion']	),
 							$this->toDBFromUtf8( $data['cobroTipo']				),
 							$this->toDBFromUtf8( $data['cobroMonto']			),
-							$this->toDBFromUtf8( $data['cobroDetalle']			),
+							'"' . $data['cobroDetalle']	. '"'					,
 							$this->toDBFromUtf8( $cobroAcumulado				),
 							$this->toDBFromUtf8( $saldoInicial					),
 							$this->toDBFromUtf8( $saldoFinal					)

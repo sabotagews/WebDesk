@@ -1083,7 +1083,10 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionHotel').value					= objJSON.reservacionHotel;
 												g('reservacionCheckIn').value				= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').value				= objJSON.reservacionCheckOut;
-												g('reservacionDetalle').value				= objJSON.reservacionDetalle;
+												$( '#reservacionDetalle ').val( objJSON.reservacionDetalle );
+												
+												tinyMCE.get('reservacionDetalle').setContent( objJSON.reservacionDetalle );
+												
 												g('reservacionCoste').value					= objJSON.reservacionCoste;
 												g('reservacionPrecio').value				= objJSON.reservacionPrecio;
 												g('reservacionLocalizadorExterno').value	= objJSON.reservacionLocalizadorExterno;
@@ -1229,7 +1232,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
 												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
-												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
+												$( '#reservacionDetalle' ).val( objJSON.reservacionDetalle );
 												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
 												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
 												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
