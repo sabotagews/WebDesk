@@ -14,6 +14,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="<?= $_SESSION['PATH_CSS']; ?>jquery-ui.min.css">
 		<link rel="stylesheet" href="<?= $_SESSION['PATH_CSS']; ?>bootstrap.min.css">
 		<link rel="stylesheet" href="<?= $_SESSION['PATH_CSS']; ?>webdesk.css">
 		<link rel="apple-touch-icon" sizes="180x180" href="<?= $_SESSION['PATH_HOME']; ?>WebDesk.svg">
@@ -1341,4 +1342,4 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 		</script>
 	</head>
-	<body>
+	<body class="d-flex flex-column h-100">

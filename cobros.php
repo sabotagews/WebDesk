@@ -65,21 +65,27 @@ window.onload = function( ) {
 }
 
 </script>
-<main class="container" role="main">
+<main class="container-fluid p-5" role="main">
 	<div class="py-5 text-center">
 		<h2>Cobros</h2>
 		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></p>
 	</div>
 	<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci�n" aria-label="Buscar">
+		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
 		<button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
 	</form>
-
-	<hr class="mb-4">
 	<div class="row" id="contenedor_reservacion" style="display: none">
-		<div class="col-md-12">
-			<h4 class="mb-3">Informaci&oacute;n de la reservaci&oacute;n</h4>
-			<hr class="mb-4">
+		<hr class="col-12 mt-4">
+		<div class="d-flex col-12 mt-4">
+			<div class="mr-auto">
+				<h1 id="cliente"></h1>
+			</div>
+			<div>
+				<h1 id="reservacionLocalizador"></h1>
+			</div>
+		</div>
+
+		<div class="col-12">
 
 			<form id="form_cobro" class="needs-validation" novalidate="">
 
@@ -149,6 +155,11 @@ window.onload = function( ) {
 	                    <label for="reservacionStatusCobro">Status de Cobro</label>
 						<span id="reservacionStatusCobro"></span>
 	                </div>
+					<div class="col-md-6 mb-3">
+						<label for="reservacionStatusPago">Status de Pago</label>
+						<label for="reservacionStatusPago">Status de Pago</label>
+						<span id="reservacionStatusPago"></span>
+					</div>
 
 				</div>
 
@@ -188,13 +199,13 @@ window.onload = function( ) {
 				<!--Botones-->
 				<hr class="mb-4">
 				<div class="form-row">
-					<div class="col-5" id="btn_nuevo" style="display: none">
+					<div class="col-2" id="btn_nuevo" style="display: none">
 						<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_cobro( );">Nuevo</button>
 					</div>
-					<div class="col-5" id="btn_eliminar" style="display: none">
+					<div class="col-2" id="btn_eliminar" style="display: none">
 						<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cobro( );">Eliminar</button>
 					</div>
-					<div class="col-5" id="btn_guardar">
+					<div class="col-3" id="btn_guardar">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
 					</div>
 				</div>
