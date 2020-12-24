@@ -1232,7 +1232,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
 												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
-												$( '#reservacionDetalle' ).val( objJSON.reservacionDetalle );
+												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
 												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
 												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
 												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
