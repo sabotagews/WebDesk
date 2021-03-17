@@ -1084,9 +1084,9 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionCheckIn').value				= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').value				= objJSON.reservacionCheckOut;
 												$( '#reservacionDetalle ').val( objJSON.reservacionDetalle );
-												
+
 												tinyMCE.get('reservacionDetalle').setContent( objJSON.reservacionDetalle );
-												
+
 												g('reservacionCoste').value					= objJSON.reservacionCoste;
 												g('reservacionPrecio').value				= objJSON.reservacionPrecio;
 												g('reservacionLocalizadorExterno').value	= objJSON.reservacionLocalizadorExterno;
@@ -1179,20 +1179,20 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function get_cobros( reservacionId ) {
 
-				var datos				= {};
-					datos._data1		= 'cobros->get';
+				var datos							= {};
+					datos._data1				= 'cobros->get';
 					datos.reservacionId	= reservacionId;
 
 				$.ajax(
 
 						{
 
-							url			:	AJAX_catalogos_url	,
-							type		:	'POST'				,
-							dataType	:	'JSON'				,
-							data		:	datos				,
+							url					:	AJAX_catalogos_url,
+							type				:	'POST'						,
+							dataType		:	'TEXT'						,
+							data				:	datos							,
 							beforeSend	:	function( ) {}		,
-							success		:	function( objJSON ) {
+							success			:	function( objJSON ) {
 
 												g('listCobros').innerHTML = objJSON;
 
@@ -1261,26 +1261,27 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function guarda_cobro( ) {
 
-				var datos						= {};
-					datos._data1				= 'cobro->set';
+				var datos												= {};
+						datos._data1								= 'cobro->set';
 
-					datos.reservacionId			= g('reservacionId').value;
-					datos.cobroId				= g('cobroId').value;
-					datos.cobroFechaAplicacion	= g('cobroFechaAplicacion').value;
-					datos.cobroTipo				= g('cobroTipo').value;
-					datos.cobroMonto			= g('cobroMonto').value;
-					datos.cobroDetalle			= g('cobroDetalle').value;
+						datos.reservacionId					= g('reservacionId').value;
+						datos.cobroId								= g('cobroId').value;
+						datos.cobroFechaAplicacion	= g('cobroFechaAplicacion').value;
+						datos.cobroTipo							= g('cobroTipo').value;
+						datos.cuentaId							= g('cobroCuenta').value;
+						datos.cobroMonto						= g('cobroMonto').value;
+						datos.cobroDetalle					= g('cobroDetalle').value;
 
 				$.ajax(
 
 						{
 
-							url			:	AJAX_catalogos_url	,
-							type		:	'POST'				,
-							dataType	:	'JSON'				,
-							data		:	datos				,
+							url					:	AJAX_catalogos_url,
+							type				:	'POST'						,
+							dataType		:	'JSON'						,
+							data				:	datos							,
 							beforeSend	:	function( ) {}		,
-							success		:	function( objJSON ) {
+							success			:	function( objJSON ) {
 
 												if( objJSON.error == '0' ) {
 

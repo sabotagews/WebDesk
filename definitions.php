@@ -2,16 +2,14 @@
 session_start( );
 define( 'S', '/' );
 if( $_SERVER['SERVER_NAME'] == 'webdesk.turismosalomon.com.mx' ) {
-    define( 'SSL', 's' );
-}
-else
-{
-    define( 'SSL', '' );
+	define( 'SSL', 's' );
+} else {
+	define( 'SSL', '' );
 }
 
 define('SEPARADOR_FECHA', '/');
 
-$_SESSION['PATH_HOME']			= str_replace( $arrTmp     , '', strtolower( 'http' . SSL . '://'. $_SERVER['SERVER_NAME'] ) ) . S;
+$_SESSION['PATH_HOME']			= str_replace( ''     , '', strtolower( 'http' . SSL . '://'. $_SERVER['SERVER_NAME'] ) ) . S;
 
 if( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	$_SESSION['PATH_HOME']			.= 'WebDesk' . S;

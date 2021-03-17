@@ -104,6 +104,8 @@ function fixObj( &$obj ) {
 
 function antepon_ceros( $numero, $formato, $prefijo = '' ) {
 
+	$text = '';
+
 	for( $i = 0 ; $i < $formato - strlen( $numero ); $i++ ) {
 
 		$text .= '0';

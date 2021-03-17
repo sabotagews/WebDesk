@@ -149,7 +149,7 @@ require_once('./includes/admin/menu-admin.php');
 						<label for="reservacionHabitaciones">Habitaciones</label>
 						<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones" required>
 							<option value=""></option>
-							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) {�?>
+							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) { ?>
 								<option value="<?= $i; ?>"><?= $i; ?></option>
 							<? } ?>
 						</select>

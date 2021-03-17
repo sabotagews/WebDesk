@@ -3,15 +3,20 @@ session_start();
 require_once('definitions.php');
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
+
+require_once('./includes/classes/cuenta.cls.php');
+
+$_C				= new cuenta( );
+$cuentas	= $_C->get_cuenta( );
 ?>
-<script type="text/javascript">
+<script>
 function inicializa( ) {
 
 	$("#search").autocomplete(
 								{
 
 									minLength	: 2 	,
-									delay		: 500	,
+									delay			: 500	,
 									source		: function( request, response ) {
 
 													$.ajax(
@@ -59,6 +64,8 @@ function inicializa( ) {
 
 	);
 
+get_reservacion_cobro( 6 );
+
 }
 window.onload = function( ) {
 	inicializa( );
@@ -90,7 +97,7 @@ window.onload = function( ) {
 						<tbody>
 							<tr>
 								<td>Hotel</td>
-								<th class="text-right" id="reservacionHotel">Iberostar</th>
+								<th class="text-right" id="reservacionHotel"></th>
 							</tr>
 							<tr>
 								<td>CheckIn</td>
@@ -176,13 +183,25 @@ window.onload = function( ) {
 						</div>
 					</div>
 					<div class="col">
+						<label for="cobroTipo">Cuenta</label>
+						<select class="custom-select" id="cobroCuenta" onchange="" required>
+							<option></option>
+							<? foreach( $cuentas as $k => $v ) { ?>
+								<option value="<?= $k; ?>"><?= $v['cuentaAlias']; ?></option>
+							<? } ?>
+						</select>
+						<div class="invalid-feedback">
+							Seleccione la cuenta bancaria.
+						</div>
+					</div>
+					<div class="col">
 						<label for="cobroMonto">Monto</label>
 						<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="">
 						<div class="invalid-feedback">
 							El monto no es correcto.
 						</div>
 					</div>
-				</div>	
+				</div>
 				<div class="col-10">
 					<label for="cobroDetalle">Detalle</label>
 					<textarea class="form-control" id="cobroDetalle" name="cobroDetalle" rows="15"></textarea>
