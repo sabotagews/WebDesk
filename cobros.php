@@ -77,7 +77,12 @@ window.onload = function( ) {
 		<h2>Cobros</h2>
 		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></p>
 	</div>
-	<form class="form-inline my-2 my-lg-0">
+	<form name="form" method="post" class="form-inline my-2 my-lg-0">
+
+		<input name="_data0" type="hidden" value=""/>
+		<input name="_data1" type="hidden" value=""/>
+		<input name="_data2" type="hidden" value=""/>
+
 		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
 		<button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
 	</form>

@@ -296,6 +296,8 @@ class Cobro extends SQL_MySQL
 		$this->abona_a_cuenta( $data, $cobroId, $cobroAcumulado );
 		$this->descuenta_saldo_cliente( $data, $cobroId, $cobroAcumulado );
 
+		return $cobroId;
+
 	}
 
 	public	function descuenta_saldo_cliente( $data, $cobroId, $cobroAcumulado ) {

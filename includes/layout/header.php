@@ -40,6 +40,26 @@ header('Content-type: text/html; charset=iso-8859-1');
 					return obj[ 0 ];
 				}
 			}
+			function ir_a( url, target, submit, _data0, _data1, _data2 ) {
+
+					if( submit ) {
+
+						g('_data0').value	= _data0;
+						g('_data1').value	= _data1;
+						g('_data2').value	= _data2;
+
+						g('form').action	= url;
+						g('form').target	= target;
+
+						g('form').submit( );
+
+					} else {
+
+						g('document').location = url;
+
+					}
+
+			}
 
 			/*Clientes*/
 			function limpia_cliente( ) {
@@ -1162,10 +1182,10 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												$('#cobroTipo').val( objJSON.cobroTipo );
 
-												g('cobroId').value				= objJSON.cobroId;
+												g('cobroId').value							= objJSON.cobroId;
 												g('cobroFechaAplicacion').value	= objJSON.cobroFechaAplicacion;
-												g('cobroMonto').value			= objJSON.cobroMonto;
-												g('cobroDetalle').value			= objJSON.cobroDetalle;
+												g('cobroMonto').value						= objJSON.cobroMonto;
+												g('cobroDetalle').value					= objJSON.cobroDetalle;
 
 												$('#btn_nuevo').show( );
 												$('#btn_eliminar').show( );
@@ -1286,6 +1306,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 												if( objJSON.error == '0' ) {
 
 													alert('¡Se guardo el cobro correctamente!');
+
+													ir_a( './recibo.php', '_blank', true, g('reservacionId').value, objJSON.cobroId, null );
 
 												} else {
 

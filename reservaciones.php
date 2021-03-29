@@ -80,8 +80,8 @@ require_once('./includes/admin/menu-admin.php');
 		inicializa( );
 		get_clientes_select( );
 		get_proveedores_select( );
-        get_reservaciones( );
-    }
+		get_reservaciones( );
+	}
 </script>
 <main class="container" role="main">
     <div class="py-5 text-center">

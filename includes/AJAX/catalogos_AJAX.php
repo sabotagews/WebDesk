@@ -681,10 +681,11 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$r		= new Cobro( );
 
 						$r->begin( );
-							$r->set_cobro( $_POST );
+							$cobroId = $r->set_cobro( $_POST );
 						$r->commit( );
 
-						$aTmp['error'] = '0';
+						$aTmp['cobroId']	= $cobroId;
+						$aTmp['error']		= '0';
 
 					} catch( Exception $e ) {
 
