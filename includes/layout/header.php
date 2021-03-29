@@ -1281,16 +1281,38 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function guarda_cobro( ) {
 
-				var datos												= {};
-						datos._data1								= 'cobro->set';
+				var _datos												= {};
+						_datos._data1								= 'cobro->set';
 
-						datos.reservacionId					= g('reservacionId').value;
-						datos.cobroId								= g('cobroId').value;
-						datos.cobroFechaAplicacion	= g('cobroFechaAplicacion').value;
-						datos.cobroTipo							= g('cobroTipo').value;
-						datos.cuentaId							= g('cobroCuenta').value;
-						datos.cobroMonto						= g('cobroMonto').value;
-						datos.cobroDetalle					= g('cobroDetalle').value;
+						_datos.reservacionId					= g('reservacionId').value;
+						_datos.cobroId								= g('cobroId').value;
+						_datos.cobroFechaAplicacion	= g('cobroFechaAplicacion').value;
+						_datos.cobroTipo							= g('cobroTipo').value;
+						_datos.cuentaId							= g('cobroCuenta').value;
+						_datos.cobroMonto						= g('cobroMonto').value;
+						_datos.cobroDetalle					= g('cobroDetalle').value;
+
+				var datos = new FormData( );
+
+				for( var i in _datos ) {
+						datos.append( i, _datos[ i ] );
+				}
+
+				/*Adjunto archivo*/
+				if( g('cobroArchivo').value != '' ) {
+
+					var archivo = g('cobroArchivo').files[ 0 ];
+					//var image_name = property.name;
+					//var image_extension = image_name.split('.').pop( ).toLowerCase( );
+
+					//if(jQuery.inArray(image_extension,['gif','jpg','jpeg','']) == -1){
+					//alert("Invalid image file");
+					//}
+
+					datos.append( 'cobroArchivo', archivo );
+
+				}
+				/*Adjunto archivo*/
 
 				$.ajax(
 
@@ -1300,6 +1322,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 							type				:	'POST'						,
 							dataType		:	'JSON'						,
 							data				:	datos							,
+							processData : false							,
+							contentType : false							,
 							beforeSend	:	function( ) {}		,
 							success			:	function( objJSON ) {
 

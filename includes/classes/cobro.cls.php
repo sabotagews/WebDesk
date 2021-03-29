@@ -300,6 +300,13 @@ class Cobro extends SQL_MySQL
 
 	}
 
+	public	function set_cobro_archivo( $cobroId, $archivo ) {
+
+		$q = sprintf(" UPDATE cobros SET cobroArchivo = '%s' WHERE cobroId = '%s' ", $archivo, $cobroId );
+		$this->ejecuta_query( $q, 'set_cobro_archivo( )' );
+
+	}
+
 	public	function descuenta_saldo_cliente( $data, $cobroId, $cobroAcumulado ) {
 
 		$q					= sprintf(" SELECT clienteId FROM reservaciones WHERE reservacionId = %s ", $this->toDBFromUtf8( $data['reservacionId']	) );

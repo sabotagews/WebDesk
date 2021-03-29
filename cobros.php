@@ -206,6 +206,10 @@ window.onload = function( ) {
 							El monto no es correcto.
 						</div>
 					</div>
+					<div class="col">
+						<label for="cobroArchivo">Archivo</label>
+						<input type="file" class="form-control" id="cobroArchivo" accept="image/gif,image/jpeg,image/jpg,image/png,.pdf" placeholder="" value="">
+					</div>
 				</div>
 				<div class="col-10">
 					<label for="cobroDetalle">Detalle</label>

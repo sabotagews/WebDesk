@@ -1,6 +1,8 @@
 <?php
 session_start( );
 
+define( 'S', '/' );
+
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/mysql.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts/scripts.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/usuario.cls.php' );
@@ -11,6 +13,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cuenta.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reporte.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cobro.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/archivo.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
 
@@ -681,8 +684,24 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$r		= new Cobro( );
 
 						$r->begin( );
+
 							$cobroId = $r->set_cobro( $_POST );
+
+							if( isset( $_FILES['cobroArchivo'] ) ) {
+
+								$f				= new Archivo( );
+								$archivo	= $f->archivo_set( $_FILES['cobroArchivo'], $_SESSION['PATH_HOME_REAL'] . S . 'cobros' . S, antepon_ceros( $cobroId, 4 ) );
+
+								if( $archivo ) {
+
+									$r->set_cobro_archivo( $cobroId, $archivo );
+
+								}
+
+							}
+
 						$r->commit( );
+						//$r->rollback( );
 
 						$aTmp['cobroId']	= $cobroId;
 						$aTmp['error']		= '0';
@@ -712,6 +731,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
+					$html .= '		<th scope="col" data-sort="int">Recibo</th>';
 					$html .= '	</tr>';
 					$html .= '</thead>';
 
@@ -723,6 +743,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
+						$html .= '	<td><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
 						$html .= '</tr>';
 
 					}
