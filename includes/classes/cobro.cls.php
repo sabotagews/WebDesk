@@ -294,7 +294,6 @@ class Cobro extends SQL_MySQL
 		$cobroId = $this->get_insert_id( );
 
 		$this->set_saldos( $data['reservacionId'], $data['cobroId'] );
-		$this->abona_a_cuenta( $data, $cobroId, $cobroAcumulado );
 		$this->descuenta_saldo_cliente( $data, $cobroId, $cobroAcumulado );
 
 		return $cobroId;
@@ -308,15 +307,59 @@ class Cobro extends SQL_MySQL
 
 	}
 
+	public	function actualiza_acumulados( $reservacionId ) {
+
+		$acumulado = 0;
+
+		$q = sprintf(" SELECT
+
+								cuentaId		,
+								reservacionId	,
+								clienteId		,
+								cobroId			,
+								cobroTipo		,
+								cobroMonto
+
+							FROM clienteEdoCta
+
+							WHERE reservacionId = %s
+
+							ORDER BY cobroId ASC ",
+
+						$this->toDBFromUtf8( $reservacionId )
+
+					);
+		$rs = $this->ejecuta_query( $q, 'actualiza_acumulados( )' );
+
+		while( $r = $this->get_row( $rs ) ) {
+
+			$acumulado += $r['cobroMonto'];
+
+			$q = sprintf(" UPDATE clienteEdoCta SET cobroAcumulado = %s WHERE cobroId = %s ", $acumulado, $r['cobroId'] );
+			$this->ejecuta_query( $q, 'actualiza_acumulados( )' );
+
+			$aTmp = $r;
+			$aTmp['cobroAcumulado'] = $acumulado;
+
+			$this->abona_a_cuenta( $aTmp );
+
+		}
+
+	}
+
 	public	function descuenta_saldo_cliente( $data, $cobroId, $cobroAcumulado ) {
 
-		$q					= sprintf(" SELECT clienteId FROM reservaciones WHERE reservacionId = %s ", $this->toDBFromUtf8( $data['reservacionId']	) );
-		$r					= $this->ejecuta_query( $q, 'descuenta_saldo_cliente( clienteId )' );
-		$r					= $this->get_row( $r );
+		$q			= sprintf(" SELECT clienteId FROM reservaciones WHERE reservacionId = %s ", $this->toDBFromUtf8( $data['reservacionId']	) );
+		$r			= $this->ejecuta_query( $q, 'descuenta_saldo_cliente( clienteId )' );
+		$r			= $this->get_row( $r );
 		$clienteId	= $r['clienteId'];
 
 		$q = sprintf(" INSERT INTO clienteEdoCta( clienteId , cuentaId	, reservacionId	, cobroId	, cobroTipo	,cobroMonto	, cobroAcumulado	)
-		 																	VALUES( %s				, %s				, %s						, %s			, %s				, %s				, %s							)	",
+		 								VALUES  ( %s		, %s		, %s			, %s		, %s		, %s		, %s				)
+
+							ON DUPLICATE KEY UPDATE	cobroTipo		= VALUES( cobroTipo		),
+													cobroMonto		= VALUES( cobroMonto	),
+													cobroAcumulado	= VALUES( cobroAcumulado)	",
 
 											$this->toDBFromUtf8( $clienteId					),
 											$this->toDBFromUtf8( $data['cuentaId']			),
@@ -329,43 +372,40 @@ class Cobro extends SQL_MySQL
 								);
 			$this->ejecuta_query( $q, 'descuenta_saldo_cliente( )' );
 
-			/*
-			$q = sprintf(" SELECT SUM( cobroMonto ) AS acumulado FROM clienteEdoCta WHERE clienteId = %s ", $this->toDBFromUtf8( $clienteId ) );
-			$r = $this->ejecuta_query( $q, 'descuenta_saldo_cliente( SUM )' );
-			$r = $this->get_row( $r );
-			$edoCtaAcumulado = $r['acumulado'];
-
-			$q = sprintf(" UPDATE clientes SET clienteEdoCta = %s WHERE clienteId = %s ", $this->toDBFromUtf8( $edoCtaAcumulado ), $this->toDBFromUtf8( $clienteId ) );
-			$this->ejecuta_query( $q, 'descuenta_saldo_cliente( update cliente )' );
-			*/
-
 	}
 
-	public	function abona_a_cuenta( $data, $cobroId, $cobroAcumulado ) {
+	public	function abona_a_cuenta( $data ) {
 
-		$q = sprintf(" INSERT INTO cuentaDetalle( cuentaId	, reservacionId	, clienteId	, cobroId	, cobroTipo	,cobroMonto, cobroAcumulado	)
-		 																	VALUES( %s				, %s						, %s				, %s			, %s				, %s				, %s						)	",
+		$q = sprintf(" INSERT INTO cuentaDetalle( cuentaId	, reservacionId	, clienteId	, cobroId	, cobroTipo	, cobroMonto, cobroAcumulado	)
+		 								VALUES	( %s		, %s			, %s		, %s		, %s		, %s		, %s				)
 
-											$this->toDBFromUtf8( $data['cuentaId']		),
-											$this->toDBFromUtf8( $data['reservacionId']	),
-											$this->toDBFromUtf8( $data['clienteId']		),
-											$this->toDBFromUtf8( $cobroId				),
-											$this->toDBFromUtf8( $data['cobroTipo']		),
-											$this->toDBFromUtf8( $data['cobroMonto']	),
-											$this->toDBFromUtf8( $cobroAcumulado		)
+							ON DUPLICATE KEY UPDATE	cobroTipo 		= VALUES( cobroTipo			),
+													cobroMonto		= VALUES( cobroMonto		),
+													cobroAcumulado	= VALUES( cobroAcumulado	)	",
+
+											$this->toDBFromUtf8( $data['cuentaId']			),
+											$this->toDBFromUtf8( $data['reservacionId']		),
+											$this->toDBFromUtf8( $data['clienteId']			),
+											$this->toDBFromUtf8( $data['cobroId']			),
+											$this->toDBFromUtf8( $data['cobroTipo']			),
+											$this->toDBFromUtf8( $data['cobroMonto']		),
+											$this->toDBFromUtf8( $data['cobroAcumulado']	)
 
 								);
 			$this->ejecuta_query( $q, 'abona_a_cuenta( )' );
-
 
 	}
 
 	public	function cobro_delete( $data ) {
 
-		$q = sprintf(" DELETE FROM cobros WHERE cobroId = %s ", $data['cobroId'] );
+		$q = sprintf(" DELETE FROM clienteEdoCta WHERE cobroId = %s ", $data['cobroId'] );
 		$this->ejecuta_query( $q, 'cobro_delete( )' );
 
-		$this->set_saldos( $data['reservacionId'], $data['cobroId'] );
+		$q = sprintf(" DELETE FROM cuentaDetalle WHERE cobroId = %s ", $data['cobroId'] );
+		$this->ejecuta_query( $q, 'cobro_delete( )' );
+
+		$q = sprintf(" DELETE FROM cobros WHERE cobroId = %s ", $data['cobroId'] );
+		$this->ejecuta_query( $q, 'cobro_delete( )' );
 
 	}
 

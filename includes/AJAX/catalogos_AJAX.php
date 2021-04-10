@@ -19,7 +19,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Usuarios*/
-	case 'sucursales->get_select'			:
+	case 'sucursales->get_select'		:
 
 				$aTmp = array( );
 				$html = '<option></option>';
@@ -37,7 +37,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 		break;
 
-	case 'usuarios->get'							:
+	case 'usuarios->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -68,7 +68,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->get'								:
+	case 'usuario->get'					:
 
 					try {
 
@@ -85,7 +85,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->set'								:
+	case 'usuario->set'					:
 
 					try {
 
@@ -102,7 +102,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'usuario->delete'						:
+	case 'usuario->delete'				:
 
 					try {
 
@@ -122,7 +122,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Sucursales*/
-	case 'sucursales->get'						:
+	case 'sucursales->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -152,7 +152,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->get'							:
+	case 'sucursal->get'				:
 
 					try {
 
@@ -169,7 +169,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->set'							:
+	case 'sucursal->set'				:
 
 					try {
 
@@ -186,7 +186,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'sucursal->delete'						:
+	case 'sucursal->delete'				:
 
 					try {
 
@@ -206,7 +206,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Clientes*/
-	case 'clientes->get'							:
+	case 'clientes->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -232,7 +232,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'clientes->get_select'				:
+	case 'clientes->get_select'			:
 
 				$aTmp = array( );
 				$html = '<option></option>';
@@ -250,7 +250,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 		break;
 
-	case 'cliente->get'								:
+	case 'cliente->get'					:
 
 					try {
 
@@ -267,7 +267,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->set'								:
+	case 'cliente->set'					:
 
 					try {
 
@@ -284,7 +284,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->delete'						:
+	case 'cliente->delete'				:
 
 					try {
 
@@ -304,7 +304,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Proveedores*/
-	case 'proveedores->get'						:
+	case 'proveedores->get'				:
 
 					$aTmp = array( );
 					$html = '';
@@ -350,7 +350,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 		break;
 
-	case 'proveedor->get'							:
+	case 'proveedor->get'				:
 
 					try {
 
@@ -381,7 +381,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'proveedor->set'							:
+	case 'proveedor->set'				:
 
 					try {
 
@@ -398,7 +398,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'proveedor->delete'					:
+	case 'proveedor->delete'			:
 
 					try {
 
@@ -416,7 +416,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 			break;
 
 
-	case 'proveedor->cuenta->get'			:
+	case 'proveedor->cuenta->get'		:
 
 					try {
 
@@ -433,7 +433,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'proveedor->cuenta->set'			:
+	case 'proveedor->cuenta->set'		:
 
 					try {
 
@@ -487,7 +487,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Cuentas*/
-	case 'cuentas->get'								:
+	case 'cuentas->get'					:
 
 					try {
 
@@ -518,7 +518,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cuenta->get'								:
+	case 'cuenta->get'					:
 
 					try {
 
@@ -535,7 +535,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cuenta->set'								:
+	case 'cuenta->set'					:
 
 					try {
 
@@ -552,7 +552,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cuenta->delete'							:
+	case 'cuenta->delete'				:
 
 					try {
 
@@ -572,7 +572,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Reservaciones*/
-	case 'reservaciones->get'					:
+	case 'reservaciones->get'			:
 
 					try {
 
@@ -604,7 +604,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'reservacion->set'						:
+	case 'reservacion->set'				:
 
 					try {
 
@@ -634,7 +634,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'reservacion->get'						:
+	case 'reservacion->get'				:
 
 					try {
 
@@ -657,7 +657,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'reservacion->delete'				:
+	case 'reservacion->delete'			:
 
 					try {
 
@@ -695,7 +695,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
-	case 'cobro->set'									:
+	case 'cobro->set'					:
 
 					try {
 
@@ -720,6 +720,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							}
 
+							$r->actualiza_acumulados( $_POST['reservacionId'] );
 							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
 
 						$r->commit( );
@@ -740,7 +741,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
-	case 'cobros->get'								:
+	case 'cobros->get'					:
 
 					$r		= new Cobro( );
 					$cobros	= $r->get_cobros( $_POST['reservacionId'] );
@@ -773,7 +774,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $html, 'text' );
 
 			break;
-	case 'cobro->get'									:
+	case 'cobro->get'					:
 
 					$r		= new Cobro( );
 					$cobro	= $r->get_cobro( $_POST['cobroId'] );
@@ -781,15 +782,18 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $cobro, 'json' );
 
 			break;
-	case 'cobro->delete'							:
+	case 'cobro->delete'				:
 
 					try {
 
 						$aTmp	= array( );
 						$r		= new Cobro( );
+						$res	= new Reservacion( );
 
 						$r->begin( );
 							$r->cobro_delete( $_POST );
+							$r->actualiza_acumulados( $_POST['reservacionId'] );
+							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
 						$r->commit( );
 
 						$aTmp['error'] = '0';
@@ -810,7 +814,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Autocomplete*/
-	case 'reservacion->search'				:
+	case 'reservacion->search'			:
 
 					$r			= new Reporte( );
 					$resultado	= $r->reservaciones_search( $_POST['search'] );
@@ -819,7 +823,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 
-	case 'cliente->search'						:
+	case 'cliente->search'				:
 
 					$r			= new Reporte( );
 					$resultado	= $r->cliente_search( $_POST['search'] );

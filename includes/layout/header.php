@@ -1208,11 +1208,12 @@ header('Content-type: text/html; charset=iso-8859-1');
 							success		:	function( objJSON ) {
 
 												$('#cobroTipo').val( objJSON.cobroTipo );
+												$('#cobroCuenta').val( objJSON.cuentaId );
 
-												g('cobroId').value							= objJSON.cobroId;
+												g('cobroId').value				= objJSON.cobroId;
 												g('cobroFechaAplicacion').value	= objJSON.cobroFechaAplicacion;
-												g('cobroMonto').value						= objJSON.cobroMonto;
-												g('cobroDetalle').value					= objJSON.cobroDetalle;
+												g('cobroMonto').value			= objJSON.cobroMonto;
+												g('cobroDetalle').value			= objJSON.cobroDetalle;
 
 												$('#btn_nuevo').show( );
 												$('#btn_eliminar').show( );
@@ -1387,6 +1388,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 					datos.reservacionId	= g('reservacionId').value;
 					datos.cobroId		= g('cobroId').value;
+					datos.clienteId		= g('clienteId').value;
+					datos.proveedorId	= g('proveedorId').value;
 
 				$.ajax(
 
