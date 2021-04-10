@@ -4,7 +4,7 @@ require_once( 'definitions.php' );
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
 ?>
-<script type="text/javascript">
+<script>
 	function inicializa( ) {
 
 		$("#search").bind("focus", function( ) {
@@ -234,7 +234,8 @@ require_once('./includes/admin/menu-admin.php');
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col" data-sort="string-ins" data-sort-onload="yes">Servicio</th>
+					<th scope="col" data-sort="string-ins" data-sort-onload="yes">Folio</th>
+					<th scope="col">Servicio</th>
 					<th scope="col">Status Cobro</th>
 					<th scope="col">Status Pago</th>
 					<th scope="col">CheckIn</th>

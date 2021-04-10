@@ -15,7 +15,7 @@ $cobro	= $r->get_cobro( $_POST['_data1'] );
 echo '<pre>';print_r( $_R );echo '</pre>';
 echo '<pre>';print_r( $cobro );echo '</pre>';
 
-echo $_SESSION['PATH_HOME'] . S . 'cobros' . S . $cobro['cobroArchivo'];
+echo $_SESSION['PATH_HOME'] . 'cobros' . S . $cobro['cobroArchivo'];
 
 ?>
 <script type="text/javascript">

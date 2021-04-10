@@ -48,48 +48,48 @@ class Reservacion extends SQL_MySQL
 	public	function set_reservacion( $data ) {
 
 		$q = sprintf(" INSERT INTO reservaciones(
-										reservacionId,
-										proveedorId,
-										clienteId,
-										reservacionServicio,
-										reservacionDestino,
-										reservacionHotel,
-										reservacionPlan,
-										reservacionCheckIn,
-										reservacionCheckOut,
-										reservacionHabitaciones,
-										reservacionDetalle,
-										reservacionCoste,
-										reservacionPrecio,
-										reservacionUtilidad,
-										reservacionLocalizadorExterno,
-										reservacionStatusCobro,
-										reservacionStatusPago
-									)
-							VALUES	(
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s,
-										%s
-									)
+													reservacionId					,
+													proveedorId						,
+													clienteId						,
+													reservacionServicio				,
+													reservacionDestino				,
+													reservacionHotel				,
+													reservacionPlan					,
+													reservacionCheckIn				,
+													reservacionCheckOut				,
+													reservacionHabitaciones			,
+													reservacionDetalle				,
+													reservacionCoste				,
+													reservacionPrecio				,
+													reservacionUtilidad				,
+													reservacionLocalizadorExterno,
+													reservacionStatusCobro,
+													reservacionStatusPago
+												)
+										VALUES	(
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s,
+													%s
+												)
 
 							ON DUPLICATE KEY UPDATE
 
-								proveedorId						= VALUES( proveedorId								 		),
-								clienteId						= VALUES( clienteId									 		),
+								proveedorId						= VALUES( proveedorId							 			),
+								clienteId						= VALUES( clienteId								 			),
 								reservacionServicio				= VALUES( reservacionServicio								),
 								reservacionDestino				= VALUES( reservacionDestino								),
 								reservacionHotel				= VALUES( reservacionHotel									),
@@ -100,7 +100,7 @@ class Reservacion extends SQL_MySQL
 								reservacionDetalle				= VALUES( reservacionDetalle								),
 								reservacionCoste				= VALUES( reservacionCoste									),
 								reservacionPrecio				= VALUES( reservacionPrecio									),
-								reservacionUtilidad				= VALUES( reservacionPrecio ) - VALUES( reservacionCoste ),
+								reservacionUtilidad				= VALUES( reservacionPrecio ) - VALUES( reservacionCoste	),
 								reservacionLocalizadorExterno	= VALUES( reservacionLocalizadorExterno						),
 								reservacionStatusCobro			= VALUES( reservacionStatusCobro							),
 								reservacionStatusPago			= VALUES( reservacionStatusPago								)	",
@@ -127,6 +127,53 @@ class Reservacion extends SQL_MySQL
 		$this->ejecuta_query( $q, 'set_reservacion( )' );
 
 		return $data['reservacionId'] == '0' ? $this->get_insert_id( ) : $data['reservacionId'];
+
+	}
+
+	public	function actualiza_saldos( $clienteId, $proveedorId, $reservacionId ) {
+
+		//Reservación
+		$q = sprintf(" UPDATE reservaciones SET
+
+												reservacionPorPagar		= reservacionCoste	- ( SELECT SUM( pagoMonto	) FROM proveedorEdoCta	WHERE reservacionId = %s ),
+												reservacionPorCobrar	= reservacionPrecio - ( SELECT SUM( cobroMonto	) FROM clienteEdoCta	WHERE reservacionId = %s )
+
+										WHERE reservacionId = %s ",
+
+							$this->toDBFromUtf8( $reservacionId	),
+							$this->toDBFromUtf8( $reservacionId	),
+							$this->toDBFromUtf8( $reservacionId	)
+
+					);
+		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
+
+		//Cliente
+		$q = sprintf(" UPDATE clientes SET
+
+											clienteEdoCta = ( SELECT SUM( reservacionPrecio ) FROM reservaciones WHERE clienteId = %s ) - ( SELECT SUM( cobroMonto ) FROM clienteEdoCta WHERE clienteId = %s )
+
+										WHERE clienteId = %s ",
+
+							$this->toDBFromUtf8( $clienteId	),
+							$this->toDBFromUtf8( $clienteId	),
+							$this->toDBFromUtf8( $clienteId	)
+
+					);
+		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
+
+		//Proveedor
+		$q = sprintf(" UPDATE proveedores SET
+
+											proveedorEdoCta = ( SELECT SUM( reservacionCoste ) FROM reservaciones WHERE proveedorId = %s ) - ( SELECT SUM( pagoMonto ) FROM proveedorEdoCta WHERE proveedorId = %s )
+
+										WHERE proveedorId = %s ",
+
+							$this->toDBFromUtf8( $proveedorId	),
+							$this->toDBFromUtf8( $proveedorId	),
+							$this->toDBFromUtf8( $proveedorId	)
+
+					);
+		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
 
 	}
 

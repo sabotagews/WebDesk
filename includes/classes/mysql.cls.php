@@ -3,7 +3,9 @@
 //define('S'							, '/' );
 define('R'							, chr( 13 ) );
 define('RJS'						, chr( 10 ) );
-//define('SEPARADOR_FECHA'			, '/');
+
+if( !defined( 'SEPARADOR_FECHA' ) )
+define('SEPARADOR_FECHA', '/');
 
 define('DELAY_XHR'					, 1 ); //Segundos
 define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres

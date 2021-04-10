@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start( );
 require_once('definitions.php');
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
@@ -64,7 +64,7 @@ function inicializa( ) {
 
 	);
 
-get_reservacion_cobro( 6 );
+//get_reservacion_cobro( 6 );
 
 }
 window.onload = function( ) {
@@ -82,6 +82,9 @@ window.onload = function( ) {
 		<input name="_data0" type="hidden" value=""/>
 		<input name="_data1" type="hidden" value=""/>
 		<input name="_data2" type="hidden" value=""/>
+
+		<input name="clienteId" type="hidden" value=""/>
+		<input name="proveedorId" type="hidden" value=""/>
 
 		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
 		<button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>

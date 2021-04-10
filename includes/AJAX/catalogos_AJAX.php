@@ -466,6 +466,23 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $u->toAJAX( true, 'json' );
 
 			break;
+
+	case 'proveedor->cuentas->get'		:
+
+						try {
+
+							$p				= new Proveedor( );
+							$cuentas	= $p->get_proveedor_cuentas( $_POST['proveedorId'], '%' );
+
+						} catch( Exception $e ) {
+
+							//$u->set_error( 'DB', $e->getMessage( ), $e->getMessage( ), $utf8 = true );
+
+						}
+
+						echo $p->toAJAX( $cuentas, 'json' );
+
+			break;
 	/*Proveedores*/
 
 
@@ -566,7 +583,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						foreach( $reservaciones as $k => $v ) {
 
 							$html .= '<tr onclick="get_reservacion( \'' . $k . '\' );" style="cursor: pointer;">';
-							$html .= '	<th scope="row">' . $v['reservacionServicioVer'] . '</th>';
+							$html .= '	<th scope="row">' . antepon_ceros( $v['reservacionId'], 3 ) . '</th>';
+							$html .= '	<td>' . $v['reservacionServicioVer'] . '</td>';
 							$html .= '	<td>' . $v['reservacionStatusCobro'] . '</td>';
 							$html .= '	<td>' . $v['reservacionStatusPago'] . '</td>';
 							$html .= '	<td>' . $v['reservacionCheckInVer'] . '</td>';
@@ -595,6 +613,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$r->begin( );
 							$localizador = $r->set_reservacion( $_POST );
+							$r->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
 						$r->commit( );
 
 						$aTmp['error']			= '0';
@@ -682,6 +701,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$aTmp	= array( );
 						$r		= new Cobro( );
+						$res	= new Reservacion( );
 
 						$r->begin( );
 
@@ -699,6 +719,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 								}
 
 							}
+
+							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
 
 						$r->commit( );
 						//$r->rollback( );
