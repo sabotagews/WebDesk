@@ -7,7 +7,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cobro.cls.php' );
 
 require_once('./includes/layout/header.php');
-require_once('./includes/admin/menu-admin.php');
+// require_once('./includes/admin/menu-admin.php');
 
 $r			= new Reservacion( );
 $_R			= $r->reservaciones_get( $_POST['_data0'] );

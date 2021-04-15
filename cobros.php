@@ -165,56 +165,61 @@ window.onload = function( ) {
 		<hr class="col-12">
 		<div class="d-flex col-12 p-0">
 			<h5>Detalle de la Reservaci&oacute;n</h5>
-			<p id="reservacionDetalle"></p>
+		</div>
+		<div class="d-flex col-12 p-0">
+			<div class="col-12" id="reservacionDetalle"></div>
 		</div>
 		<hr class="col-12">
 		<form id="form_cobro" class="needs-validation" novalidate="">
 			<input type="hidden" name="reservacionId" value="0" />
 			<input type="hidden" name="cobroId" value="0" />
 			<!--Inputs-->
-			<div class="d-flex col-12 mt-4 mb-4 p-0">
-				<div class="col-2">
-					<div class="col">
-						<label for="cobroFechaAplicacion">Fecha Aplicación</label>
-						<input type="date" class="form-control" id="cobroFechaAplicacion" name="cobroFechaAplicacion" placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)" required>
-					</div>
-					<div class="col">
-						<label for="cobroTipo">Cobro tipo</label>
-						<select class="custom-select" id="cobroTipo" onchange="" required>
-							<option></option>
-							<? foreach( COBRO_TIPOS as $k => $v ) { ?>
-								<option value="<?= $k; ?>"><?= $v; ?></option>
-							<? } ?>
-						</select>
-						<div class="invalid-feedback">
-							Seleccione la forma de cobro.
-						</div>
-					</div>
-					<div class="col">
-						<label for="cobroTipo">Cuenta</label>
-						<select class="custom-select" id="cobroCuenta" onchange="" required>
-							<option></option>
-							<? foreach( $cuentas as $k => $v ) { ?>
-								<option value="<?= $k; ?>"><?= $v['cuentaAlias']; ?></option>
-							<? } ?>
-						</select>
-						<div class="invalid-feedback">
-							Seleccione la cuenta bancaria.
-						</div>
-					</div>
-					<div class="col">
-						<label for="cobroMonto">Monto</label>
-						<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="">
-						<div class="invalid-feedback">
-							El monto no es correcto.
-						</div>
-					</div>
-					<div class="col">
-						<label for="cobroArchivo">Archivo</label>
-						<input type="file" class="form-control" id="cobroArchivo" accept="image/gif,image/jpeg,image/jpg,image/png,.pdf" placeholder="" value="">
+			<div class="form-row">
+				<div class="col-md-2 mb-3">
+					<label for="cobroFechaAplicacion">Fecha Aplicación</label>
+					<input type="date" class="form-control" id="cobroFechaAplicacion" name="cobroFechaAplicacion" placeholder="dd/mm/yyyy" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)" required>
+					<div class="invalid-feedback">
+						El nombre es requerido.
 					</div>
 				</div>
-				<div class="col-10">
+				<div class="col-md-2 mb-3">
+					<label for="cobroTipo">Cobro tipo</label>
+					<select class="custom-select" id="cobroTipo" onchange="" required>
+						<option></option>
+						<? foreach( COBRO_TIPOS as $k => $v ) { ?>
+							<option value="<?= $k; ?>"><?= $v; ?></option>
+						<? } ?>
+					</select>
+					<div class="invalid-feedback">
+						Seleccione la forma de cobro.
+					</div>
+				</div>
+				<div class="col-md-2 mb-3">
+					<label for="cobroTipo">Cuenta</label>
+					<select class="custom-select" id="cobroCuenta" onchange="" required>
+						<option></option>
+						<? foreach( $cuentas as $k => $v ) { ?>
+							<option value="<?= $k; ?>"><?= $v['cuentaAlias']; ?></option>
+						<? } ?>
+					</select>
+					<div class="invalid-feedback">
+						Seleccione la cuenta bancaria.
+					</div>
+				</div>
+				<div class="col-md-2 mb-3">
+					<label for="cobroMonto">Monto</label>
+					<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="">
+					<div class="invalid-feedback">
+						El monto no es correcto.
+					</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="cobroArchivo">Archivo</label>
+					<input type="file" class="form-control" id="cobroArchivo" accept="image/gif,image/jpeg,image/jpg,image/png,.pdf" placeholder="" value="">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-12 mb-3">
 					<label for="cobroDetalle">Detalle</label>
 					<textarea class="form-control" id="cobroDetalle" name="cobroDetalle" rows="15"></textarea>
 				</div>
