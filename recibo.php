@@ -113,8 +113,8 @@ $sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 }
 
 .receipt-content .invoice-wrapper .payment-info {
-  margin-top: 25px;
-  padding-top: 15px;
+  /* margin-top: 25px; */
+  /* padding-top: 15px; */
 }
 
 .receipt-content .invoice-wrapper .payment-info span {
