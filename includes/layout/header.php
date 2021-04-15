@@ -1145,6 +1145,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionCheckIn').value				= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').value				= objJSON.reservacionCheckOut;
 												$( '#reservacionDetalle ').val( objJSON.reservacionDetalle );
+												$( '#reservacionDetallePrint ').html( objJSON.reservacionDetalle );
 
 												tinyMCE.get('reservacionDetalle').setContent( objJSON.reservacionDetalle );
 

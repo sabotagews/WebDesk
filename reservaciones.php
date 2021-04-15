@@ -158,7 +158,10 @@ require_once('./includes/admin/menu-admin.php');
                 <div class="row">
 	                <div class="col-md-12 mb-3">
                         <label for="reservacionDetalle">Detalle</label>
-                        <textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="15" required=""></textarea>
+						<div class="d-print-none">
+                        	<textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="15" required=""></textarea>
+						</div>
+						<div class="d-none d-print-block" id="reservacionDetallePrint"></div>
                     </div>
                 </div>
                 <div class="form-row">
