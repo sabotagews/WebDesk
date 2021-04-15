@@ -327,7 +327,7 @@ $sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 									<?= $_R['reservacionHabitaciones']; ?> Habitación(es)
 								</p>
 							</div>
-							<div class="row item">
+							<div class="item">
 								<?= $_R['reservacionDetalle']; ?>
 							</div>
 						</div>
