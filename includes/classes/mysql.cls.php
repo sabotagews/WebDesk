@@ -11,19 +11,20 @@ define('DELAY_XHR'					, 1 ); //Segundos
 define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres
 
 define('RESERVACION_HABITACIONES'	, 5 );
-define('PLAN_ALIMENTOS'						, array( 'EP' => 'Europeo', 'CD' => 'Con Desayuno', 'TI' => 'Todo Incluido' ) );
+define('PLAN_ALIMENTOS'				, array( 'EP' => 'Europeo', 'CD' => 'Con Desayuno', 'TI' => 'Todo Incluido' ) );
 define('RESERVACION_SERVICIOS'		, array( 'AL' => 'Alojamiento', 'CH' => 'Charter', 'AE' => 'Aereo', 'BUS' => 'Autobus', 'PQ' => 'Paquete', 'GPO' => 'Grupo' ) );
 define('RESERVACION_STATUS_COBRO'	, array( '0' => 'Cotizacion', '1' => 'Con Anticipo', '2' => 'Cobrada' ) );
 define('RESERVACION_STATUS_PAGO'	, array( '0' => 'Confirmada', '1' => 'Con Pago', '2' => 'Pagada' ) );
-define('COBRO_TIPOS'							, array( 'E' => 'Efectivo', 'TC' => 'Tarjeta Credito', 'TD' => 'Tarjeta Debito' ) );
+define('COBRO_TIPOS'				, array( 'E' => 'Efectivo', 'TC' => 'Tarjeta Credito', 'TD' => 'Tarjeta Debito' ) );
+define('PAGO_TIPOS'					, array( 'TC' => 'Tarjeta Credito', 'TD' => 'Tarjeta Debito' ) );
 
 if( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 
 	define('DB_HOSTNAME'	, 'localhost'				);
-	define('DB_USERNAME'	, 'root'						);
+	define('DB_USERNAME'	, 'root'					);
 	define('DB_PASSWORD'	, '123Mexico456'			);
 	define('DB_DATABASE'	, 'WebDesk'					);
-	define('DEBUGGER'			, true							);
+	define('DEBUGGER'			, true					);
 
 } else {
 

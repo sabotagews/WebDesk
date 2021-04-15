@@ -1,4 +1,4 @@
-		
+
 
 		<script src="<?= $_SESSION['PATH_JS']; ?>jquery-3.5.1.min.js"></script>
 		<script src="<?= $_SESSION['PATH_JS']; ?>jquery-ui.min.js"></script>
@@ -76,6 +76,12 @@
 									case 'form_cobro'				:
 
 											setTimeout( guarda_cobro			, <?= DELAY_XHR * 1000; ?> );
+
+										break;
+
+									case 'form_pago'				:
+
+											setTimeout( guarda_pago				, <?= DELAY_XHR * 1000; ?> );
 
 										break;
 

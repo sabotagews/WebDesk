@@ -8,6 +8,7 @@ require_once('./includes/classes/cuenta.cls.php');
 
 $_C				= new cuenta( );
 $cuentas	= $_C->get_cuenta( );
+
 ?>
 <script>
 function inicializa( ) {
@@ -57,7 +58,7 @@ function inicializa( ) {
 													event.preventDefault( );
 													g( event.target.id ).value = '';
 
-													get_reservacion_cobro( ui.item.value );
+													get_reservacion_pago( ui.item.value );
 
 												}
 								}
@@ -83,6 +84,7 @@ window.onload = function( ) {
 		<input name="_data1" type="hidden" value=""/>
 		<input name="_data2" type="hidden" value=""/>
 
+		<input name="clienteId" type="hidden" value=""/>
 		<input name="proveedorId" type="hidden" value=""/>
 
 		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
@@ -167,7 +169,7 @@ window.onload = function( ) {
 			<div id="reservacionDetalle"></div>
 		</div>
 		<hr class="col-12">
-		<form id="form_cobro" class="needs-validation" novalidate="">
+		<form id="form_pago" class="needs-validation" novalidate="">
 			<input type="hidden" name="reservacionId" value="0" />
 			<input type="hidden" name="pagoId" value="0" />
 			<!--Inputs-->
@@ -181,16 +183,16 @@ window.onload = function( ) {
 						<label for="pagoTipo">Pago tipo</label>
 						<select class="custom-select" id="pagoTipo" onchange="" required>
 							<option></option>
-							<? foreach( COBRO_TIPOS as $k => $v ) { ?>
+							<? foreach( PAGO_TIPOS as $k => $v ) { ?>
 								<option value="<?= $k; ?>"><?= $v; ?></option>
 							<? } ?>
 						</select>
 						<div class="invalid-feedback">
-							Seleccione la forma de cobro.
+							Seleccione la forma de pago.
 						</div>
 					</div>
 					<div class="col">
-						<label for="pagoTipo">Cuenta</label>
+						<label for="pagoTipo">Cuenta Origen</label>
 						<select class="custom-select" id="pagoCuenta" onchange="" required>
 							<option></option>
 							<? foreach( $cuentas as $k => $v ) { ?>
@@ -201,21 +203,35 @@ window.onload = function( ) {
 							Seleccione la cuenta bancaria.
 						</div>
 					</div>
+
 					<div class="col">
-						<label for="cobroMonto">Monto</label>
-						<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="">
+						<label for="pagoTipo">Cuenta Destino</label>
+						<select class="custom-select" id="pagoCuentaDestino" onchange="" required>
+							<option></option>
+							<? foreach( $cuentas as $k => $v ) { ?>
+								<option value="<?= $k; ?>"><?= $v['cuentaAlias']; ?></option>
+							<? } ?>
+						</select>
+						<div class="invalid-feedback">
+							Seleccione la cuenta bancaria.
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="pagoMonto">Monto</label>
+						<input type="text" class="form-control" id="pagoMonto" placeholder="" value="" required="">
 						<div class="invalid-feedback">
 							El monto no es correcto.
 						</div>
 					</div>
 					<div class="col">
-						<label for="cobroArchivo">Archivo</label>
-						<input type="file" class="form-control" id="cobroArchivo" accept="image/gif,image/jpeg,image/jpg,image/png,.pdf" placeholder="" value="">
+						<label for="pagoArchivo">Archivo</label>
+						<input type="file" class="form-control" id="pagoArchivo" accept="image/gif,image/jpeg,image/jpg,image/png,.pdf" placeholder="" value="">
 					</div>
 				</div>
 				<div class="col-10">
-					<label for="cobroDetalle">Detalle</label>
-					<textarea class="form-control" id="cobroDetalle" name="cobroDetalle" rows="15"></textarea>
+					<label for="pagoDetalle">Detalle</label>
+					<textarea class="form-control" id="pagoDetalle" name="pagoDetalle" rows="15"></textarea>
 				</div>
 			</div>
 
@@ -223,10 +239,10 @@ window.onload = function( ) {
 			<hr class="mb-4">
 			<div class="form-row text-right">
 				<div class="col-2" id="btn_nuevo" style="display: none">
-					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_cobro( );">Nuevo</button>
+					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_pago( );">Nuevo</button>
 				</div>
 				<div class="col-2" id="btn_eliminar" style="display: none">
-					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cobro( );">Eliminar</button>
+					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_pago( );">Eliminar</button>
 				</div>
 				<div class="col-3" id="btn_guardar">
 					<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
@@ -236,7 +252,7 @@ window.onload = function( ) {
 
 		<div class="col-md-12">
 			<hr class="mb-4">
-			<table class="table table-striped table-hover" id="listCobros"></table>
+			<table class="table table-striped table-hover" id="listPagos"></table>
 		</div>
 	</div>
 </main>
