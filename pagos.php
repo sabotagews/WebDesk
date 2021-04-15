@@ -65,7 +65,7 @@ function inicializa( ) {
 
 	);
 
-get_reservacion_pago( 6 );
+//get_reservacion_pago( 6 );
 
 }
 window.onload = function( ) {
