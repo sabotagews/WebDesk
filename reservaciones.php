@@ -84,7 +84,7 @@ require_once('./includes/admin/menu-admin.php');
 	}
 </script>
 <main class="container" role="main">
-    <div class="py-5 text-center">
+    <div class="py-5 text-center d-print-none">
         <h2>Reservaciones</h2>
         <p class="lead">Formulario para carga de una cotizaci&oacute;n o reservaci&oacute;n.</p>
     </div>
@@ -162,15 +162,15 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-2 mb-2">
+                    <div class="col-md-2 mb-2 d-print-none">
                         <label for="reservacionDestino">Coste</label>
                         <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
                     </div>
-                    <div class="col-5">
+                    <div class="col-5 d-print-none">
 						<label for="proveedorId">Proveedor</label>
                         <select class="custom-select" id="proveedorId" onchange=""></select>
                     </div>
-					<div class="col-md-3 mb-3">
+					<div class="col-md-3 mb-3 d-print-none">
 						<label for="reservacionLocalizadorExterno">Localizador Externo</label>
 						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="" required="">
 					</div>
@@ -179,7 +179,7 @@ require_once('./includes/admin/menu-admin.php');
                         <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
                     </div>
 				</div>
-				<div class="row">
+				<div class="row d-print-none">
 					<div class="col-md-6 mb-6">
 						<label for="reservacionStatusCobro">Status de Cobro</label>
 						<div id="reservacionStatusCobro" class="mt-1">
@@ -214,7 +214,7 @@ require_once('./includes/admin/menu-admin.php');
 					</div>
 				</div>
                 <hr class="mb-4">
-                <div class="form-row justify-content-end">
+                <div class="form-row justify-content-end d-print-none">
 	                <div class="col-2">
 						<button style="display: none" id="btn_nueva" class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
 	                </div>
@@ -229,7 +229,7 @@ require_once('./includes/admin/menu-admin.php');
         </div>
     </div>
 
-	<div>
+	<div class="row d-print-none">
 		<h4 class="mb-3 mt-5">Cotizaciones / Reservaciones</h4>
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
