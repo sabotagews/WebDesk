@@ -264,11 +264,11 @@ $sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 		<div class="row">
 			<div class="col-md-12">
 				<div class="invoice-wrapper">
-					<div class="intro">
+					<!-- <div class="intro">
 						Hola <strong><?= $_R['clienteNombre']; ?></strong>,
 						<br>
 						Este es su recibo por el pago de <strong>$ <?= number_format( $cobro['cobroMonto'] , 2 ); ?></strong> de su Reservaci&oacute;n <?= antepon_ceros( $_R['reservacionId'], 3 ); ?>
-					</div>
+					</div> -->
 
 					<div class="payment-info">
 						<div class="row">
