@@ -13,6 +13,7 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cuenta.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reservacion.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/reporte.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/cobro.cls.php' );
+require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/pago.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/archivo.cls.php' );
 
 switch( strtolower( $_POST['_data1'] ) ) {
@@ -686,6 +687,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 
 	/*Cobros*/
+	case 'pago->reservacion->get'		:
 	case 'cobro->reservacion->get'		:
 
 					$aTmp	= array( );
@@ -811,6 +813,128 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 			break;
 	/*Cobros*/
+
+
+	/*Pagos*/
+	case 'pago->set'					:
+
+					try {
+
+						$aTmp	= array( );
+						$r		= new Pago( );
+						$res	= new Reservacion( );
+
+						$r->begin( );
+
+							$pagoId = $r->set_pago( $_POST );
+
+							if( isset( $_FILES['pagoArchivo'] ) ) {
+
+								$f				= new Archivo( );
+								$archivo	= $f->archivo_set( $_FILES['pagoArchivo'], $_SESSION['PATH_HOME_REAL'] . S . 'pagos' . S, antepon_ceros( $pagoId, 4 ) );
+
+								if( $archivo ) {
+
+									$r->set_pago_archivo( $pagoId, $archivo );
+
+								}
+
+							}
+
+							$r->actualiza_acumulados( $_POST['reservacionId'] );
+							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
+
+						$r->commit( );
+						//$r->rollback( );
+
+						$aTmp['pagoId']	= $pagoId;
+						$aTmp['error']	= '0';
+
+					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']		= '1';
+						$aTmp['error_msg']	= $e->getMessage( );
+
+					}
+
+					echo $r->toAJAX( $aTmp, 'json' );
+
+			break;
+
+
+
+	case 'pagos->get'					:
+
+					$r		= new Pago( );
+					$pagos	= $r->get_pagos( $_POST['reservacionId'] );
+
+					$html  = '';
+					$html .= '<thead class="thead-dark">';
+					$html .= '	<tr>';
+					$html .= '		<th scope="col" data-sort="int" data-sort-onload="yes">Consecutivo</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Fecha Aplicación</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
+					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
+					//$html .= '		<th scope="col" data-sort="int">Recibo</th>';
+					$html .= '	</tr>';
+					$html .= '</thead>';
+
+					foreach( $pagos as $k => $v ) {
+
+						$html .= '<tr onclick="get_pago( \'' . $k . '\' );" style="cursor: pointer;">';
+						$html .= '	<th scope="row">' . antepon_ceros( $v['pagoConsecutivo'], 2 ) . '</th>';
+						$html .= '	<th>' . $v['pagoFechaAplicacion' ] . '</th>';
+						$html .= '	<th>' . PAGO_TIPOS[ $v['pagoTipo'] ] . '</th>';
+						$html .= '	<td>$ ' . number_format( $v['pagoMonto'], 2 ) . '</td>';
+						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
+						//$html .= '	<td><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
+						$html .= '</tr>';
+
+					}
+
+					echo $r->toAJAX( $html, 'text' );
+
+			break;
+	case 'pago->get'					:
+
+					$r		= new Pago( );
+					$pago	= $r->get_pago( $_POST['pagoId'] );
+
+					echo $r->toAJAX( $pago, 'json' );
+
+			break;
+	case 'pago->delete'					:
+
+					try {
+
+						$aTmp	= array( );
+						$r		= new Pago( );
+						$res	= new Reservacion( );
+
+						$r->begin( );
+							$r->pago_delete( $_POST );
+							$r->actualiza_acumulados( $_POST['reservacionId'] );
+							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
+						$r->commit( );
+
+						$aTmp['error'] = '0';
+
+					} catch( Exception $e ) {
+
+						$r->rollback( );
+
+						$aTmp['error']		= '1';
+						$aTmp['error_msg']	= $e->getMessage( );
+
+					}
+
+					echo $r->toAJAX( $aTmp, 'json' );
+
+			break;
+	/*Pagos*/
 
 
 	/*Autocomplete*/

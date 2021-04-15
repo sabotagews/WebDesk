@@ -761,23 +761,37 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function get_cuentas_proveedor( proveedorId ) {
 
-				var datos							= {};
-						datos._data1			= 'proveedor->cuentas->get';
-						datos.proveedorId = proveedorId;
+				var datos					= {};
+						datos._data1		= 'proveedor->cuentas->get';
+						datos.proveedorId	= proveedorId;
+
+				var obj = g('pagoCuentaDestino');
+					obj.innerHTML = '';
+
+				var op           = document.createElement( 'OPTION' );
+					op.innerHTML = '';
+					op.value     = '';
+				obj.appendChild( op );
 
 				$.ajax(
 
 						{
 
-							url					:	AJAX_catalogos_url,
-							type				:	'POST'						,
-							dataType		:	'JSON'						,
-							data				:	datos							,
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
 							beforeSend	:	function( ) {}		,
-							success			:	function( objJSON ) {
+							success		:	function( objJSON ) {
 
-												//get_proveedor( g('proveedorId').value );
-												//limpia_proveedor_cuentas( );
+												for( var i in objJSON ) {
+
+													var op           = document.createElement( 'OPTION' );
+														op.innerHTML = objJSON[ i ].proveedorCuentaAlias;
+														op.value     = objJSON[ i ].proveedorCuentaId;
+													obj.appendChild( op );
+
+												}
 
 											}
 
@@ -1383,6 +1397,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 			}
 			function delete_cobro( ) {
 
+				if( !confirm('¿Desea eliminar el cobro a cliente?') ) return;
+
 				var datos				= {};
 					datos._data1		= 'cobro->delete';
 
@@ -1427,8 +1443,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 			/*Pagos*/
 			function get_reservacion_pago( reservacionId ) {
 
-				var datos							= {};
-					datos._data1				= 'cobro->reservacion->get';
+				var datos				= {};
+					datos._data1		= 'pago->reservacion->get';
 					datos.reservacionId	= reservacionId;
 
 				$.ajax(
@@ -1442,26 +1458,27 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('reservacionId').value								= objJSON.reservacionId;
-												g('proveedorId').value									= objJSON.proveedorId;
-												g('reservacionLocalizador').innerHTML		= objJSON.reservacionLocalizador;
-												g('reservacionSaldo').innerHTML					= objJSON.reservacionSaldoVer;
-												g('reservacionProveedor').innerHTML 		= objJSON.proveedorAlias;
-												g('cliente').innerHTML									= objJSON.cliente;
-												g('reservacionServicio').innerHTML			= objJSON.reservacionServicioVer;
-												g('reservacionDestino').innerHTML				= objJSON.reservacionDestino;
-												g('reservacionHotel').innerHTML					= objJSON.reservacionHotel;
-												g('reservacionPlan').innerHTML					= objJSON.reservacionPlanVer;
-												g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn;
-												g('reservacionCheckOut').innerHTML			= objJSON.reservacionCheckOut;
+												g('reservacionId').value				= objJSON.reservacionId;
+												g('proveedorId').value					= objJSON.proveedorId;
+												g('clienteId').value					= objJSON.clienteId;
+												g('reservacionLocalizador').innerHTML	= objJSON.reservacionLocalizador;
+												g('reservacionSaldo').innerHTML			= objJSON.reservacionSaldoProveedorVer;
+												g('reservacionProveedor').innerHTML 	= objJSON.proveedorAlias;
+												g('cliente').innerHTML					= objJSON.cliente;
+												g('reservacionServicio').innerHTML		= objJSON.reservacionServicioVer;
+												g('reservacionDestino').innerHTML		= objJSON.reservacionDestino;
+												g('reservacionHotel').innerHTML			= objJSON.reservacionHotel;
+												g('reservacionPlan').innerHTML			= objJSON.reservacionPlanVer;
+												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
+												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
 												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
-												g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
-												g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
-												g('reservacionStatusCobro').innerHTML		= objJSON.reservacionStatusCobro;
-												g('reservacionStatusPago').innerHTML		= objJSON.reservacionStatusPago;
+												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
+												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
+												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
+												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
+												g('reservacionStatusPago').innerHTML	= objJSON.reservacionStatusPago;
 
-												//get_pagos( reservacionId );
+												get_pagos( reservacionId );
 												get_cuentas_proveedor( objJSON.proveedorId );
 
 												$('#contenedor_reservacion').show( );
@@ -1471,6 +1488,194 @@ header('Content-type: text/html; charset=iso-8859-1');
 						}
 
 					);
+
+			}
+			function get_pago( pagoId ) {
+
+				var datos			= {};
+					datos._data1	= 'pago->get';
+					datos.pagoId	= pagoId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												$('#pagoTipo').val( objJSON.pagoTipo );
+												$('#pagoCuenta').val( objJSON.cuentaId );
+												$('#pagoCuentaDestino').val( objJSON.proveedorCuentaId );
+
+												g('pagoId').value				= objJSON.pagoId;
+												g('pagoFechaAplicacion').value	= objJSON.pagoFechaAplicacion;
+												g('pagoMonto').value			= objJSON.pagoMonto;
+												g('pagoDetalle').value			= objJSON.pagoDetalle;
+
+												$('#btn_nuevo').show( );
+												$('#btn_eliminar').show( );
+
+											}
+
+						}
+
+					);
+
+			}
+			function delete_pago( ) {
+
+				if( !confirm('¿Desea eliminar el pago a proveedor?') ) return;
+
+				var datos				= {};
+					datos._data1		= 'pago->delete';
+
+					datos.reservacionId	= g('reservacionId').value;
+					datos.pagoId		= g('pagoId').value;
+					datos.clienteId		= g('clienteId').value;
+					datos.proveedorId	= g('proveedorId').value;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												limpia_pago( );
+												get_pagos( g('reservacionId').value );
+
+												if( objJSON.error == '0' ) {
+
+													alert('¡Se elimino el pago correctamente!');
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
+
+											}
+
+						}
+
+					);
+
+			}
+			function get_pagos( reservacionId ) {
+
+				var datos				= {};
+					datos._data1		= 'pagos->get';
+					datos.reservacionId	= reservacionId;
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'TEXT'				,
+							data		:	datos				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												g('listPagos').innerHTML = objJSON;
+
+											}
+
+						}
+
+					);
+
+			}
+			function guarda_pago( ) {
+
+				var _datos						= {};
+					_datos._data1				= 'pago->set';
+
+					_datos.reservacionId		= g('reservacionId').value;
+					_datos.proveedorId			= g('proveedorId').value;
+					_datos.clienteId			= g('clienteId').value;
+					_datos.pagoId				= g('pagoId').value;
+					_datos.pagoFechaAplicacion	= g('pagoFechaAplicacion').value;
+					_datos.pagoTipo				= g('pagoTipo').value;
+					_datos.cuentaId				= g('pagoCuenta').value;
+					_datos.proveedorCuentaId	= g('pagoCuentaDestino').value;
+					_datos.pagoMonto			= g('pagoMonto').value;
+					_datos.pagoDetalle			= g('pagoDetalle').value;
+
+				var datos = new FormData( );
+
+				for( var i in _datos ) {
+						datos.append( i, _datos[ i ] );
+				}
+
+				/*Adjunto archivo*/
+				if( g('pagoArchivo').value != '' ) {
+
+					var archivo = g('pagoArchivo').files[ 0 ];
+					//var image_name = property.name;
+					//var image_extension = image_name.split('.').pop( ).toLowerCase( );
+
+					//if(jQuery.inArray(image_extension,['gif','jpg','jpeg','']) == -1){
+					//alert("Invalid image file");
+					//}
+
+					datos.append( 'pagoArchivo', archivo );
+
+				}
+				/*Adjunto archivo*/
+
+				$.ajax(
+
+						{
+
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'JSON'				,
+							data		:	datos				,
+							processData :	false				,
+							contentType :	false				,
+							beforeSend	:	function( ) {}		,
+							success		:	function( objJSON ) {
+
+												if( objJSON.error == '0' ) {
+
+													alert('¡Se guardo el pago correctamente!');
+
+													//ir_a( './recibo.php', '_blank', true, g('reservacionId').value, objJSON.cobroId, null );
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
+
+												limpia_pago( );
+												get_pagos( g('reservacionId').value );
+
+											}
+
+						}
+
+					);
+
+			}
+			function limpia_pago( ) {
+
+				g( 'form_pago' ).reset( );
+				$( '#form_pago' ).removeClass( 'was-validated' );
+				g( 'pagoId' ).value = '0';
+
+				$('#btn_eliminar').hide( );
+				$('#btn_nuevo').hide( );
 
 			}
 			/*Pagos*/

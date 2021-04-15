@@ -10,6 +10,9 @@ class Cobro extends SQL_MySQL
 
 		$q	= sprintf(" SELECT
 
+								r.reservacionPrecio			,
+								r.reservacionCoste			,
+
 								p.proveedorAlias			,
 								CONCAT(
 										c.clienteNombre		,
@@ -18,7 +21,8 @@ class Cobro extends SQL_MySQL
 
 									  ) AS cliente			,
 								r.*	,
-								( SELECT saldoFinal FROM cobros WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo DESC LIMIT 0, 1 ) AS reservacionSaldo
+								( SELECT saldoFinal FROM cobros	WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldo			,
+								( SELECT saldoFinal FROM pagos	WHERE reservacionId = r.reservacionId ORDER BY pagoConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldoProveedor
 
 							FROM	reservaciones	r,
 									clientes		c,
@@ -36,14 +40,18 @@ class Cobro extends SQL_MySQL
 		$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
 		$r = $this->get_row( $rs );
 
-		$r['reservacionServicioVer']	= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];
+		$r['reservacionSaldo']				= $r['reservacionSaldo']			== '' ? $r['reservacionPrecio']	: $r['reservacionSaldo'];
+		$r['reservacionSaldoProveedor']		= $r['reservacionSaldoProveedor']	== '' ? $r['reservacionCoste']	: $r['reservacionSaldoProveedor'];
+
+		$r['reservacionServicioVer']		= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];
 		$r['reservacionPlanVer']			= PLAN_ALIMENTOS[ $r['reservacionPlan'] ];
-		$r['reservacionStatusCobro']	= RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ];
-		$r['reservacionStatusPago']		= RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ];
-		$r['reservacionLocalizador']	= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
-		$r['reservacionCosteVer']		= '$ '. number_format( $r['reservacionCoste'] , 2 );
-		$r['reservacionPrecioVer']		= '$ '. number_format( $r['reservacionPrecio'] , 2 );
-		$r['reservacionSaldoVer']		= '$ '. number_format( $r['reservacionSaldo'] , 2 );
+		$r['reservacionStatusCobro']		= RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ];
+		$r['reservacionStatusPago']			= RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ];
+		$r['reservacionLocalizador']		= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
+		$r['reservacionCosteVer']			= '$ '. number_format( $r['reservacionCoste']			, 2 );
+		$r['reservacionPrecioVer']			= '$ '. number_format( $r['reservacionPrecio']			, 2 );
+		$r['reservacionSaldoProveedorVer']	= '$ '. number_format( $r['reservacionSaldoProveedor']	, 2 );
+		$r['reservacionSaldoVer']			= '$ '. number_format( $r['reservacionSaldo']			, 2 );
 
 		return $r;
 
