@@ -112,7 +112,7 @@ require_once('./includes/admin/menu-admin.php');
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="clienteMovil">M&oacute;vil</label>
+                        <label for="clienteMovil">WhatsApp</label>
                         <input type="text" class="form-control" id="clienteMovil" placeholder="10 d&iacute;gitos sin espacios ni separadores" required="">
                         <div class="invalid-feedback">
                             Por favor ingresa un m&oacute;vil v&aacute;lido.
