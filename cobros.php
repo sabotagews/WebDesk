@@ -73,11 +73,7 @@ window.onload = function( ) {
 
 </script>
 <main class="container" role="main">
-	<div class="py-5 text-center d-print-none">
-		<h2>Cobros</h2>
-		<p class="lead">Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></p>
-	</div>
-	<form name="form" method="post" class="form-inline my-2 my-lg-0 d-print-none">
+	<form name="form" method="post" class="form-inline my-2 d-print-none">
 
 		<input name="_data0" type="hidden" value=""/>
 		<input name="_data1" type="hidden" value=""/>
@@ -86,8 +82,17 @@ window.onload = function( ) {
 		<input name="clienteId" type="hidden" value=""/>
 		<input name="proveedorId" type="hidden" value=""/>
 
-		<input class="form-control mr-sm-2"  id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
-		<button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
+
+		<div class="col-4 input-group mb-3 w-25">
+			<input class="form-control" id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
+			<div class="input-group-append">
+				<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
+			</div>
+		</div>
+		<div class="col py-5 text-right">
+			<h2>Cobros</h2>
+			<span class="text-black-50"><small>Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></small></p>
+		</div>
 	</form>
 	<div id="contenedor_reservacion" style="display: none">
 		<hr class="col-12 mt-4">
@@ -104,32 +109,19 @@ window.onload = function( ) {
 			<table class="table col-6 mr-4">
 				<tbody>
 					<tr>
-						<td>Hotel</td>
-						<th class="text-right" id="reservacionHotel"></th>
+						<th id="reservacionHotel"></th>
 					</tr>
 					<tr>
-						<td>CheckIn</td>
-						<th class="text-right" id="reservacionCheckIn"></th>
+						<th id="reservacionCheckIn"></th>
 					</tr>
 					<tr>
-						<td>CheckOut</td>
-						<th class="text-right" id="reservacionCheckOut"></th>
+						<th id="reservacionServicio"></th>
 					</tr>
 					<tr>
-						<td>Destino</td>
-						<th class="text-right" id="reservacionDestino"></th>
+						<th id="reservacionHabitaciones"></th>
 					</tr>
 					<tr>
-						<td>Plan</td>
-						<th class="text-right" id="reservacionPlan"></th>
-					</tr>
-					<tr>
-						<td>Servicio</td>
-						<th class="text-right" id="reservacionServicio"></th>
-					</tr>
-					<tr>
-						<td>Habitaciones</td>
-						<th class="text-right" id="reservacionHabitaciones"></th>
+						<th id="reservacionPrecio"></th>
 					</tr>
 				</tbody>
 			</table>
@@ -140,18 +132,22 @@ window.onload = function( ) {
 						<th class="text-right" id="reservacionProveedor"></th>
 					</tr>
 					<tr class="d-print-none">
+						<td>Localizador Externo</td>
+						<th class="text-right" id="reservacionLocalizadorExterno"></th>
+					</tr>
+					<tr class="d-print-none">
 						<td>Coste</td>
 						<th class="text-right" id="reservacionCoste"></th>
 					</tr>
 					<tr>
-						<td>Precio</td>
-						<th class="text-right" id="reservacionPrecio"></th>
+						<td>Acumulado de Cobros</td>
+						<th class="text-right" id="reservacionAcumuladoCobro"></th>
 					</tr>
-					<tr class="d-print-none">
-						<td>Saldo</td>
-						<th class="text-right" id="reservacionSaldo"></th>
+					<tr>
+						<td>Saldo por Cobrar</td>
+						<th class="text-right" id="reservacionSaldoCobro"></th>
 					</tr>
-					<tr class="d-print-none">
+					<tr>
 						<td>Status Cobro</td>
 						<th class="text-right" id="reservacionStatusCobro"></th>
 					</tr>
@@ -170,10 +166,18 @@ window.onload = function( ) {
 			<div class="col-12" id="reservacionDetalle"></div>
 		</div>
 		<hr class="col-12">
-		<form id="form_cobro" class="needs-validation" novalidate="">
+
+		<h3 class="text-secondary mt-5 mb-3">Histórico de Cobros</h3>
+		<table class="table table-striped table-hover my-5" id="listCobros"></table>
+
+		<form id="form_cobro" class="needs-validation d-print-none mb-5" novalidate="">
 			<input type="hidden" name="reservacionId" value="0" />
 			<input type="hidden" name="cobroId" value="0" />
 			<!--Inputs-->
+
+			<hr class="col-12 my-5">
+			<h3 class="text-secondary mt-5 mb-3">Agregar nuevo Cobro</h3>
+			<hr class="col-12">
 			<div class="form-row">
 				<div class="col-md-2 mb-3">
 					<label for="cobroFechaAplicacion">Fecha Aplicación</label>
@@ -227,7 +231,7 @@ window.onload = function( ) {
 
 			<!--Botones-->
 			<hr class="mb-4">
-			<div class="form-row text-right d-print-none">
+			<div class="form-row d-flex justify-content-end">
 				<div class="col-2" id="btn_nuevo" style="display: none">
 					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_cobro( );">Nuevo</button>
 				</div>
@@ -240,10 +244,7 @@ window.onload = function( ) {
 			</div>
 		</form>
 
-		<div class="col-md-12 d-print-none">
-			<hr class="mb-4">
-			<table class="table table-striped table-hover" id="listCobros"></table>
-		</div>
+
 	</div>
 </main>
 <?php

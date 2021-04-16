@@ -70,6 +70,59 @@ require_once('./includes/admin/menu-admin.php');
 
 		);
 
+		$("#searchReservacion").autocomplete(
+									{
+
+										minLength	: 2 	,
+										delay		: 500	,
+										source		: function( request, response ) {
+
+														$.ajax(
+
+																{
+																	url 		: AJAX_catalogos_url,
+																	type		: 'POST'			,
+																	dataType	: 'json'			,
+																	data		:	{
+																						_data1	: 'reservacion->search',
+																						search	: request.term
+																					}				,
+																	success		: function( data ) {
+
+																					response( $.map( data, function( item ) {
+
+																											return	{
+
+																														label	: item.busquedaResultado,
+																														value	: item.reservacionId
+
+																													}
+
+																										}
+
+																									)
+																							)
+
+																					}
+
+																}
+
+															)
+
+													}	,
+										select		: function( event, ui ) {
+
+														event.preventDefault( );
+
+														g( event.target.id ).blur( );
+														g( event.target.id ).value = '';
+														get_reservacion( ui.item.value );
+
+													}
+									}
+
+		);
+
 	}
 	function set_cliente( id ) {
 
@@ -83,12 +136,13 @@ require_once('./includes/admin/menu-admin.php');
 	}
 </script>
 <main class="container" role="main">
+
     <div class="py-5 text-center d-print-none">
-        <h2>Reservaciones</h2>
+        <h2>Crear una nueva Reservación</h2>
         <p class="lead">Formulario para carga de una cotizaci&oacute;n o reservaci&oacute;n.</p>
     </div>
 
-    <div class="row">
+    <div class="row mb-5">
         <div class="col order-md-1">
             <h4 class="mb-3">Datos de la Reservaci&oacute;n</h4>
             <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
@@ -129,7 +183,7 @@ require_once('./includes/admin/menu-admin.php');
 				<div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="reservacionPlan">Plan de Alimentos</label>
-						<select class="custom-select" id="reservacionPlan" name="reservacionPlan" required>
+						<select class="custom-select" id="reservacionPlan" name="reservacionPlan">
 							<option value=""></option>
 							<? foreach( PLAN_ALIMENTOS as $k => $v ) { ?>
 								<option value="<?= $k; ?>"><?= $v; ?></option>
@@ -146,7 +200,7 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
 					<div class="col-md-2 mb-3">
 						<label for="reservacionHabitaciones">Habitaciones</label>
-						<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones" required>
+						<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones">
 							<option value=""></option>
 							<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) { ?>
 								<option value="<?= $i; ?>"><?= $i; ?></option>
@@ -158,7 +212,7 @@ require_once('./includes/admin/menu-admin.php');
 	                <div class="col-md-12 mb-3">
                         <label for="reservacionDetalle">Detalle</label>
 						<div class="d-print-none">
-                        	<textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="15" required=""></textarea>
+                        	<textarea class="form-control" id="reservacionDetalle" name="reservacionDetalle" rows="15"></textarea>
 						</div>
 						<div class="d-none d-print-block" id="reservacionDetallePrint"></div>
                     </div>
@@ -166,21 +220,33 @@ require_once('./includes/admin/menu-admin.php');
                 <div class="form-row">
                     <div class="col-md-2 mb-2 d-print-none">
                         <label for="reservacionDestino">Coste</label>
-                        <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
+                        <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="" required>
                     </div>
                     <div class="col-5 d-print-none">
 						<label for="proveedorId">Proveedor</label>
-                        <select class="custom-select" id="proveedorId" onchange=""></select>
+                        <select class="custom-select" id="proveedorId" onchange="" required></select>
                     </div>
 					<div class="col-md-3 mb-3 d-print-none">
 						<label for="reservacionLocalizadorExterno">Localizador Externo</label>
-						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="" required="">
+						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="">
 					</div>
                     <div class="col-md-2 mb-2">
                         <label for="reservacionHotel">Precio</label>
                         <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
                     </div>
 				</div>
+
+				<div id="contenedor_gastos_cancelacion" class="d-none">
+                    <div class="col-md-2 mb-2 d-print-none">
+                        <label for="reservacionDestino">Cancelación Coste</label>
+                        <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="">
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="reservacionHotel">Cancelación Precio</label>
+                        <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="">
+                    </div>
+				</div>
+
 				<div class="row d-print-none">
 					<div class="col-md-6 mb-6">
 						<label for="reservacionStatusCobro">Status de Cobro</label>

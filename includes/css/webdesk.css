@@ -40,13 +40,19 @@ thead {
   border-top-right-radius: 0;
 }
 
-button.loupe {
-    background-image: url(./../../images/loupe.svg);
+.loupe {
+    /* background-image: url(./../../images/loupe.svg);
     background-repeat: no-repeat;
-    background-position: -8px center;
-    padding-left: 30px;
-    background-size: 50% 50%;
-    fill: white;
+    background-position: center; */
+    padding-left: 20px;
+	display: block;
+	height: 100%;
+	background-color: #808a93;
+    -webkit-mask: url(./../../images/loupe.svg) no-repeat center;
+    mask: url(./../../images/loupe.svg) no-repeat center;
+	-webkit-mask-size: 90%;
+	mask-size: 90%;
+
 }
 input[type="text"],
 input[type="number"] {

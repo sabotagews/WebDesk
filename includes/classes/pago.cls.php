@@ -159,10 +159,11 @@ class pago extends SQL_MySQL
 
 									pagoId				,
 									pagoConsecutivo		,
-									pagoFechaAplicacion,
+									pagoFechaAplicacion	,
 									pagoTipo			,
 									pagoMonto			,
 									pagoDetalle			,
+									acumulado			,
 									saldoFinal
 
 								FROM	pagos

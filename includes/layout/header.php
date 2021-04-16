@@ -8,6 +8,10 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'sucursal.cls.ph
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'cliente.cls.php' );
 
 header('Content-type: text/html; charset=iso-8859-1');
+
+$r			= new Sucursal( );
+$sucursal	= $r->get_sucursal( $_SESSION['currentUser']['sucursalId'] );
+$sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 ?>
 <!doctype html>
 <html lang="es">
@@ -1059,7 +1063,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 												if( objJSON.error == 0 ) {
 
 													limpia_reservacion( );
-													get_reservaciones( );
+													// get_reservaciones( );
 
 													alert('¡Se guardo la reservación [ ' + objJSON.localizador + ' ] correctamente!');
 
@@ -1155,7 +1159,7 @@ header('Content-type: text/html; charset=iso-8859-1');
 												g('reservacionPrecio').value					= objJSON.reservacionPrecio;
 												g('reservacionLocalizadorExterno').value		= objJSON.reservacionLocalizadorExterno;
 
-												if( objJSON.reservacionStatusCobro == 'Cancelada' ) {
+												if( objJSON.reservacionStatusCobro == 'CANCELADA' ) {
 
 													g('contenedor_gastos_cancelacion').className	= 'form-row';
 
@@ -1176,6 +1180,8 @@ header('Content-type: text/html; charset=iso-8859-1');
 
 												$('#btn_eliminar').show( );
 												$('#btn_nueva').show( );
+
+												$( '#modificarReservacion' ).slideDown();
 
 											}
 
@@ -1304,25 +1310,24 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('reservacionId').value				= objJSON.reservacionId;
-												g('reservacionLocalizador').innerHTML	= objJSON.reservacionLocalizador;
-												g('reservacionSaldo').innerHTML			= objJSON.reservacionSaldoVer;
-												g('reservacionProveedor').innerHTML 	= objJSON.proveedorAlias;
-												g('proveedorId').value					= objJSON.proveedorId;
-												g('clienteId').value					= objJSON.clienteId;
-												g('cliente').innerHTML					= objJSON.cliente;
-												g('reservacionServicio').innerHTML		= objJSON.reservacionServicioVer;
-												g('reservacionDestino').innerHTML		= objJSON.reservacionDestino;
-												g('reservacionHotel').innerHTML			= objJSON.reservacionHotel;
-												g('reservacionPlan').innerHTML			= objJSON.reservacionPlanVer;
-												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
-												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
-												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
-												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
-												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
-												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
-												g('reservacionStatusPago').innerHTML	= objJSON.reservacionStatusPago;
+												g('reservacionId').value						= objJSON.reservacionId;
+												g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
+												g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
+												g('proveedorId').value							= objJSON.proveedorId;
+												g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
+												g('clienteId').value							= objJSON.clienteId;
+												g('cliente').innerHTML							= objJSON.cliente;
+												g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
+												g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
+												g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
+												g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
+												g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
+												g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
+												g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
+												g('reservacionSaldoCobro').innerHTML			= objJSON.reservacionSaldoCobroVer;
+												g('reservacionAcumuladoCobro').innerHTML		= objJSON.reservacionAcumuladoCobroVer;
+												g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
+												g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
 
 												get_cobros( reservacionId );
 
@@ -1480,25 +1485,24 @@ header('Content-type: text/html; charset=iso-8859-1');
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('reservacionId').value				= objJSON.reservacionId;
-												g('proveedorId').value					= objJSON.proveedorId;
-												g('clienteId').value					= objJSON.clienteId;
-												g('reservacionLocalizador').innerHTML	= objJSON.reservacionLocalizador;
-												g('reservacionSaldo').innerHTML			= objJSON.reservacionSaldoProveedorVer;
-												g('reservacionProveedor').innerHTML 	= objJSON.proveedorAlias;
-												g('cliente').innerHTML					= objJSON.cliente;
-												g('reservacionServicio').innerHTML		= objJSON.reservacionServicioVer;
-												g('reservacionDestino').innerHTML		= objJSON.reservacionDestino;
-												g('reservacionHotel').innerHTML			= objJSON.reservacionHotel;
-												g('reservacionPlan').innerHTML			= objJSON.reservacionPlanVer;
-												g('reservacionCheckIn').innerHTML		= objJSON.reservacionCheckIn;
-												g('reservacionCheckOut').innerHTML		= objJSON.reservacionCheckOut;
-												g('reservacionHabitaciones').innerHTML	= objJSON.reservacionHabitaciones;
-												g('reservacionDetalle').innerHTML		= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML			= objJSON.reservacionCosteVer;
-												g('reservacionPrecio').innerHTML		= objJSON.reservacionPrecioVer;
-												g('reservacionStatusCobro').innerHTML	= objJSON.reservacionStatusCobro;
-												g('reservacionStatusPago').innerHTML	= objJSON.reservacionStatusPago;
+												g('reservacionId').value						= objJSON.reservacionId;
+												g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
+												g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
+												g('proveedorId').value							= objJSON.proveedorId;
+												g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
+												g('clienteId').value							= objJSON.clienteId;
+												g('cliente').innerHTML							= objJSON.cliente;
+												g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
+												g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
+												g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
+												g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
+												g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
+												g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
+												g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
+												g('reservacionSaldoPago').innerHTML				= objJSON.reservacionSaldoPagoVer;
+												g('reservacionAcumuladoPago').innerHTML			= objJSON.reservacionAcumuladoPagoVer;
+												g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
+												g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
 
 												get_pagos( reservacionId );
 												get_cuentas_proveedor( objJSON.proveedorId );
@@ -1705,3 +1709,19 @@ header('Content-type: text/html; charset=iso-8859-1');
 		</script>
 	</head>
 	<body class="d-flex flex-column h-100">
+		<div class="row d-none d-print-flex col-12">
+			<div class="col-sm">
+				<img class="mb-5" src="./images/logo.png" alt="" width="150">
+			</div>
+			<div class="col-sm text-right">
+				<strong>
+					TURISMO SALOMON
+				</strong>
+				<p>
+					SUCURSAL <?= $sucursal['sucursalNombre']; ?> <br>
+					<?= $sucursal['sucursalDomicilio']; ?> <br>
+					<?= $sucursal['sucursalTelefono']; ?> <br>
+					<?= $sucursal['sucursalEmail']; ?>
+				</p>
+			</div>
+		</div>

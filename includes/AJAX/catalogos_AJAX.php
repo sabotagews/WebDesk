@@ -760,6 +760,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '		<th scope="col" data-sort="string-ins">Fecha Aplicación</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Acumulado</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
 					$html .= '		<th scope="col" data-sort="int">Recibo</th>';
 					$html .= '	</tr>';
@@ -772,6 +773,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th>' . $v['cobroFechaAplicacion' ] . '</th>';
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
+						$html .= '	<td>$ ' . number_format( $v['acumulado'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
 						$html .= '	<td><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
 						$html .= '</tr>';
@@ -880,6 +882,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '		<th scope="col" data-sort="string-ins">Fecha Aplicación</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
+					$html .= '		<th scope="col" data-sort="string-ins">Acumulado</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
 					//$html .= '		<th scope="col" data-sort="int">Recibo</th>';
 					$html .= '	</tr>';
@@ -892,6 +895,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th>' . $v['pagoFechaAplicacion' ] . '</th>';
 						$html .= '	<th>' . PAGO_TIPOS[ $v['pagoTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['pagoMonto'], 2 ) . '</td>';
+						$html .= '	<td>$ ' . number_format( $v['acumulado'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
 						//$html .= '	<td><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
 						$html .= '</tr>';
