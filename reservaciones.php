@@ -241,6 +241,18 @@ require_once('./includes/admin/menu-admin.php');
                         <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
                     </div>
 				</div>
+
+				<div id="contenedor_gastos_cancelacion" class="d-none">
+                    <div class="col-md-2 mb-2 d-print-none">
+                        <label for="reservacionDestino">Cancelación Coste</label>
+                        <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="">
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="reservacionHotel">Cancelación Precio</label>
+                        <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="">
+                    </div>
+				</div>
+
 				<div class="row d-print-none">
 					<div class="col-md-6 mb-6">
 						<label for="reservacionStatusCobro">Status de Cobro</label>
