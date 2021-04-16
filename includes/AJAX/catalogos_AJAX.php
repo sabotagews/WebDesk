@@ -611,9 +611,13 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$aTmp = array( );
 						$r = new Reservacion( );
+						$p = new Pago( );
+						$c = new Cobro( );
 
 						$r->begin( );
 							$localizador = $r->set_reservacion( $_POST );
+							$p->actualiza_acumulados( $_POST['reservacionId'] );
+							$c->actualiza_acumulados( $_POST['reservacionId'] );
 							$r->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
 						$r->commit( );
 
@@ -724,7 +728,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$r->actualiza_acumulados( $_POST['reservacionId'] );
 							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
-							$res->verifica_status_cobro( );
+							$res->verifica_status_cobro( $_POST['reservacionId'] );
 
 						$r->commit( );
 						//$r->rollback( );
@@ -844,7 +848,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$r->actualiza_acumulados( $_POST['reservacionId'] );
 							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
-							$res->verifica_status_pago( );
+							$res->verifica_status_pago( $_POST['reservacionId'] );
 
 						$r->commit( );
 						//$r->rollback( );

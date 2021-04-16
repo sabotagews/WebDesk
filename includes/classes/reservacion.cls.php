@@ -64,10 +64,14 @@ class Reservacion extends SQL_MySQL
 													reservacionPrecio				,
 													reservacionUtilidad				,
 													reservacionLocalizadorExterno	,
+													reservacionPorPagar				,
+													reservacionPorCobrar			,
 													reservacionStatusCobro			,
 													reservacionStatusPago
 												)
 										VALUES	(
+													%s,
+													%s,
 													%s,
 													%s,
 													%s,
@@ -123,6 +127,8 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $data['reservacionPrecio']								),
 							$this->toDBFromUtf8( $data['reservacionPrecio'] - $data['reservacionCoste']	),
 							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']					),
+							$this->toDBFromUtf8( $data['reservacionCoste']								),
+							$this->toDBFromUtf8( $data['reservacionPrecio']								),
 							$this->toDBFromUtf8( $data['reservacionStatusCobro']						),
 							$this->toDBFromUtf8( $data['reservacionStatusPago']							)
 
@@ -204,13 +210,13 @@ class Reservacion extends SQL_MySQL
 			$rs = $this->ejecuta_query( $q, 'verifica_status_pago( )' );
 			$r = $this->get_row( $rs );
 
-			if( $r['reservacionPorPagar'] == $r['reservacionCoste'] ) {
+			if( ( float ) $r['reservacionPorPagar'] == ( float ) $r['reservacionCoste'] ) {
 
 				//Sin pagos, CONFIRMADA
 				$statusPago = 0;
 
 			} else
-			if( $r['reservacionPorPagar'] <= 0 ) {
+			if( ( float ) $r['reservacionPorPagar'] <= 0 ) {
 
 				//Sin adeudo o saldo a favor, PAGADA
 				$statusPago = 2;
@@ -255,13 +261,13 @@ class Reservacion extends SQL_MySQL
 			$rs = $this->ejecuta_query( $q, 'verifica_status_cobro( )' );
 			$r = $this->get_row( $rs );
 
-			if( $r['reservacionPorCobrar'] == $r['reservacionPrecio'] ) {
+			if( ( float ) $r['reservacionPorCobrar'] == ( float ) $r['reservacionPrecio'] ) {
 
 				//Sin cobros, COTIZACION
 				$statusCobro = 0;
 
 			} else
-			if( $r['reservacionPorPagar'] <= 0 ) {
+			if( ( float ) $r['reservacionPorCobrar'] <= 0 ) {
 
 				//Sin adeudo o saldo a favor, COBRADA
 				$statusCobro = 2;
@@ -281,7 +287,7 @@ class Reservacion extends SQL_MySQL
 
 								WHERE reservacionId = %s		",
 
-							$this->toDBFromUtf8( $statusPago	),
+							$this->toDBFromUtf8( $statusCobro	),
 							$this->toDBFromUtf8( $reservacionId	)
 
 						);

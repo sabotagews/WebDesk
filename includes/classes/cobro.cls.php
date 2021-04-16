@@ -108,7 +108,6 @@ class Cobro extends SQL_MySQL
 
 	}
 
-
 	public	function get_consecutivo( $reservacionId, $cobroId ) {
 
 		if( $reservacionId == 0 ) return 1;
@@ -274,6 +273,7 @@ class Cobro extends SQL_MySQL
 
 							ON DUPLICATE KEY UPDATE
 
+								usuarioId				= %s							 ,
 								cobroFechaAplicacion	= VALUES( cobroFechaAplicacion	),
 								cobroTipo				= VALUES( cobroTipo				),
 								cobroMonto				= VALUES( cobroMonto			),
@@ -295,7 +295,9 @@ class Cobro extends SQL_MySQL
 							'"' . $data['cobroDetalle']	. '"'							,
 							$this->toDBFromUtf8( $cobroAcumulado						),
 							$this->toDBFromUtf8( $saldoInicial							),
-							$this->toDBFromUtf8( $saldoFinal							)
+							$this->toDBFromUtf8( $saldoFinal							),
+
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	) //ON DUPLICATE KEY
 
 					);
 		$this->ejecuta_query( $q, 'set_cobro( )' );

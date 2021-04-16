@@ -111,6 +111,7 @@ class pago extends SQL_MySQL
 
 							ON DUPLICATE KEY UPDATE
 
+								usuarioId			= %s							 ,
 								cuentaId			= VALUES( cuentaId				),
 								proveedorCuentaId	= VALUES( proveedorCuentaId 	),
 								pagoFechaAplicacion	= VALUES( pagoFechaAplicacion	),
@@ -134,7 +135,9 @@ class pago extends SQL_MySQL
 							'"' . $data['pagoDetalle']	. '"'							,
 							$this->toDBFromUtf8( $pagoAcumulado							),
 							$this->toDBFromUtf8( $saldoInicial							),
-							$this->toDBFromUtf8( $saldoFinal							)
+							$this->toDBFromUtf8( $saldoFinal							),
+
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	) //ON DUPLICATE KEY
 
 					);
 		//echo '<pre>';print_r( $q );echo '</pre>';die;
@@ -148,12 +151,6 @@ class pago extends SQL_MySQL
 		return $pagoId;
 
 	}
-
-
-
-
-
-
 
 	public	function get_pagos( $reservacionId ) {
 
@@ -205,8 +202,6 @@ class pago extends SQL_MySQL
 		return $this->get_row( $rs );
 
 	}
-
-
 
 	public	function set_saldos( $reservacionId ) {
 
@@ -267,8 +262,6 @@ class pago extends SQL_MySQL
 			$this->ejecuta_query( $q, 'set_saldos( reservaciones )' );
 
 	}
-
-
 
 	public	function set_pago_archivo( $pagoId, $archivo ) {
 
