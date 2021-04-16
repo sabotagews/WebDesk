@@ -62,3 +62,29 @@ input::-webkit-inner-spin-button.no-spinner {
 input[type=number].no-spinner {
 	-moz-appearance: textfield;
 }
+.ui-datepicker {
+	box-shadow: 0 2px 5px rgba(0,0,0,.25);
+}
+.ui-datepicker .ui-state-default {
+	text-align: center;
+	border-radius: 3px;
+}
+.ui-datepicker .ui-state-active {
+	font-weight: bold;
+}
+.ui-datepicker .ui-icon {
+	background-image: url("images/ui-icons_WebDesk_256x240.png");
+}
+.ui-datepicker .ui-icon-circle-triangle-w {
+	background-position: -96px 0;
+}
+.ui-datepicker .ui-icon-circle-triangle-e {
+	background-position: -32px 0;
+}
+.ui-autocomplete {
+	box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	border-radius: 3px;
+}
+.ui-autocomplete .ui-menu-item {
+	border-bottom: 1px dotted #eaeaea;
+}
