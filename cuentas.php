@@ -27,7 +27,7 @@ window.onload = function( ) { get_cuentas( ); }
         <div class="col-md-8 order-md-1">
 
 			<div id="contenedor_cuentas">
-	            <h4 class="mb-3 mt-5">Cuentas Bancarias del Proveedor</h4>
+	            <h4 class="mb-3 mt-5">Cuentas Bancarias de Turismo Salomón</h4>
 				<form class="needs-validation" novalidate="" id="form_cuentas" name="form_cuentas">
 					<input type="hidden" name="cuentaId" value="0" />
 	                <hr class="mb-4">

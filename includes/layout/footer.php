@@ -102,30 +102,32 @@
             })();
             $(document).ready(function() {
                 $(function() {
-                    var table = $("table").stupidtable({
-                        "date": function(a, b) {
-                            // Get these into date objects for comparison.
-                            aDate = date_from_string(a);
-                            bDate = date_from_string(b);
-                            return aDate - bDate;
-                        }
-                    });
-                    table.on("beforetablesort", function(event, data) {
-                        // Apply a "disabled" look to the table while sorting.
-                        // Using addClass for "testing" as it takes slightly longer to render.
-                        $("#msg").text("Sorting...");
-                        $("table").addClass("disabled");
-                    });
-                    table.on("aftertablesort", function(event, data) {
-                        // Reset loading message.
-                        $("#msg").html("&nbsp;");
-                        $("table").removeClass("disabled");
-                        var th = $(this).find("th");
-                        th.find(".arrow").remove();
-                        var dir = $.fn.stupidtable.dir;
-                        var arrow = data.direction === dir.ASC ? " &and;" : " &or;";
-                        th.eq(data.column).append('<span class="arrow" style="font-size: 1.15em;">' + arrow + '</span>');
-                    });
+					var table = $("table").stupidtable({
+						"date": function(a,b) {
+			            	// Get these into date objects for comparison.
+							aDate = date_from_string(a);
+			    			bDate = date_from_string(b);
+							return aDate - bDate;
+						}
+			        });
+
+		        	table.on("beforetablesort", function (event, data) {
+						// Apply a "disabled" look to the table while sorting.
+						// Using addClass for "testing" as it takes slightly longer to render.
+						$("#msg").text("Sorting...");
+						$("table").addClass("disabled");
+					});
+					table.on("aftertablesort", function (event, data) {
+						// Reset loading message.
+						$("#msg").html("&nbsp;");
+						$("table").removeClass("disabled");
+						var th = $(this).find("th");
+						th.find(".arrow").remove();
+						var dir = $.fn.stupidtable.dir;
+		 				var arrow = data.direction === dir.ASC ? " &and;" : " &or;";
+						th.eq(data.column).append('<span class="arrow" style="font-size: 1.15em;">' + arrow +'</span>');
+					} );
+
 					tinymce.init({
 					    selector: 'textarea',
 						force_br_newlines : true,

@@ -757,12 +757,12 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$html .= '<thead class="thead-dark">';
 					$html .= '	<tr>';
 					$html .= '		<th scope="col" data-sort="int" data-sort-onload="yes">Consecutivo</th>';
-					$html .= '		<th scope="col" data-sort="string-ins">Fecha Aplicación</th>';
+					$html .= '		<th scope="col" data-sort="int">Fecha Aplicación</th>';
 					$html .= '		<th scope="col" data-sort="string-ins">Tipo</th>';
-					$html .= '		<th scope="col" data-sort="string-ins">Monto</th>';
-					$html .= '		<th scope="col" data-sort="string-ins">Acumulado</th>';
+					$html .= '		<th scope="col" data-sort="int">Monto</th>';
+					$html .= '		<th scope="col" data-sort="int">Acumulado</th>';
 					$html .= '		<th scope="col" data-sort="int">Saldo</th>';
-					$html .= '		<th scope="col" data-sort="int">Recibo</th>';
+					$html .= '		<th class="d-print-none" scope="col" data-sort="int">Recibo</th>';
 					$html .= '	</tr>';
 					$html .= '</thead>';
 
@@ -772,10 +772,10 @@ switch( strtolower( $_POST['_data1'] ) ) {
 						$html .= '	<th scope="row">' . antepon_ceros( $v['cobroConsecutivo'], 2 ) . '</th>';
 						$html .= '	<th>' . $v['cobroFechaAplicacion' ] . '</th>';
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
-						$html .= '	<td>$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
-						$html .= '	<td>$ ' . number_format( $v['acumulado'], 2 ) . '</td>';
-						$html .= '	<td>$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
-						$html .= '	<td><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
+						$html .= '	<td data-sort-value="' . $v['cobroMonto'] . '">$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
+						$html .= '	<td data-sort-value="' . $v['acumulado'] . '">$ ' . number_format( $v['acumulado'], 2 ) . '</td>';
+						$html .= '	<td data-sort-value="' . $v['saldoFinal'] . '">$ ' . number_format($v['saldoFinal'], 2 ) . '</td>';
+						$html .= '	<td class="d-print-none"><a href="#" onclick="javascript: ir_a( \'./recibo.php\', \'_blank\', true, \'' . $_POST['reservacionId'] . '\', \'' . $k . '\' , null );">Recibo</a></td>';
 						$html .= '</tr>';
 
 					}
