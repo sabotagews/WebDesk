@@ -34,8 +34,10 @@ class Cliente extends SQL_MySQL
 		while( $r = $this->get_row( $rs ) ) {
 
 			$aTmp[ $r['clienteId'] ] = $r;
+			$aTmp[ $r['clienteId'] ][ $r['clienteFechaNacimiento'] ] = toHTML( $r['clienteFechaNacimiento'], 'date_num', true );
 
 		}
+
 
 		return $aTmp;
 

@@ -68,13 +68,17 @@ require_once('./includes/admin/menu-admin.php');
 
 </script>
 <main class="container" role="main">
-    <div class="py-5 text-center">
-        <h2>Clientes</h2>
-        <p class="lead">Cat&aacute;logo hist&oacute;rico con los datos de los pasajeros que han sido registrados ya sea por cotizaci&oacute;n o reservaci&oacute;n efectiva, permitir&aacute; dar seguimiento efectivo, prospecci&oacute;n a futuro y contacto v&iacute;a <strong>Tel&eacute;fono, Email y WhatsApp.</strong></p>
-    </div>
     <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Buscar cliente" aria-label="Buscar">
-        <button class="btn btn-primary my-2 my-sm-0 loupe" type="submit">Buscar</button>
+		<div class="col-4 input-group mb-3 w-25">
+			<input class="form-control" id="search" type="search" placeholder="Buscar cliente" aria-label="Buscar">
+			<div class="input-group-append">
+				<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
+			</div>
+		</div>
+		<div class="col py-5 text-right">
+			<h2>Clientes</h2>
+			<span class="text-black-50"><small>Cat&aacute;logo hist&oacute;rico con los datos de los pasajeros que han sido registrados ya sea por cotizaci&oacute;n o reservaci&oacute;n efectiva, permitir&aacute; dar seguimiento efectivo, prospecci&oacute;n a futuro y contacto v&iacute;a <strong>Tel&eacute;fono, Email y WhatsApp.</strong></small></span>
+		</div>
     </form>
     <hr class="mb-4">
     <div class="row">
@@ -123,18 +127,18 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="clienteFechaNacimiento">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" id="clienteFechaNacimiento">
+                        <input type="text" class="form-control hasDatePicker" id="clienteFechaNacimiento">
                     </div>
                 </div>
                 <hr class="mb-4">
-                <div class="form-row">
+                <div class="form-row justify-content-end">
                     <div class="col-2">
                         <button style="display: none" id="contenedor_eliminiar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_cliente( );">Eliminar</button>
                     </div>
                     <div class="col-2">
-                        <button style="display: none" id="contenedor_nuevo"	 class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_cliente( );">Nuevo</button>
+                        <button style="display: none" id="contenedor_nuevo"	 class="btn btn-success btn-lg btn-block" type="button" onclick="limpia_cliente( );">Nuevo</button>
                     </div>
-                    <div class="col-8">
+                    <div class="col-3">
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
                     </div>
                 </div>
