@@ -724,6 +724,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$r->actualiza_acumulados( $_POST['reservacionId'] );
 							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
+							$res->verifica_status_cobro( );
 
 						$r->commit( );
 						//$r->rollback( );
@@ -843,6 +844,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$r->actualiza_acumulados( $_POST['reservacionId'] );
 							$res->actualiza_saldos( $_POST['clienteId'], $_POST['proveedorId'], $_POST['reservacionId'] );
+							$res->verifica_status_pago( );
 
 						$r->commit( );
 						//$r->rollback( );
@@ -862,9 +864,6 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
-
-
-
 	case 'pagos->get'					:
 
 					$r		= new Pago( );
@@ -939,6 +938,8 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 	/*Autocomplete*/
 	case 'reservacion->search'			:
+
+					$_POST['search'] = isset( $_POST['reservacionSearch'] ) ? $_POST['reservacionSearch'] : $_POST['search'];
 
 					$r			= new Reporte( );
 					$resultado	= $r->reservaciones_search( $_POST['search'] );

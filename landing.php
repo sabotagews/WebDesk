@@ -1,6 +1,7 @@
 <?php
-session_start();
+session_start( );
 require_once( 'definitions.php' );
+
 if( isset( $_POST['inputEmail'] ) ) {
 
 	require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'mysql.cls.php' );
@@ -14,8 +15,10 @@ if( isset( $_POST['inputEmail'] ) ) {
 	}
 
 }
+
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');
+
 ?>
 <main class="container" role="main">
 	<div class="mt-5 mx-auto" style="width: 300px;">

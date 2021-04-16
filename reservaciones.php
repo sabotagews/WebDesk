@@ -70,6 +70,59 @@ require_once('./includes/admin/menu-admin.php');
 
 		);
 
+		$("#searchReservacion").autocomplete(
+									{
+
+										minLength	: 2 	,
+										delay		: 500	,
+										source		: function( request, response ) {
+
+														$.ajax(
+
+																{
+																	url 		: AJAX_catalogos_url,
+																	type		: 'POST'			,
+																	dataType	: 'json'			,
+																	data		:	{
+																						_data1	: 'reservacion->search',
+																						search	: request.term
+																					}				,
+																	success		: function( data ) {
+
+																					response( $.map( data, function( item ) {
+
+																											return	{
+
+																														label	: item.busquedaResultado,
+																														value	: item.reservacionId
+
+																													}
+
+																										}
+
+																									)
+																							)
+
+																					}
+
+																}
+
+															)
+
+													}	,
+										select		: function( event, ui ) {
+
+														event.preventDefault( );
+
+														g( event.target.id ).blur( );
+														g( event.target.id ).value = '';
+														get_reservacion( ui.item.value );
+
+													}
+									}
+
+		);
+
 	}
 	function set_cliente( id ) {
 
@@ -84,6 +137,12 @@ require_once('./includes/admin/menu-admin.php');
 	}
 </script>
 <main class="container" role="main">
+
+	<div class="py-5 text-center d-print-none">
+		<label for="search">Reservación</label>
+		<input class="form-control mr-sm-2" type="search" id="searchReservacion" placeholder="Buscar reservación" aria-label="Buscar" required="">
+    </div>
+
     <div class="py-5 text-center d-print-none">
         <h2>Reservaciones</h2>
         <p class="lead">Formulario para carga de una cotizaci&oacute;n o reservaci&oacute;n.</p>

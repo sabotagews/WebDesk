@@ -106,8 +106,8 @@ class pago extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO pagos
 
-									  ( pagoId , reservacionId	, cuentaId	, proveedorCuentaId	, pagoConsecutivo	, pagoFecha, pagoFechaAplicacion	, pagoTipo	, pagoMonto, pagoDetalle	, acumulado	, saldoInicial	, saldoFinal	)
-								VALUES( %s		, %s			, %s		, %s				, %s				, %s		, %s					, %s		, %s		, %s			, %s		, %s			, %s			)
+									  ( usuarioId	, pagoId , reservacionId	, cuentaId	, proveedorCuentaId	, pagoConsecutivo	, pagoFecha, pagoFechaAplicacion	, pagoTipo	, pagoMonto, pagoDetalle	, acumulado	, saldoInicial	, saldoFinal	)
+								VALUES( %s			, %s		, %s			, %s		, %s				, %s				, %s		, %s					, %s		, %s		, %s			, %s		, %s			, %s			)
 
 							ON DUPLICATE KEY UPDATE
 
@@ -121,19 +121,20 @@ class pago extends SQL_MySQL
 								saldoInicial		= VALUES( saldoInicial			),
 								saldoFinal			= VALUES( saldoFinal			)	",
 
-							$this->toDBFromUtf8( $data['pagoId']				),
-							$this->toDBFromUtf8( $data['reservacionId']			),
-							$this->toDBFromUtf8( $data['cuentaId']				),
-							$this->toDBFromUtf8( $data['proveedorCuentaId']		),
-							$this->toDBFromUtf8( $pagoConsecutivo + 1			),
-							$this->get_sysTimeStamp( )							 ,
-							$this->toDBFromUtf8( $data['pagoFechaAplicacion']	),
-							$this->toDBFromUtf8( $data['pagoTipo']				),
-							$this->toDBFromUtf8( $data['pagoMonto']				),
-							'"' . $data['pagoDetalle']	. '"'					,
-							$this->toDBFromUtf8( $pagoAcumulado					),
-							$this->toDBFromUtf8( $saldoInicial					),
-							$this->toDBFromUtf8( $saldoFinal					)
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	),
+							$this->toDBFromUtf8( $data['pagoId']						),
+							$this->toDBFromUtf8( $data['reservacionId']					),
+							$this->toDBFromUtf8( $data['cuentaId']						),
+							$this->toDBFromUtf8( $data['proveedorCuentaId']				),
+							$this->toDBFromUtf8( $pagoConsecutivo + 1					),
+							$this->get_sysTimeStamp( )									 ,
+							$this->toDBFromUtf8( $data['pagoFechaAplicacion']			),
+							$this->toDBFromUtf8( $data['pagoTipo']						),
+							$this->toDBFromUtf8( $data['pagoMonto']						),
+							'"' . $data['pagoDetalle']	. '"'							,
+							$this->toDBFromUtf8( $pagoAcumulado							),
+							$this->toDBFromUtf8( $saldoInicial							),
+							$this->toDBFromUtf8( $saldoFinal							)
 
 					);
 		//echo '<pre>';print_r( $q );echo '</pre>';die;

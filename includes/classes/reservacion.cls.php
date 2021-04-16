@@ -49,6 +49,7 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" INSERT INTO reservaciones(
 													reservacionId					,
+													usuarioId						,
 													proveedorId						,
 													clienteId						,
 													reservacionServicio				,
@@ -62,11 +63,12 @@ class Reservacion extends SQL_MySQL
 													reservacionCoste				,
 													reservacionPrecio				,
 													reservacionUtilidad				,
-													reservacionLocalizadorExterno,
-													reservacionStatusCobro,
+													reservacionLocalizadorExterno	,
+													reservacionStatusCobro			,
 													reservacionStatusPago
 												)
 										VALUES	(
+													%s,
 													%s,
 													%s,
 													%s,
@@ -106,6 +108,7 @@ class Reservacion extends SQL_MySQL
 								reservacionStatusPago			= VALUES( reservacionStatusPago								)	",
 
 							$this->toDBFromUtf8( $data['reservacionId']									),
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']					),
 							$this->toDBFromUtf8( $data['proveedorId']									),
 							$this->toDBFromUtf8( $data['clienteId']										),
 							$this->toDBFromUtf8( $data['reservacionServicio']							),
@@ -181,6 +184,109 @@ class Reservacion extends SQL_MySQL
 
 		$q = sprintf(" DELETE FROM reservaciones WHERE reservacionId = %s ", $this->toDBFromUtf8( $reservacionId ) );
 		$this->ejecuta_query( $q, 'delete_reservacion( )' );
+
+	}
+
+	public	function verifica_status_pago( $reservacionId ) {
+
+			$q  = sprintf(" SELECT
+
+									reservacionCoste	,
+									reservacionPorPagar
+
+								FROM reservaciones
+
+								WHERE reservacionId = %s ",
+
+							$this->toDBFromUtf8( $reservacionId )
+
+						);
+			$rs = $this->ejecuta_query( $q, 'verifica_status_pago( )' );
+			$r = $this->get_row( $rs );
+
+			if( $r['reservacionPorPagar'] == $r['reservacionCoste'] ) {
+
+				//Sin pagos, CONFIRMADA
+				$statusPago = 0;
+
+			} else
+			if( $r['reservacionPorPagar'] <= 0 ) {
+
+				//Sin adeudo o saldo a favor, PAGADA
+				$statusPago = 2;
+
+			} else {
+
+				//Pago parcial, CON PAGO
+				$statusPago = 1;
+
+			}
+
+			$q = sprintf(" UPDATE
+
+									reservaciones
+
+								SET reservacionStatusPago = %s
+
+								WHERE reservacionId = %s		",
+
+							$this->toDBFromUtf8( $statusPago	),
+							$this->toDBFromUtf8( $reservacionId	)
+
+						);
+			$rs = $this->ejecuta_query( $q, 'verifica_status_pago( UPDATE reservaciones )' );
+
+	}
+
+	public	function verifica_status_cobro( $reservacionId ) {
+
+			$q  = sprintf(" SELECT
+
+									reservacionPrecio	,
+									reservacionPorCobrar
+
+								FROM reservaciones
+
+								WHERE reservacionId = %s ",
+
+							$this->toDBFromUtf8( $reservacionId )
+
+						);
+			$rs = $this->ejecuta_query( $q, 'verifica_status_cobro( )' );
+			$r = $this->get_row( $rs );
+
+			if( $r['reservacionPorCobrar'] == $r['reservacionPrecio'] ) {
+
+				//Sin cobros, COTIZACION
+				$statusCobro = 0;
+
+			} else
+			if( $r['reservacionPorPagar'] <= 0 ) {
+
+				//Sin adeudo o saldo a favor, COBRADA
+				$statusCobro = 2;
+
+			} else {
+
+				//Cobro parcial, CON ANTICIPO
+				$statusCobro = 1;
+
+			}
+
+			$q = sprintf(" UPDATE
+
+									reservaciones
+
+								SET reservacionStatusCobro = %s
+
+								WHERE reservacionId = %s		",
+
+							$this->toDBFromUtf8( $statusPago	),
+							$this->toDBFromUtf8( $reservacionId	)
+
+						);
+			$rs = $this->ejecuta_query( $q, 'verifica_status_cobro( UPDATE reservaciones )' );
+
 
 	}
 
