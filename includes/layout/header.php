@@ -9,9 +9,13 @@ require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes' . S . 'cliente.cls.php
 
 header('Content-type: text/html; charset=iso-8859-1');
 
-$r			= new Sucursal( );
-$sucursal	= $r->get_sucursal( $_SESSION['currentUser']['sucursalId'] );
-$sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
+if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
+
+	$r			= new Sucursal( );
+	$sucursal	= $r->get_sucursal( $_SESSION['currentUser']['sucursalId'] );
+	$sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
+
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -1161,17 +1165,25 @@ $sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 
 												if( objJSON.reservacionStatusCobro == 'CANCELADA' ) {
 
-													g('contenedor_gastos_cancelacion').className	= 'form-row';
-
-													g('reservacionGastosCancelacionCoste').setAttribute( 'required', '' );
+													g('contenedor_gastos_cancelacion_precio').className	= 'col col-md-2 mb-2';
 													g('reservacionGastosCancelacionPrecio').setAttribute( 'required', '' );
 
 												} else {
 
-													g('contenedor_gastos_cancelacion').className	= 'd-none';
-
-													g('reservacionGastosCancelacionCoste').removeAttribute( 'required' );
+													g('contenedor_gastos_cancelacion_precio').className	= 'd-none';
 													g('reservacionGastosCancelacionPrecio').removeAttribute( 'required' );
+
+												}
+
+												if( objJSON.reservacionStatusPago == 'CANCELADA' ) {
+
+													g('contenedor_gastos_cancelacion_coste').className	= 'col col-md-2 mb-2 d-print-none';
+													g('reservacionGastosCancelacionCoste').setAttribute( 'required', '' );
+
+												} else {
+
+													g('contenedor_gastos_cancelacion_coste').className	= 'd-none';
+													g('reservacionGastosCancelacionCoste').removeAttribute( 'required' );
 
 												}
 
@@ -1227,6 +1239,46 @@ $sucursal	= $sucursal[ $_SESSION['currentUser']['sucursalId'] ];
 							}
 
 						);
+
+			}
+			function verifica_status_reservacion( tipo ) {
+
+				switch( tipo.toLowerCase( ) ) {
+
+					case 'coste'	:
+
+						var obj = g('contenedor_gastos_cancelacion_coste');
+
+						if( $('input[name=reservacionStatusPago]:checked').val( ) == '5' ) {
+
+							obj.className = 'col col-md-2 mb-2 d-print-none';
+
+						} else {
+
+							obj.className = 'd-none';
+
+						}
+
+							break;
+
+					case 'precio'	:
+
+						var obj = g('contenedor_gastos_cancelacion_precio');
+
+						if( $('input[name=reservacionStatusCobro]:checked').val( ) == '5' ) {
+
+							obj.className = 'col col-md-2 mb-2';
+
+						} else {
+
+							obj.className = 'd-none';
+
+						}
+
+							break;
+
+
+				}
 
 			}
 			/*Reservaciones*/

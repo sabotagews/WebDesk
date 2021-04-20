@@ -241,13 +241,12 @@ require_once('./includes/admin/menu-admin.php');
                     </div>
 				</div>
 
-				<div id="contenedor_gastos_cancelacion" class="d-none">
-                    <div class="col col-md-2 mb-2 d-print-none">
-                        <label for="reservacionDestino">Cancelación Coste</label>
+                    <div id="contenedor_gastos_cancelacion_coste" class="col col-md-2 mb-2 d-print-none">
+                        <label for="reservacionGastosCancelacionCoste">Cancelación Coste</label>
                         <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="">
                     </div>
-                    <div class="col col-md-2 mb-2">
-                        <label for="reservacionHotel">Cancelación Precio</label>
+                    <div id="contenedor_gastos_cancelacion_precio" class="col col-md-2 mb-2">
+                        <label for="reservacionGastosCancelacionPrecio">Cancelación Precio</label>
                         <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="">
                     </div>
 				</div>
@@ -261,7 +260,7 @@ require_once('./includes/admin/menu-admin.php');
 							<? foreach( RESERVACION_STATUS_COBRO as $k => $v ) { ?>
 
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="reservacionStatusCobro" id="reservacionStatusCobro<?= $i; ?>" value="<?= $k; ?>" required>
+									<input class="form-check-input" type="radio" onchange="verifica_status_reservacion( 'precio' );" name="reservacionStatusCobro" id="reservacionStatusCobro<?= $i; ?>" value="<?= $k; ?>" required>
 									<label class="form-check-label" for="reservacionStatusCobro<?= $i++; ?>"><?= $v; ?></label>
 								</div>
 
@@ -277,7 +276,7 @@ require_once('./includes/admin/menu-admin.php');
 							<? foreach( RESERVACION_STATUS_PAGO as $k => $v ) { ?>
 
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="reservacionStatusPago" id="reservacionStatusPago<?= $i; ?>" value="<?= $k; ?>" required>
+									<input class="form-check-input" type="radio" onchange="verifica_status_reservacion( 'coste');" name="reservacionStatusPago" id="reservacionStatusPago<?= $i; ?>" value="<?= $k; ?>" required>
 									<label class="form-check-label" for="reservacionStatusPago<?= $i++; ?>"><?= $v; ?></label>
 								</div>
 
@@ -288,12 +287,6 @@ require_once('./includes/admin/menu-admin.php');
 				</div>
                 <hr class="mb-4">
                 <div class="form-row justify-content-end d-print-none">
-	                <!-- <div class="col-2">
-						<button style="display: none" id="btn_nueva" class="btn btn-secondary btn-lg btn-block" type="button" onclick="limpia_reservacion( );">Nueva</button>
-	                </div>
-	                <div class="col-2 offset-6">
-						<button style="display: none" id="btn_eliminar" class="btn btn-danger btn-lg btn-block" type="button" onclick="delete_reservacion( );">Eliminar</button>
-	                </div> -->
 					<div class="col-2">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
 					</div>
