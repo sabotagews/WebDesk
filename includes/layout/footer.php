@@ -139,6 +139,7 @@
 					});
                 });
 				$.datepicker.setDefaults({
+				  yearRange: "1920:2030",
 				  changeMonth: true,
 				  changeYear: true,
 				  numberOfMonths: 2,
