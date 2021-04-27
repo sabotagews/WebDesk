@@ -163,15 +163,31 @@ function toHTML( $v, $t = '', $ajax = false ) {
 						break;
 
 		case 'date_num'								:
+		case 'datetime'								:
 
-							//$v = implode( SEPARADOR_FECHA, array_reverse( explode( SEPARADOR_FECHA, $v ) ) );
-							//$v = implode( SEPARADOR_FECHA, array_reverse( explode( SEPARADOR_FECHA, $v ) ) );
+							if( strtolower( $t ) == 'datetime' ) {
+
+								$time = explode( ' ', $v );
+
+								$v = $time[ 0 ];
+
+							}
+
+							$v = explode( SEPARADOR_FECHA_DB, $v );
+							$v = implode( SEPARADOR_FECHA_CALENDARIO, array_reverse( $v ) );
+
+							if( strtolower( $t ) == 'datetime' ) {
+
+								$v .= ' ' . $time[ 1 ];
+
+							}
+
+							return $v;
 
 						break;
+
 		case 'date'									:
 		case 'datecompleto'							:
-		case 'datemesdia'							:
-		case 'date_paquete_salida'					:
 
 							$v = explode( SEPARADOR_FECHA, $v );
 
@@ -208,7 +224,6 @@ function toHTML( $v, $t = '', $ajax = false ) {
 
 						break;
 
-		case 'datetime'								:
 		case 'datetimecompleto'						:
 
 							$time = explode( ' ', $v );
@@ -336,7 +351,7 @@ function toHTML( $v, $t = '', $ajax = false ) {
 						break;
 
 		case 'tarifa_neta_mnr_input'				:
-		case 'tarifa_neta_jr_input'				:
+		case 'tarifa_neta_jr_input'					:
 		case 'tarifa_publica_mnr_input'				:
 		case 'tarifa_publica_jr_input'				:
 
@@ -354,7 +369,7 @@ function toHTML( $v, $t = '', $ajax = false ) {
 
 						break;
 
-		case 'tarifa_neta_mnr_sc'				:
+		case 'tarifa_neta_mnr_sc'					:
 		case 'tarifa_publica_mnr_sc'				:
 
 									if( $v['edad_menor_sin_cargo'] != '' ) {
@@ -366,7 +381,7 @@ function toHTML( $v, $t = '', $ajax = false ) {
 						break;
 
 		case 'tarifa_neta_mnr_sin_descuento'		:
-		case 'tarifa_neta_jr_sin_descuento'		:
+		case 'tarifa_neta_jr_sin_descuento'			:
 		case 'tarifa_publica_mnr_sin_descuento'		:
 		case 'tarifa_publica_jr_sin_descuento'		:
 
@@ -390,8 +405,8 @@ function toHTML( $v, $t = '', $ajax = false ) {
 						break;
 
 
-		case 'tarifa_neta_mnr'					:
-		case 'tarifa_neta_jr'					:
+		case 'tarifa_neta_mnr'						:
+		case 'tarifa_neta_jr'						:
 		case 'tarifa_publica_mnr'					:
 		case 'tarifa_publica_jr'					:
 

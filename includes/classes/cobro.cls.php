@@ -42,6 +42,9 @@ class Cobro extends SQL_MySQL
 		$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
 		$r = $this->get_row( $rs );
 
+		$r['reservacionCheckIn']			= toHTML( $r['reservacionCheckIn']	, 'date_num' );
+		$r['reservacionCheckOut']			= toHTML( $r['reservacionCheckOut']	, 'date_num' );
+
 		$r['reservacionSaldoCobro']			= $r['reservacionSaldoCobro']	== '' ? $r['reservacionPrecio']	: $r['reservacionSaldoCobro'];
 		$r['reservacionSaldoPago']			= $r['reservacionSaldoPago']	== '' ? $r['reservacionCoste']	: $r['reservacionSaldoPago'];
 		$r['reservacionServicioVer']		= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];

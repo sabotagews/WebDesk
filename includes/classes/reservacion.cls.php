@@ -33,6 +33,9 @@ class Reservacion extends SQL_MySQL
 
 			$aTmp[ $r['reservacionId'] ] = $r;
 
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckIn']		= toHTML( $r['reservacionCheckIn']	, 'date_num' );
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckOut']		= toHTML( $r['reservacionCheckOut']	, 'date_num' );
+
 			$aTmp[ $r['reservacionId'] ]['reservacionServicioVer']	= toHTML( RESERVACION_SERVICIOS[ $r['reservacionServicio'] ], ''		, true );
 			$aTmp[ $r['reservacionId'] ]['reservacionStatusCobro']	= toHTML( RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ]		, ''		, true );
 			$aTmp[ $r['reservacionId'] ]['reservacionStatusPago']	= toHTML( RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ]		, ''		, true );

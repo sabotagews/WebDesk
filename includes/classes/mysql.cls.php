@@ -5,7 +5,10 @@ define('R'							, chr( 13 ) );
 define('RJS'						, chr( 10 ) );
 
 if( !defined( 'SEPARADOR_FECHA' ) )
-define('SEPARADOR_FECHA', '/');
+define('SEPARADOR_FECHA'			, '/');
+
+define('SEPARADOR_FECHA_DB'			, '-');
+define('SEPARADOR_FECHA_CALENDARIO'	, '/' );
 
 define('DELAY_XHR'					, 1 ); //Segundos
 define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres

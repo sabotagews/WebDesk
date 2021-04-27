@@ -770,7 +770,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$html .= '<tr onclick="get_cobro( \'' . $k . '\' );" style="cursor: pointer;">';
 						$html .= '	<th scope="row">' . antepon_ceros( $v['cobroConsecutivo'], 2 ) . '</th>';
-						$html .= '	<th>' . $v['cobroFechaAplicacion' ] . '</th>';
+						$html .= '	<th>' . toHTML( $v['cobroFechaAplicacion' ], 'date_num' ) . '</th>';
 						$html .= '	<th>' . COBRO_TIPOS[ $v['cobroTipo'] ] . '</th>';
 						$html .= '	<td data-sort-value="' . $v['cobroMonto'] . '">$ ' . number_format( $v['cobroMonto'], 2 ) . '</td>';
 						$html .= '	<td data-sort-value="' . $v['acumulado'] . '">$ ' . number_format( $v['acumulado'], 2 ) . '</td>';
@@ -892,7 +892,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 						$html .= '<tr onclick="get_pago( \'' . $k . '\' );" style="cursor: pointer;">';
 						$html .= '	<th scope="row">' . antepon_ceros( $v['pagoConsecutivo'], 2 ) . '</th>';
-						$html .= '	<th>' . $v['pagoFechaAplicacion' ] . '</th>';
+						$html .= '	<th>' . toHTML( $v['pagoFechaAplicacion' ], 'date_num' ) . '</th>';
 						$html .= '	<th>' . PAGO_TIPOS[ $v['pagoTipo'] ] . '</th>';
 						$html .= '	<td>$ ' . number_format( $v['pagoMonto'], 2 ) . '</td>';
 						$html .= '	<td>$ ' . number_format( $v['acumulado'], 2 ) . '</td>';

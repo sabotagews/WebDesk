@@ -200,7 +200,11 @@ class pago extends SQL_MySQL
 						);
 		$rs = $this->ejecuta_query( $q, 'get_pago( )' );
 
-		return $this->get_row( $rs );
+		$aTmp = $this->get_row( $rs );
+		$aTmp['pagoFechaAplicacion'] = toHTML( $aTmp['pagoFechaAplicacion'], 'date_num' );
+
+
+		return $aTmp;
 
 	}
 

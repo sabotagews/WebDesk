@@ -49,7 +49,7 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 		</div>
 		<div class="col-6 text-right">
 			<span class="text-muted">Fecha del Pago</span>
-			<h4 class="mt-2"><?= $cobro['cobroFecha']; ?></h4>
+			<h4 class="mt-2"><?= toHTML( $cobro['cobroFecha'], 'datetime' ); ?></h4>
 		</div>
 	</div>
 
