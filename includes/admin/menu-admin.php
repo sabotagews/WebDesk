@@ -19,20 +19,22 @@
 				</div>
 				<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>pagos.php">Pagos</a>
 				<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>cobros.php">Cobros</a>
-				<? if( $_SESSION['currentUser']['usuarioRol'] == 'A' ) { ?>
+
 				<div class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle bg-transparent" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Administrar
 					</a>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>clientes.php">Clientes</a>
+					<? if( $_SESSION['currentUser']['usuarioRol'] == 'A' ) { ?>
 						<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>usuarios.php">Usuarios</a>
 						<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>sucursales.php">Sucursales</a>
 						<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>proveedores.php">Proveedores</a>
 						<a class="dropdown-item" href="<?= $_SESSION['PATH_HOME']; ?>cuentas.php">Cuentas</a>
+					<? } ?>
 					</div>
 				</div>
-				<? } ?>
+
 				<a class="nav-link" href="<?= $_SESSION['PATH_HOME']; ?>">Salir</a>
 			</div>
 		</div>
