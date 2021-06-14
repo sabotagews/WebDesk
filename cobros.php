@@ -8,6 +8,7 @@ require_once('./includes/classes/cuenta.cls.php');
 
 $_C				= new cuenta( );
 $cuentas	= $_C->get_cuenta( );
+
 ?>
 <script>
 function inicializa( ) {
@@ -64,12 +65,12 @@ function inicializa( ) {
 
 	);
 
-//get_reservacion_cobro( 6 );
-
 }
 window.onload = function( ) {
 	inicializa( );
 }
+
+//get_reservacion_cobro( 6 );
 
 </script>
 <main class="container" role="main">

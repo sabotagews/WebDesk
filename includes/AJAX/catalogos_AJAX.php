@@ -585,11 +585,11 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 							$html .= '<tr onclick="get_reservacion( \'' . $k . '\' );" style="cursor: pointer;">';
 							$html .= '	<th scope="row">' . antepon_ceros( $v['reservacionId'], 3 ) . '</th>';
+							$html .= '	<td>' . $v['clienteNombre'] . '</td>';
 							$html .= '	<td>' . $v['reservacionServicioVer'] . '</td>';
 							$html .= '	<td>' . $v['reservacionStatusCobro'] . '</td>';
 							$html .= '	<td>' . $v['reservacionStatusPago'] . '</td>';
 							$html .= '	<td>' . $v['reservacionCheckInVer'] . '</td>';
-							$html .= '	<td>' . $v['reservacionCheckOutVer'] . '</td>';
 							$html .= '	<td><a onclick="delete_reservacion( \'' . $k . '\' );" class="btn btn-outline-danger btn-sm">X</a></td>';
 							$html .= '</tr>';
 
