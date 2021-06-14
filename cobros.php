@@ -233,6 +233,9 @@ window.onload = function( ) {
 			<!--Botones-->
 			<hr class="mb-4">
 			<div class="form-row d-flex justify-content-end">
+				<div class="col-2">
+					<button class="btn btn-info btn-lg btn-block" type="button" onclick="window.print();">Imprimir</button>
+				</div>
 				<div class="col-2" id="btn_nuevo" style="display: none">
 					<button class="btn btn-danger btn-lg btn-block" type="button" onclick="limpia_cobro( );">Nuevo</button>
 				</div>

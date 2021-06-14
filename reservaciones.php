@@ -272,6 +272,9 @@ require_once('./includes/admin/menu-admin.php');
 	    	<hr class="mb-4">
 	    	<div class="form-row justify-content-end d-print-none">
 				<div class="col-2">
+					<button class="btn btn-info btn-lg btn-block" type="button" onclick="window.print();">Imprimir</button>
+				</div>
+				<div class="col-2">
 					<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
 				</div>
 	    	</div>
