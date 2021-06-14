@@ -119,21 +119,6 @@ function toHTML( $v, $t = '', $ajax = false ) {
 
 	switch( strtolower( $t ) ) {
 
-		case 'charter_pax'							:
-
-							if( $v == '0' ) {
-
-								return '';
-
-							} else {
-
-								return $v;
-
-							}
-
-						break;
-
-
 		case 'charter_pax_total'					:
 		case 'charter_pago_total'					:
 

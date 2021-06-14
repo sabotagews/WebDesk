@@ -111,7 +111,10 @@ class Cobro extends SQL_MySQL
 						);
 		$rs = $this->ejecuta_query( $q, 'get_cobro( )' );
 
-		return $this->get_row( $rs );
+		$aTmp				= $this->get_row( $rs );
+		$aTmp['cobroMonto']	= toHTML( $aTmp['cobroMonto'], 'monetario' );
+
+		return $aTmp;
 
 	}
 
@@ -208,9 +211,9 @@ class Cobro extends SQL_MySQL
 
 	public	function set_saldos( $reservacionId ) {
 
-		$primero					= true;
+		$primero			= true;
 		$cobroConsecutivo	= 1;
-		$acumulado				= 0;
+		$acumulado			= 0;
 		$saldoAnterior		= $this->get_saldo( $reservacionId, 0 );
 
 		$q = sprintf(" SELECT
@@ -231,9 +234,9 @@ class Cobro extends SQL_MySQL
 
 		while( $r = $this->get_row( $rs ) ) {
 
-			$saldoInicial		= $saldoAnterior;
-			$acumulado			+= $r['cobroMonto'];
-			$saldoFinal			= $saldoInicial - $r['cobroMonto'];
+			$saldoInicial	= $saldoAnterior;
+			$acumulado		+= $r['cobroMonto'];
+			$saldoFinal		= $saldoInicial - $r['cobroMonto'];
 			$saldoAnterior	= $saldoFinal;
 
 			$q = sprintf(" UPDATE cobros
@@ -246,10 +249,10 @@ class Cobro extends SQL_MySQL
 											WHERE cobroId = %s				",
 
 									$this->toDBFromDB( $cobroConsecutivo++	),
-									$this->toDBFromDB( $acumulado						),
-									$this->toDBFromDB( $saldoInicial				),
-									$this->toDBFromDB( $saldoFinal					),
-									$this->toDBFromDB( $r['cobroId']				)
+									$this->toDBFromDB( $acumulado			),
+									$this->toDBFromDB( $saldoInicial		),
+									$this->toDBFromDB( $saldoFinal			),
+									$this->toDBFromDB( $r['cobroId']		)
 
 								);
 			$this->ejecuta_query( $q, 'set_saldos( )' );
@@ -269,9 +272,9 @@ class Cobro extends SQL_MySQL
 	public	function set_cobro( $data ) {
 
 		$cobroConsecutivo	= $this->get_consecutivo( $data['reservacionId'], $data['cobroId'] );
-		$cobroAcumulado		= $this->get_acumulado( $data['reservacionId'] ) + $data['cobroMonto'];
+		$cobroAcumulado		= $this->get_acumulado( $data['reservacionId'] ) + $this->toDBFromUtf8( $data['cobroMonto'], 'monetario', false );
 		$saldoInicial		= $this->get_saldo( $data['reservacionId'], $cobroConsecutivo );
-		$saldoFinal			= $saldoInicial - $data['cobroMonto'];
+		$saldoFinal			= $saldoInicial - $this->toDBFromUtf8( $data['cobroMonto'], 'monetario', false );
 
 		$q = sprintf(" INSERT INTO cobros
 
@@ -289,22 +292,22 @@ class Cobro extends SQL_MySQL
 								saldoInicial			= VALUES( saldoInicial			),
 								saldoFinal				= VALUES( saldoFinal			)	",
 
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	),
-							$this->toDBFromUtf8( $data['cobroId']						),
-							$this->toDBFromUtf8( $data['reservacionId']					),
-							$this->toDBFromUtf8( $data['clienteId']						),
-							$this->toDBFromUtf8( $cobroConsecutivo + 1					),
-							$this->get_sysTimeStamp( )									 ,
-							$this->toDBFromUtf8( $data['cobroFechaAplicacion']			),
-							$this->toDBFromUtf8( $data['cobroTipo']						),
-							$this->toDBFromUtf8( $data['cuentaId']						),
-							$this->toDBFromUtf8( $data['cobroMonto']					),
-							'"' . $data['cobroDetalle']	. '"'							,
-							$this->toDBFromUtf8( $cobroAcumulado						),
-							$this->toDBFromUtf8( $saldoInicial							),
-							$this->toDBFromUtf8( $saldoFinal							),
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']				),
+							$this->toDBFromUtf8( $data['cobroId']									),
+							$this->toDBFromUtf8( $data['reservacionId']								),
+							$this->toDBFromUtf8( $data['clienteId']									),
+							$this->toDBFromUtf8( $cobroConsecutivo + 1								),
+							$this->get_sysTimeStamp( )												 ,
+							$this->toDBFromUtf8( $data['cobroFechaAplicacion']						),
+							$this->toDBFromUtf8( $data['cobroTipo']									),
+							$this->toDBFromUtf8( $data['cuentaId']									),
+							$this->toDBFromUtf8( $data['cobroMonto']					, 'monetario'	),
+							'"' . $data['cobroDetalle']	. '"'										,
+							$this->toDBFromUtf8( $cobroAcumulado									),
+							$this->toDBFromUtf8( $saldoInicial										),
+							$this->toDBFromUtf8( $saldoFinal										),
 
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	) //ON DUPLICATE KEY
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']				) //ON DUPLICATE KEY
 
 					);
 		$this->ejecuta_query( $q, 'set_cobro( )' );
@@ -375,17 +378,17 @@ class Cobro extends SQL_MySQL
 		$q = sprintf(" INSERT INTO clienteEdoCta( clienteId , cuentaId	, reservacionId	, cobroId	, cobroTipo	,cobroMonto	, cobroAcumulado	)
 		 								VALUES  ( %s		, %s		, %s			, %s		, %s		, %s		, %s				)
 
-							ON DUPLICATE KEY UPDATE	cobroTipo		= VALUES( cobroTipo		),
-													cobroMonto		= VALUES( cobroMonto	),
-													cobroAcumulado	= VALUES( cobroAcumulado)	",
+							ON DUPLICATE KEY UPDATE	cobroTipo		= VALUES( cobroTipo			),
+													cobroMonto		= VALUES( cobroMonto		),
+													cobroAcumulado	= VALUES( cobroAcumulado	)		",
 
-											$this->toDBFromUtf8( $clienteId					),
-											$this->toDBFromUtf8( $data['cuentaId']			),
-											$this->toDBFromUtf8( $data['reservacionId']		),
-											$this->toDBFromUtf8( $cobroId					),
-											$this->toDBFromUtf8( $data['cobroTipo']			),
-											$this->toDBFromUtf8( $data['cobroMonto']		),
-											$this->toDBFromUtf8( $cobroAcumulado			)
+											$this->toDBFromUtf8( $clienteId								),
+											$this->toDBFromUtf8( $data['cuentaId']						),
+											$this->toDBFromUtf8( $data['reservacionId']					),
+											$this->toDBFromUtf8( $cobroId								),
+											$this->toDBFromUtf8( $data['cobroTipo']						),
+											$this->toDBFromUtf8( $data['cobroMonto']	, 'monetario'	),
+											$this->toDBFromUtf8( $cobroAcumulado						)
 
 								);
 			$this->ejecuta_query( $q, 'descuenta_saldo_cliente( )' );

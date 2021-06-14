@@ -33,14 +33,20 @@ class Reservacion extends SQL_MySQL
 
 			$aTmp[ $r['reservacionId'] ] = $r;
 
-			$aTmp[ $r['reservacionId'] ]['reservacionCheckIn']		= toHTML( $r['reservacionCheckIn']	, 'date_num' );
-			$aTmp[ $r['reservacionId'] ]['reservacionCheckOut']		= toHTML( $r['reservacionCheckOut']	, 'date_num' );
+			$aTmp[ $r['reservacionId'] ]['reservacionCoste']					= toHTML( $r['reservacionCoste']									, 'monetario' );
+			$aTmp[ $r['reservacionId'] ]['reservacionPrecio']					= toHTML( $r['reservacionPrecio']									, 'monetario' );
 
-			$aTmp[ $r['reservacionId'] ]['reservacionServicioVer']	= toHTML( RESERVACION_SERVICIOS[ $r['reservacionServicio'] ], ''		, true );
-			$aTmp[ $r['reservacionId'] ]['reservacionStatusCobro']	= toHTML( RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ]		, ''		, true );
-			$aTmp[ $r['reservacionId'] ]['reservacionStatusPago']	= toHTML( RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ]		, ''		, true );
-			$aTmp[ $r['reservacionId'] ]['reservacionCheckInVer']	= toHTML( $r['reservacionCheckIn']							, 'date_num', true );
-			$aTmp[ $r['reservacionId'] ]['reservacionCheckOutVer']	= toHTML( $r['reservacionCheckOut']							, 'date_num', true );
+			$aTmp[ $r['reservacionId'] ]['reservacionGastosCancelacionCoste']	= toHTML( $r['reservacionGastosCancelacionCoste']					, 'monetario' );
+			$aTmp[ $r['reservacionId'] ]['reservacionGastosCancelacionPrecio']	= toHTML( $r['reservacionGastosCancelacionPrecio']					, 'monetario' );
+
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckIn']					= toHTML( $r['reservacionCheckIn']									, 'date_num' );
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckOut']					= toHTML( $r['reservacionCheckOut']									, 'date_num' );
+
+			$aTmp[ $r['reservacionId'] ]['reservacionServicioVer']				= toHTML( RESERVACION_SERVICIOS[ $r['reservacionServicio'] ]		, ''		, true );
+			$aTmp[ $r['reservacionId'] ]['reservacionStatusCobro']				= toHTML( RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ]	, ''		, true );
+			$aTmp[ $r['reservacionId'] ]['reservacionStatusPago']				= toHTML( RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ]	, ''		, true );
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckInVer']				= toHTML( $r['reservacionCheckIn']									, 'date_num', true );
+			$aTmp[ $r['reservacionId'] ]['reservacionCheckOutVer']				= toHTML( $r['reservacionCheckOut']									, 'date_num', true );
 
 		}
 
@@ -49,6 +55,8 @@ class Reservacion extends SQL_MySQL
 	}
 
 	public	function set_reservacion( $data ) {
+
+		$utilidad = $this->toDBFromUtf8( $data['reservacionPrecio'], 'monetario', false ) - $this->toDBFromUtf8( $data['reservacionCoste'], 'monetario', false );
 
 		$q = sprintf(" INSERT INTO reservaciones(
 													reservacionId						,
@@ -124,21 +132,21 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $data['reservacionDestino']							),
 							$this->toDBFromUtf8( $data['reservacionHotel']								),
 							$this->toDBFromUtf8( $data['reservacionPlan']								),
-							$this->toDBFromUtf8( $data['reservacionCheckIn']		, 'date'			),
-							$this->toDBFromUtf8( $data['reservacionCheckOut']		, 'date'			),
+							$this->toDBFromUtf8( $data['reservacionCheckIn']				, 'date'	),
+							$this->toDBFromUtf8( $data['reservacionCheckOut']				, 'date'	),
 							$this->toDBFromUtf8( $data['reservacionHabitaciones']						),
 							'"' . $data['reservacionDetalle'] . '"',
-							$this->toDBFromUtf8( $data['reservacionCoste']								),
-							$this->toDBFromUtf8( $data['reservacionPrecio']								),
-							$this->toDBFromUtf8( $data['reservacionPrecio'] - $data['reservacionCoste']	),
+							$this->toDBFromUtf8( $data['reservacionCoste']					, 'monetario'	),
+							$this->toDBFromUtf8( $data['reservacionPrecio']					, 'monetario'	),
+							$this->toDBFromUtf8( $utilidad												),
 							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']					),
-							$this->toDBFromUtf8( $data['reservacionCoste']								),
-							$this->toDBFromUtf8( $data['reservacionPrecio']								),
+							$this->toDBFromUtf8( $data['reservacionCoste']					, 'monetario'	),
+							$this->toDBFromUtf8( $data['reservacionPrecio']					, 'monetario'	),
 							$this->toDBFromUtf8( $data['reservacionStatusCobro']						),
 							$this->toDBFromUtf8( $data['reservacionStatusPago']							),
 
-							$this->toDBFromUtf8( $data['reservacionGastosCancelacionCoste']				), //ON DUPLICATE KEY
-							$this->toDBFromUtf8( $data['reservacionGastosCancelacionPrecio']			)  //ON DUPLICATE KEY
+							$this->toDBFromUtf8( $data['reservacionGastosCancelacionCoste']	, 'monetario'	), //ON DUPLICATE KEY
+							$this->toDBFromUtf8( $data['reservacionGastosCancelacionPrecio'], 'monetario'	)  //ON DUPLICATE KEY
 
 					);
 		$this->ejecuta_query( $q, 'set_reservacion( )' );

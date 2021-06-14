@@ -399,11 +399,19 @@ class SQL_MySQL {
 
 			switch( strtolower( $t ) ) {
 
+				case 'monetario'			:
+
+								$aTmp = array('$',',');
+
+								$v = str_replace( $aTmp, '', $v );
+
+							break;
+
 				case 'email'			: $v = strtolower( $v );									break;
 
 				case 'date'				:
 
-								$v = explode( SEPARADOR_FECHA, $v );
+								$v = explode( SEPARADOR_FECHA_CALENDARIO, $v );
 								$v = implode( '-', array_reverse( $v ) );
 
 							break;

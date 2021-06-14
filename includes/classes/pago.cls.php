@@ -100,9 +100,9 @@ class pago extends SQL_MySQL
 	public	function set_pago( $data ) {
 
 		$pagoConsecutivo	= $this->get_consecutivo( $data['reservacionId'], $data['pagoId'] );
-		$pagoAcumulado		= $this->get_acumulado( $data['reservacionId'] ) + $data['pagoMonto'];
+		$pagoAcumulado		= $this->get_acumulado( $data['reservacionId'] ) + $this->toDBFromUtf8( $data['pagoMonto'], 'monetario', false );
 		$saldoInicial		= $this->get_saldo( $data['reservacionId'], $pagoConsecutivo );
-		$saldoFinal			= $saldoInicial - $data['pagoMonto'];
+		$saldoFinal			= $saldoInicial - $this->toDBFromUtf8( $data['pagoMonto'], 'monetario', false );
 
 		$q = sprintf(" INSERT INTO pagos
 
@@ -122,20 +122,20 @@ class pago extends SQL_MySQL
 								saldoInicial		= VALUES( saldoInicial			),
 								saldoFinal			= VALUES( saldoFinal			)	",
 
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	),
-							$this->toDBFromUtf8( $data['pagoId']						),
-							$this->toDBFromUtf8( $data['reservacionId']					),
-							$this->toDBFromUtf8( $data['cuentaId']						),
-							$this->toDBFromUtf8( $data['proveedorCuentaId']				),
-							$this->toDBFromUtf8( $pagoConsecutivo + 1					),
-							$this->get_sysTimeStamp( )									 ,
-							$this->toDBFromUtf8( $data['pagoFechaAplicacion']			),
-							$this->toDBFromUtf8( $data['pagoTipo']						),
-							$this->toDBFromUtf8( $data['pagoMonto']						),
-							'"' . $data['pagoDetalle']	. '"'							,
-							$this->toDBFromUtf8( $pagoAcumulado							),
-							$this->toDBFromUtf8( $saldoInicial							),
-							$this->toDBFromUtf8( $saldoFinal							),
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']				),
+							$this->toDBFromUtf8( $data['pagoId']									),
+							$this->toDBFromUtf8( $data['reservacionId']								),
+							$this->toDBFromUtf8( $data['cuentaId']									),
+							$this->toDBFromUtf8( $data['proveedorCuentaId']							),
+							$this->toDBFromUtf8( $pagoConsecutivo + 1								),
+							$this->get_sysTimeStamp( )												 ,
+							$this->toDBFromUtf8( $data['pagoFechaAplicacion']			, 'date'	),
+							$this->toDBFromUtf8( $data['pagoTipo']									),
+							$this->toDBFromUtf8( $data['pagoMonto']						, 'monetario'	),
+							'"' . $data['pagoDetalle']	. '"'										,
+							$this->toDBFromUtf8( $pagoAcumulado										),
+							$this->toDBFromUtf8( $saldoInicial										),
+							$this->toDBFromUtf8( $saldoFinal										),
 
 							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']	) //ON DUPLICATE KEY
 
@@ -201,7 +201,8 @@ class pago extends SQL_MySQL
 		$rs = $this->ejecuta_query( $q, 'get_pago( )' );
 
 		$aTmp = $this->get_row( $rs );
-		$aTmp['pagoFechaAplicacion'] = toHTML( $aTmp['pagoFechaAplicacion'], 'date_num' );
+		$aTmp['pagoFechaAplicacion']	= toHTML( $aTmp['pagoFechaAplicacion'], 'date_num' );
+		$aTmp['pagoMonto']				= toHTML( $aTmp['pagoMonto'], 'monetario' );
 
 
 		return $aTmp;
@@ -210,9 +211,9 @@ class pago extends SQL_MySQL
 
 	public	function set_saldos( $reservacionId ) {
 
-		$primero					= true;
+		$primero			= true;
 		$pagoConsecutivo	= 1;
-		$acumulado				= 0;
+		$acumulado			= 0;
 		$saldoAnterior		= $this->get_saldo( $reservacionId, 0 );
 
 		$q = sprintf(" SELECT
@@ -233,9 +234,9 @@ class pago extends SQL_MySQL
 
 		while( $r = $this->get_row( $rs ) ) {
 
-			$saldoInicial		= $saldoAnterior;
-			$acumulado			+= $r['pagoMonto'];
-			$saldoFinal			= $saldoInicial - $r['pagoMonto'];
+			$saldoInicial	= $saldoAnterior;
+			$acumulado		+= $r['pagoMonto'];
+			$saldoFinal		= $saldoInicial - $r['pagoMonto'];
 			$saldoAnterior	= $saldoFinal;
 
 			$q = sprintf(" UPDATE pagos
@@ -329,13 +330,13 @@ class pago extends SQL_MySQL
 													pagoMonto		= VALUES( pagoMonto		),
 													pagoAcumulado	= VALUES( pagoAcumulado	)	",
 
-											$this->toDBFromUtf8( $proveedorId				),
-											$this->toDBFromUtf8( $data['proveedorCuentaId']	),
-											$this->toDBFromUtf8( $data['reservacionId']		),
-											$this->toDBFromUtf8( $pagoId					),
-											$this->toDBFromUtf8( $data['pagoTipo']			),
-											$this->toDBFromUtf8( $data['pagoMonto']		),
-											$this->toDBFromUtf8( $pagoAcumulado			)
+											$this->toDBFromUtf8( $proveedorId							),
+											$this->toDBFromUtf8( $data['proveedorCuentaId']				),
+											$this->toDBFromUtf8( $data['reservacionId']					),
+											$this->toDBFromUtf8( $pagoId								),
+											$this->toDBFromUtf8( $data['pagoTipo']						),
+											$this->toDBFromUtf8( $data['pagoMonto']			, 'monetario'	),
+											$this->toDBFromUtf8( $pagoAcumulado							)
 
 								);
 			$this->ejecuta_query( $q, 'descuenta_saldo_proveedor( )' );
