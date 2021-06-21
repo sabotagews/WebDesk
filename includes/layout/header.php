@@ -1775,5 +1775,6 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 					<?= $sucursal['sucursalTelefono']; ?> <br>
 					<?= $sucursal['sucursalEmail']; ?>
 				</p>
+				<p>Elaboró <strong><?= $_SESSION['currentUser']['usuarioNombre'] . ' ' . $_SESSION['currentUser']['usuarioApellido']; ?></strong></p>
 			</div>
 		</div>
