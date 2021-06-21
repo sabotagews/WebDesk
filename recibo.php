@@ -39,6 +39,7 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 				<?= $sucursal['sucursalTelefono']; ?> <br>
 				<?= $sucursal['sucursalEmail']; ?>
 			</p>
+			<p>Elaboró <strong><?= $cobro['cobroUsuario']; ?></strong></p>
 		</div>
 	</div>
 	<hr class="col-12 my-4">

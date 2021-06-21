@@ -100,11 +100,14 @@ class Cobro extends SQL_MySQL
 
 		$q		= sprintf(" SELECT
 
-									*
+									c.*																	,
+									CONCAT( u.usuarioNombre, ' ', u.usuarioApellido ) as cobroUsuario
 
-								FROM	cobros
+								FROM	cobros		c,
+										usuarios	u
 
-								WHERE	cobroId	= %s	",
+								WHERE	c.cobroId	= %s			AND
+										c.usuarioId	= u.usuarioId		",
 
 							$this->toDBFromUtf8( $cobroId )
 
