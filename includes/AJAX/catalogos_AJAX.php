@@ -697,7 +697,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$aTmp	= array( );
 					$r		= new Cobro( );
 					$aTmp	= $r->get_reservacion( $_POST['reservacionId'] );
-echo '<pre>';print_r( $aTmp );echo '</pre>';die;
+//echo '<pre>';print_r( $aTmp );echo '</pre>';die;
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;

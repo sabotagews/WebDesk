@@ -38,7 +38,7 @@ class Cobro extends SQL_MySQL
 
 						$this->toDBFromUtf8( $reservacionId )
 
-					);echo '<pre>';print_r( $q );echo '</pre>';
+					);//echo '<pre>';print_r( $q );echo '</pre>';
 		$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
 		$r = $this->get_row( $rs );
 
@@ -295,22 +295,22 @@ class Cobro extends SQL_MySQL
 								saldoInicial			= VALUES( saldoInicial			),
 								saldoFinal				= VALUES( saldoFinal			)	",
 
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']				),
-							$this->toDBFromUtf8( $data['cobroId']									),
-							$this->toDBFromUtf8( $data['reservacionId']								),
-							$this->toDBFromUtf8( $data['clienteId']									),
-							$this->toDBFromUtf8( $cobroConsecutivo + 1								),
-							$this->get_sysTimeStamp( )												 ,
-							$this->toDBFromUtf8( $data['cobroFechaAplicacion']						),
-							$this->toDBFromUtf8( $data['cobroTipo']									),
-							$this->toDBFromUtf8( $data['cuentaId']									),
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']					),
+							$this->toDBFromUtf8( $data['cobroId']										),
+							$this->toDBFromUtf8( $data['reservacionId']									),
+							$this->toDBFromUtf8( $data['clienteId']										),
+							$this->toDBFromUtf8( $cobroConsecutivo + 1									),
+							$this->get_sysTimeStamp( )													 ,
+							$this->toDBFromUtf8( $data['cobroFechaAplicacion']							),
+							$this->toDBFromUtf8( $data['cobroTipo']										),
+							$this->toDBFromUtf8( $data['cuentaId']										),
 							$this->toDBFromUtf8( $data['cobroMonto']					, 'monetario'	),
-							'"' . $data['cobroDetalle']	. '"'										,
-							$this->toDBFromUtf8( $cobroAcumulado									),
-							$this->toDBFromUtf8( $saldoInicial										),
-							$this->toDBFromUtf8( $saldoFinal										),
+							"'" . addslashes( $data['cobroDetalle'] ) . "'"								 ,
+							$this->toDBFromUtf8( $cobroAcumulado										),
+							$this->toDBFromUtf8( $saldoInicial											),
+							$this->toDBFromUtf8( $saldoFinal											),
 
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']				) //ON DUPLICATE KEY
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']					) //ON DUPLICATE KEY
 
 					);
 		$this->ejecuta_query( $q, 'set_cobro( )' );

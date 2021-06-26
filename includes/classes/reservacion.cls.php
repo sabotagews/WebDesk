@@ -137,8 +137,9 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $data['reservacionCheckIn']				, 'date'		),
 							$this->toDBFromUtf8( $data['reservacionCheckOut']				, 'date'		),
 							$this->toDBFromUtf8( $data['reservacionHabitaciones']							),
-							//$this->toDBFromUtf8( $data['reservacionDetalle']				, 'tinymce'		),
-							"'".addslashes($data['reservacionDetalle'])."'",
+
+							"'" . addslashes( $data['reservacionDetalle'] ) . "'"							 ,
+
 							$this->toDBFromUtf8( $data['reservacionCoste']					, 'monetario'	),
 							$this->toDBFromUtf8( $data['reservacionPrecio']					, 'monetario'	),
 							$this->toDBFromUtf8( $utilidad													),

@@ -84,7 +84,7 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 	<table class="table col-12 mt-5 text-right">
 		<tbody>
 			<tr>
-				<td><small class="text-muted">Precio de la Reservación</small> <strong>$ <?= number_format( $_R['reservacionPrecio'], 2 ); ?></strong></td>
+				<td><small class="text-muted">Precio de la Reservación</small> <strong>$ <?= $_R['reservacionPrecio']; ?></strong></td>
 			</tr>
 			<tr>
 				<td><small class="text-muted">Acumulado de Pagos</small> <strong>$ <?= number_format( $cobro['acumulado'], 2 ); ?></strong></td>
@@ -93,13 +93,20 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 				<td><small class="text-muted">Saldo</small> <strong>$ <?= number_format( $cobro['saldoFinal'], 2 ); ?></strong></td>
 			</tr>
 			<tr>
-				<td class="h4">SU PAGO <strong class="text-success">$ <?= number_format( $cobro['cobroMonto'], 2 ); ?></strong></td>
+				<td class="h4">SU PAGO <strong class="text-success">$ <?= $cobro['cobroMonto']; ?></strong></td>
 			</tr>
 		</tbody>
 	</table>
+
+	<div class="d-flex col-12 p-0">
+		<div class="col-12 mr-auto">___________________________<br />
+			Recibí: <strong><?= $_SESSION['currentUser']['usuarioNombre'] . ' ' . $_SESSION['currentUser']['usuarioApellido']; ?></strong>
+		</div>
+	</div>
+
 	<hr class="col-12 my-5">
 	<p class="mt-5">
-		<strong>Notes Adicionales</strong>
+		<strong>Notas Adicionales</strong>
 		Este recibo solo será válido si no presenta alteraciones, para cualquier aclaración no dude en contactarnos.
 	</p>
 </main>
