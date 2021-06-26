@@ -38,7 +38,7 @@ class Cobro extends SQL_MySQL
 
 						$this->toDBFromUtf8( $reservacionId )
 
-					);
+					);echo '<pre>';print_r( $q );echo '</pre>';
 		$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
 		$r = $this->get_row( $rs );
 

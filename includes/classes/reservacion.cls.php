@@ -33,6 +33,8 @@ class Reservacion extends SQL_MySQL
 
 			$aTmp[ $r['reservacionId'] ] = $r;
 
+			//$aTmp[ $r['reservacionId'] ]['reservacionDetalle']					= toHTML( $r['reservacionDetalle']									, 'tinyMCE' );
+
 			$aTmp[ $r['reservacionId'] ]['reservacionCoste']					= toHTML( $r['reservacionCoste']									, 'monetario' );
 			$aTmp[ $r['reservacionId'] ]['reservacionPrecio']					= toHTML( $r['reservacionPrecio']									, 'monetario' );
 
@@ -124,26 +126,27 @@ class Reservacion extends SQL_MySQL
 								reservacionStatusCobro				= VALUES( reservacionStatusCobro							),
 								reservacionStatusPago				= VALUES( reservacionStatusPago								)	",
 
-							$this->toDBFromUtf8( $data['reservacionId']									),
-							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']					),
-							$this->toDBFromUtf8( $data['proveedorId']									),
-							$this->toDBFromUtf8( $data['clienteId']										),
-							$this->toDBFromUtf8( $data['reservacionServicio']							),
-							$this->toDBFromUtf8( $data['reservacionDestino']							),
-							$this->toDBFromUtf8( $data['reservacionHotel']								),
-							$this->toDBFromUtf8( $data['reservacionPlan']								),
-							$this->toDBFromUtf8( $data['reservacionCheckIn']				, 'date'	),
-							$this->toDBFromUtf8( $data['reservacionCheckOut']				, 'date'	),
-							$this->toDBFromUtf8( $data['reservacionHabitaciones']						),
-							'"' . $data['reservacionDetalle'] . '"',
+							$this->toDBFromUtf8( $data['reservacionId']										),
+							$this->toDBFromUtf8( $_SESSION['currentUser']['usuarioId']						),
+							$this->toDBFromUtf8( $data['proveedorId']										),
+							$this->toDBFromUtf8( $data['clienteId']											),
+							$this->toDBFromUtf8( $data['reservacionServicio']								),
+							$this->toDBFromUtf8( $data['reservacionDestino']								),
+							$this->toDBFromUtf8( $data['reservacionHotel']									),
+							$this->toDBFromUtf8( $data['reservacionPlan']									),
+							$this->toDBFromUtf8( $data['reservacionCheckIn']				, 'date'		),
+							$this->toDBFromUtf8( $data['reservacionCheckOut']				, 'date'		),
+							$this->toDBFromUtf8( $data['reservacionHabitaciones']							),
+							//$this->toDBFromUtf8( $data['reservacionDetalle']				, 'tinymce'		),
+							"'".addslashes($data['reservacionDetalle'])."'",
 							$this->toDBFromUtf8( $data['reservacionCoste']					, 'monetario'	),
 							$this->toDBFromUtf8( $data['reservacionPrecio']					, 'monetario'	),
-							$this->toDBFromUtf8( $utilidad												),
-							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']					),
+							$this->toDBFromUtf8( $utilidad													),
+							$this->toDBFromUtf8( $data['reservacionLocalizadorExterno']						),
 							$this->toDBFromUtf8( $data['reservacionCoste']					, 'monetario'	),
 							$this->toDBFromUtf8( $data['reservacionPrecio']					, 'monetario'	),
-							$this->toDBFromUtf8( $data['reservacionStatusCobro']						),
-							$this->toDBFromUtf8( $data['reservacionStatusPago']							),
+							$this->toDBFromUtf8( $data['reservacionStatusCobro']							),
+							$this->toDBFromUtf8( $data['reservacionStatusPago']								),
 
 							$this->toDBFromUtf8( $data['reservacionGastosCancelacionCoste']	, 'monetario'	), //ON DUPLICATE KEY
 							$this->toDBFromUtf8( $data['reservacionGastosCancelacionPrecio'], 'monetario'	)  //ON DUPLICATE KEY

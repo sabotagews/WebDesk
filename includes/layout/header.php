@@ -1154,7 +1154,8 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 												g('reservacionHotel').value						= objJSON.reservacionHotel;
 												g('reservacionCheckIn').value					= objJSON.reservacionCheckIn;
 												g('reservacionCheckOut').value					= objJSON.reservacionCheckOut;
-												$( '#reservacionDetalle ').val( objJSON.reservacionDetalle );
+												$( '#reservacionDetalle ').val(  objJSON.reservacionDetalle );
+
 												$( '#reservacionDetallePrint ').html( objJSON.reservacionDetalle );
 
 												tinyMCE.get('reservacionDetalle').setContent( objJSON.reservacionDetalle );

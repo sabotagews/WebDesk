@@ -200,12 +200,7 @@ require_once('./includes/admin/menu-admin.php');
 	            </div>
 				<div class="col col-md-2 mb-3">
 					<label for="reservacionHabitaciones">Habitaciones</label>
-					<select class="custom-select" id="reservacionHabitaciones" name="reservacionHabitaciones" required>
-						<option value=""></option>
-						<? for( $i = 1; $i <= RESERVACION_HABITACIONES; $i++ ) { ?>
-							<option value="<?= $i; ?>"><?= $i; ?></option>
-						<? } ?>
-					</select>
+					<input type="text" class="form-control" id="reservacionHabitaciones" name="reservacionHabitaciones" placeholder="" value="" pattern="(^[0-9]{1,2}$)" required>
 				</div>
 	        </div>
 	        <div class="row">
@@ -220,7 +215,7 @@ require_once('./includes/admin/menu-admin.php');
 	        <div class="form-row">
 	                <div class="col col-md-2 mb-2 d-print-none">
 	                    <label for="reservacionDestino">Coste</label>
-	                    <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="">
+	                    <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
 	                </div>
 	                <div class="col-5 d-print-none">
 						<label for="proveedorId">Proveedor</label>
@@ -228,20 +223,20 @@ require_once('./includes/admin/menu-admin.php');
 	                </div>
 					<div class="col col-md-3 mb-3 d-print-none">
 						<label for="reservacionLocalizadorExterno">Localizador Externo</label>
-						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="" required="">
+						<input type="text" class="form-control" id="reservacionLocalizadorExterno" name="reservacionLocalizadorExterno" placeholder="" value="">
 					</div>
 	                <div class="col col-md-2 mb-2">
 	                    <label for="reservacionHotel">Precio</label>
-	                    <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="">
+	                    <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
 	                </div>
 				</div>
 	        <div id="contenedor_gastos_cancelacion_coste" class="col col-md-2 mb-2 d-print-none">
 	                <label for="reservacionGastosCancelacionCoste">Cancelación Coste</label>
-	                <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="">
+	                <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
 	            </div>
 	        <div id="contenedor_gastos_cancelacion_precio" class="col col-md-2 mb-2">
 	                <label for="reservacionGastosCancelacionPrecio">Cancelación Precio</label>
-	                <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="">
+	                <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
 	            </div>
 			<div class="row d-print-none">
 				<div class="col col-md-6 mb-6">

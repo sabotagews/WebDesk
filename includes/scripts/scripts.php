@@ -119,6 +119,13 @@ function toHTML( $v, $t = '', $ajax = false ) {
 
 	switch( strtolower( $t ) ) {
 
+		case 'tinymce'								:
+
+							//$v = stripslashes( $v );
+							$v = stripslashes( $v );
+
+						break;
+
 		case 'charter_pax_total'					:
 		case 'charter_pago_total'					:
 

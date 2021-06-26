@@ -13,7 +13,6 @@ define('SEPARADOR_FECHA_CALENDARIO'	, '/' );
 define('DELAY_XHR'					, 1 ); //Segundos
 define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres
 
-define('RESERVACION_HABITACIONES'	, 5 );
 define('PLAN_ALIMENTOS'				, array( 'EP' => 'EUROPEO', 'CD' => 'CON DESAYUNO', 'TI' => 'TODO INCLUIDO' ) );
 define('RESERVACION_SERVICIOS'		, array( 'AL' => 'ALOJAMIENTO', 'CH' => 'CHARTER', 'AE' => 'AEREO', 'BUS' => 'AUTOBUS', 'PQ' => 'PAQUETE', 'GPO' => 'GRUPO' ) );
 define('RESERVACION_STATUS_COBRO'	, array( '0' => 'COTIZACION', '1' => 'CON ANTICIPO',	'2' => 'COBRADA',	'5' => 'CANCELADA' ) );
@@ -394,39 +393,35 @@ class SQL_MySQL {
 
 			global $__db;
 
-			//$v = strtoupper( $__db->real_escape_string( trim( utf8_decode( $v ) ) ) );
 			$v = strtoupper( $__db->real_escape_string( trim( $v ) ) );
 
 			switch( strtolower( $t ) ) {
 
-				case 'monetario'			:
+				case 'tinymce'		:
 
-								$aTmp = array('$',',');
-
-								$v = str_replace( $aTmp, '', $v );
+								$v = addslashes( $v );
 
 							break;
 
-				case 'email'			: $v = strtolower( $v );									break;
+				case 'monetario'	:
 
-				case 'date'				:
+								$aTmp	= array('$',',');
+								$v		= str_replace( $aTmp, '', $v );
+
+							break;
+
+				case 'email'		:
+
+								$v = strtolower( $v );
+
+							break;
+
+				case 'date'			:
 
 								$v = explode( SEPARADOR_FECHA_CALENDARIO, $v );
 								$v = implode( '-', array_reverse( $v ) );
 
 							break;
-				//
-				// case 'date_num'			: $v = implode( SEPARADOR_FECHA, array_reverse( explode( '-', $v ) ) );	break;
-				//
-				// case 'num_date_txt'		:
-				//
-				// 						$y	= substr( $v, 0, 4 );
-				// 						$m	= SQL_MySQL::convierteMes( substr( $v, 4, 2 ), 'int->txt' );
-				// 						$d	= substr( $v, 6, 2 );
-				//
-				// 						$v	= $d . '-' . $m . '-' . $y;
-				//
-				// 					break;
 
 			}
 
