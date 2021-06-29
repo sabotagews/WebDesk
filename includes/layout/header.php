@@ -1322,20 +1322,20 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 			}
 			function get_cobros( reservacionId ) {
 
-				var datos							= {};
-					datos._data1				= 'cobros->get';
+				var datos				= {};
+					datos._data1		= 'cobros->get';
 					datos.reservacionId	= reservacionId;
 
 				$.ajax(
 
 						{
 
-							url					:	AJAX_catalogos_url,
-							type				:	'POST'						,
-							dataType		:	'TEXT'						,
-							data				:	datos							,
+							url			:	AJAX_catalogos_url	,
+							type		:	'POST'				,
+							dataType	:	'TEXT'				,
+							data		:	datos				,
 							beforeSend	:	function( ) {}		,
-							success			:	function( objJSON ) {
+							success		:	function( objJSON ) {
 
 												g('listCobros').innerHTML = objJSON;
 
@@ -1352,6 +1352,8 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 					datos._data1		= 'cobro->reservacion->get';
 					datos.reservacionId	= reservacionId;
 
+				g('form').reset( );
+
 				$.ajax(
 
 						{
@@ -1363,28 +1365,36 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('reservacionId').value						= objJSON.reservacionId;
-												g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
-												g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
-												g('proveedorId').value							= objJSON.proveedorId;
-												g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
-												g('clienteId').value							= objJSON.clienteId;
-												g('cliente').innerHTML							= objJSON.cliente;
-												g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
-												g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
-												g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
-												g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
-												g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
-												g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
-												g('reservacionSaldoCobro').innerHTML			= objJSON.reservacionSaldoCobroVer;
-												g('reservacionAcumuladoCobro').innerHTML		= objJSON.reservacionAcumuladoCobroVer;
-												g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
-												g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
+												if( objJSON.error == 0 ) {
 
-												get_cobros( reservacionId );
+													g('reservacionId').value						= objJSON.reservacionId;
+													g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
+													g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
+													g('proveedorId').value							= objJSON.proveedorId;
+													g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
+													g('clienteId').value							= objJSON.clienteId;
+													g('cliente').innerHTML							= objJSON.cliente;
+													g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
+													g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
+													g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
+													g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
+													g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
+													g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
+													g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
+													g('reservacionSaldoCobro').innerHTML			= objJSON.reservacionSaldoCobroVer;
+													g('reservacionAcumuladoCobro').innerHTML		= objJSON.reservacionAcumuladoCobroVer;
+													g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
+													g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
 
-												$('#contenedor_reservacion').show( );
+													get_cobros( reservacionId );
+
+													$('#contenedor_reservacion').show( );
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
 
 											}
 
@@ -1538,29 +1548,37 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 							beforeSend	:	function( ) {}		,
 							success		:	function( objJSON ) {
 
-												g('reservacionId').value						= objJSON.reservacionId;
-												g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
-												g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
-												g('proveedorId').value							= objJSON.proveedorId;
-												g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
-												g('clienteId').value							= objJSON.clienteId;
-												g('cliente').innerHTML							= objJSON.cliente;
-												g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
-												g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
-												g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
-												g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
-												g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
-												g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
-												g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
-												g('reservacionSaldoPago').innerHTML				= objJSON.reservacionSaldoPagoVer;
-												g('reservacionAcumuladoPago').innerHTML			= objJSON.reservacionAcumuladoPagoVer;
-												g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
-												g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
+												if( objJSON.error == 0 ) {
 
-												get_pagos( reservacionId );
-												get_cuentas_proveedor( objJSON.proveedorId );
+													g('reservacionId').value						= objJSON.reservacionId;
+													g('reservacionLocalizador').innerHTML			= objJSON.reservacionLocalizador;
+													g('reservacionLocalizadorExterno').innerHTML	= objJSON.reservacionLocalizadorExterno;
+													g('proveedorId').value							= objJSON.proveedorId;
+													g('reservacionProveedor').innerHTML 			= objJSON.proveedorAlias;
+													g('clienteId').value							= objJSON.clienteId;
+													g('cliente').innerHTML							= objJSON.cliente;
+													g('reservacionServicio').innerHTML				= objJSON.reservacionServicioVer + ' / ' + objJSON.reservacionPlanVer;
+													g('reservacionHotel').innerHTML					= objJSON.reservacionHotel + ' / ' + objJSON.reservacionDestino;
+													g('reservacionHabitaciones').innerHTML			= objJSON.reservacionHabitaciones + ' HABS';
+													g('reservacionCheckIn').innerHTML				= objJSON.reservacionCheckIn + ' &raquo; ' + objJSON.reservacionCheckOut;
+													g('reservacionDetalle').innerHTML				= objJSON.reservacionDetalle;
+													g('reservacionCoste').innerHTML					= objJSON.reservacionCosteVer;
+													g('reservacionPrecio').innerHTML				= objJSON.reservacionPrecioVer;
+													g('reservacionSaldoPago').innerHTML				= objJSON.reservacionSaldoPagoVer;
+													g('reservacionAcumuladoPago').innerHTML			= objJSON.reservacionAcumuladoPagoVer;
+													g('reservacionStatusCobro').innerHTML			= objJSON.reservacionStatusCobro;
+													g('reservacionStatusPago').innerHTML			= objJSON.reservacionStatusPago;
 
-												$('#contenedor_reservacion').show( );
+													get_pagos( reservacionId );
+													get_cuentas_proveedor( objJSON.proveedorId );
+
+													$('#contenedor_reservacion').show( );
+
+												} else {
+
+													alert( objJSON.error_msg );
+
+												}
 
 											}
 

@@ -164,7 +164,8 @@ class Reservacion extends SQL_MySQL
 		//Status reservacion
 		$q = sprintf(" SELECT
 
-								reservacionStatusCobro
+								reservacionStatusCobro,
+								reservacionStatusPago
 
 							FROM reservaciones
 
@@ -176,8 +177,8 @@ class Reservacion extends SQL_MySQL
 		$rs = $this->ejecuta_query( $q, 'actualiza_saldos( )' );
 		$r  = $this->get_row( $rs );
 
-		$coste	= $r['reservacionStatusCobro'] == '5' ? 'reservacionGastosCancelacionCoste'		: 'reservacionCoste';
-		$precio	= $r['reservacionStatusCobro'] == '5' ? 'reservacionGastosCancelacionPrecio'	: 'reservacionPrecio';
+		$coste	= $r['reservacionStatusPago']	== STATUS_CANCELADA ? 'reservacionGastosCancelacionCoste'	: 'reservacionCoste';
+		$precio	= $r['reservacionStatusCobro']	== STATUS_CANCELADA ? 'reservacionGastosCancelacionPrecio'	: 'reservacionPrecio';
 
 		//Reservación
 		$q = sprintf(" UPDATE reservaciones SET
@@ -198,6 +199,7 @@ class Reservacion extends SQL_MySQL
 					);
 		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
 
+// TODO: switch por reservacion para calcular suma contra coste o gastos de cancelacion
 		//Cliente
 		$q = sprintf(" UPDATE clientes SET
 
@@ -210,8 +212,9 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $clienteId	)
 
 					);
-		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
+		//$this->ejecuta_query( $q, 'actualiza_saldos( )' );
 
+// TODO: switch por reservacion para calcular suma contra precio o gastos de cancelacion
 		//Proveedor
 		$q = sprintf(" UPDATE proveedores SET
 
@@ -224,7 +227,7 @@ class Reservacion extends SQL_MySQL
 							$this->toDBFromUtf8( $proveedorId	)
 
 					);
-		$this->ejecuta_query( $q, 'actualiza_saldos( )' );
+		//$this->ejecuta_query( $q, 'actualiza_saldos( )' );
 
 	}
 

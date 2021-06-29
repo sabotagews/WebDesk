@@ -13,10 +13,11 @@ define('SEPARADOR_FECHA_CALENDARIO'	, '/' );
 define('DELAY_XHR'					, 1 ); //Segundos
 define('LOCALIZADOR_LONGITUD'		, 3 ); //Caracteres
 
+define('STATUS_CANCELADA'			, '5'	);
 define('PLAN_ALIMENTOS'				, array( 'EP' => 'EUROPEO', 'CD' => 'CON DESAYUNO', 'TI' => 'TODO INCLUIDO' ) );
 define('RESERVACION_SERVICIOS'		, array( 'AL' => 'ALOJAMIENTO', 'CH' => 'CHARTER', 'AE' => 'AEREO', 'BUS' => 'AUTOBUS', 'PQ' => 'PAQUETE', 'GPO' => 'GRUPO' ) );
-define('RESERVACION_STATUS_COBRO'	, array( '0' => 'COTIZACION', '1' => 'CON ANTICIPO',	'2' => 'COBRADA',	'5' => 'CANCELADA' ) );
-define('RESERVACION_STATUS_PAGO'	, array( '0' => 'CONFIRMADA', '1' => 'CON PAGO',		'2' => 'PAGADA',	'5' => 'CANCELADA' ) );
+define('RESERVACION_STATUS_COBRO'	, array( '0' => 'COTIZACION', '1' => 'CON ANTICIPO',	'2' => 'COBRADA',	STATUS_CANCELADA => 'CANCELADA' ) );
+define('RESERVACION_STATUS_PAGO'	, array( '0' => 'CONFIRMADA', '1' => 'CON PAGO',		'2' => 'PAGADA',	STATUS_CANCELADA => 'CANCELADA' ) );
 define('COBRO_TIPOS'				, array( 'E' => 'EFECTIVO', 'TC' => 'TARJETA CREDITO', 'TD' => 'TARJETA DEBITO', 'TR' => 'TRANSFERENCIA' ) );
 define('PAGO_TIPOS'					, array( 'E' => 'EFECTIVO', 'TC' => 'TARJETA CREDITO', 'TD' => 'TARJETA DEBITO', 'TR' => 'TRANSFERENCIA' ) );
 

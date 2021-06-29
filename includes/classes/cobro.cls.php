@@ -8,58 +8,94 @@ class Cobro extends SQL_MySQL
 
 	public	function get_reservacion( $reservacionId ) {
 
-		$q	= sprintf(" SELECT
+			$q	= sprintf(" SELECT
 
-								r.reservacionPrecio			,
-								r.reservacionCoste			,
+									r.reservacionPrecio					,
+									r.reservacionCoste					,
 
-								p.proveedorAlias			,
-								CONCAT(
-										c.clienteNombre		,
-										' '					,
-										c.clienteApellido
+									r.reservacionGastosCancelacionCoste	,
+									r.reservacionGastosCancelacionPrecio,
 
-									  ) AS cliente			,
-								r.*	,
-								( SELECT saldoFinal FROM cobros	WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldoCobro			,
-								( SELECT acumulado  FROM cobros	WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo	DESC LIMIT 0, 1 ) AS reservacionAcumuladoCobro		,
-								( SELECT saldoFinal FROM pagos	WHERE reservacionId = r.reservacionId ORDER BY pagoConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldoPago			,
-								( SELECT acumulado	FROM pagos	WHERE reservacionId = r.reservacionId ORDER BY pagoConsecutivo	DESC LIMIT 0, 1 ) AS reservacionAcumuladoPago
+									p.proveedorAlias					,
+									CONCAT(
+											c.clienteNombre				,
+											' '							,
+											c.clienteApellido
 
-							FROM	reservaciones	r,
-									clientes		c,
-									proveedores		p
+										  ) AS cliente					,
+									r.*									,
+									( SELECT saldoFinal FROM cobros	WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldoCobro			,
+									( SELECT acumulado  FROM cobros	WHERE reservacionId = r.reservacionId ORDER BY cobroConsecutivo	DESC LIMIT 0, 1 ) AS reservacionAcumuladoCobro		,
+									( SELECT saldoFinal FROM pagos	WHERE reservacionId = r.reservacionId ORDER BY pagoConsecutivo	DESC LIMIT 0, 1 ) AS reservacionSaldoPago			,
+									( SELECT acumulado	FROM pagos	WHERE reservacionId = r.reservacionId ORDER BY pagoConsecutivo	DESC LIMIT 0, 1 ) AS reservacionAcumuladoPago
 
-							WHERE		r.reservacionId	= %s			AND
+								FROM	reservaciones	r,
+										clientes		c,
+										proveedores		p
 
-										/*Join*/
-										r.proveedorId	= p.proveedorId	AND
-										r.clienteId		= c.clienteId			",
+								WHERE		r.reservacionId	= %s			AND
 
-						$this->toDBFromUtf8( $reservacionId )
+											/*Join*/
+											r.proveedorId	= p.proveedorId	AND
+											r.clienteId		= c.clienteId			",
 
-					);//echo '<pre>';print_r( $q );echo '</pre>';
-		$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
-		$r = $this->get_row( $rs );
+							$this->toDBFromUtf8( $reservacionId )
 
-		$r['reservacionCheckIn']			= toHTML( $r['reservacionCheckIn']	, 'date_num' );
-		$r['reservacionCheckOut']			= toHTML( $r['reservacionCheckOut']	, 'date_num' );
+						);
+			//echo '<pre>';print_r( $q );echo '</pre>';die;
+			$rs = $this->ejecuta_query( $q, 'get_reservacion( )' );
 
-		$r['reservacionSaldoCobro']			= $r['reservacionSaldoCobro']	== '' ? $r['reservacionPrecio']	: $r['reservacionSaldoCobro'];
-		$r['reservacionSaldoPago']			= $r['reservacionSaldoPago']	== '' ? $r['reservacionCoste']	: $r['reservacionSaldoPago'];
-		$r['reservacionServicioVer']		= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];
-		$r['reservacionPlanVer']			= PLAN_ALIMENTOS[ $r['reservacionPlan'] ];
-		$r['reservacionStatusCobro']		= RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ];
-		$r['reservacionStatusPago']			= RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ];
-		$r['reservacionLocalizador']		= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
-		$r['reservacionCosteVer']			= '$ '. number_format( $r['reservacionCoste']				, 2 );
-		$r['reservacionPrecioVer']			= '$ '. number_format( $r['reservacionPrecio']				, 2 );
-		$r['reservacionSaldoPagoVer']		= '$ '. number_format( $r['reservacionSaldoPago']			, 2 );
-		$r['reservacionAcumuladoPagoVer']	= '$ '. number_format( $r['reservacionAcumuladoPago']	, 2 );
-		$r['reservacionSaldoCobroVer']		= '$ '. number_format( $r['reservacionSaldoCobro']			, 2 );
-		$r['reservacionAcumuladoCobroVer']	= '$ '. number_format( $r['reservacionAcumuladoCobro']		, 2 );
+			if( $this->rows( $rs ) ) {
 
-		return $r;
+				$r = $this->get_row( $rs );
+
+				$r['reservacionCheckIn']			= toHTML( $r['reservacionCheckIn']	, 'date_num' );
+				$r['reservacionCheckOut']			= toHTML( $r['reservacionCheckOut']	, 'date_num' );
+
+				if( $r['reservacionStatusCobro'] != STATUS_CANCELADA ) {
+
+					$r['reservacionPrecioVer']		= '$ ' . number_format( $r['reservacionPrecio'], 2 );
+					$r['reservacionSaldoCobro']		= $r['reservacionSaldoCobro'] == '' ? $r['reservacionPrecio'] : $r['reservacionSaldoCobro'];
+
+				} else {
+
+					$r['reservacionPrecioVer']		= '$ ' . number_format( $r['reservacionGastosCancelacionPrecio'], 2 );
+					$r['reservacionSaldoCobro']		= $r['reservacionGastosCancelacionPrecio'] - $r['reservacionAcumuladoCobro'];
+
+				}
+				$r['reservacionSaldoCobroVer']	= '$ '. number_format( $r['reservacionSaldoCobro'], 2 );
+
+				if( $r['reservacionStatusPago'] != STATUS_CANCELADA ) {
+
+					$r['reservacionCosteVer']		= '$ ' . number_format( $r['reservacionCoste'], 2 );
+					$r['reservacionSaldoPago']		= $r['reservacionSaldoPago'] == '' ? $r['reservacionCoste'] : $r['reservacionSaldoPago'];
+
+				} else {
+
+					$r['reservacionCosteVer']		= '$ ' . number_format( $r['reservacionGastosCancelacionCoste'], 2 );
+					$r['reservacionSaldoPago']		= $r['reservacionGastosCancelacionCoste'] - $r['reservacionAcumuladoPago'];
+
+				}
+				$r['reservacionSaldoPagoVer']	= '$ '. number_format( $r['reservacionSaldoPago'], 2 );
+
+
+
+				$r['reservacionServicioVer']		= RESERVACION_SERVICIOS[ $r['reservacionServicio'] ];
+				$r['reservacionPlanVer']			= PLAN_ALIMENTOS[ $r['reservacionPlan'] ];
+				$r['reservacionStatusCobro']		= RESERVACION_STATUS_COBRO[ $r['reservacionStatusCobro'] ];
+				$r['reservacionStatusPago']			= RESERVACION_STATUS_PAGO[ $r['reservacionStatusPago'] ];
+				$r['reservacionLocalizador']		= antepon_ceros( $r['reservacionId'], LOCALIZADOR_LONGITUD );
+
+				$r['reservacionAcumuladoPagoVer']	= '$ ' . number_format( $r['reservacionAcumuladoPago'], 2 );
+				$r['reservacionAcumuladoCobroVer']	= '$ ' . number_format( $r['reservacionAcumuladoCobro'], 2 );
+
+				return $r;
+
+		} else {
+
+			return false;
+
+		}
 
 	}
 

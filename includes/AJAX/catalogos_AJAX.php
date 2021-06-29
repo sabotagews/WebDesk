@@ -697,7 +697,18 @@ switch( strtolower( $_POST['_data1'] ) ) {
 					$aTmp	= array( );
 					$r		= new Cobro( );
 					$aTmp	= $r->get_reservacion( $_POST['reservacionId'] );
-//echo '<pre>';print_r( $aTmp );echo '</pre>';die;
+
+					if( $aTmp ) {
+
+						$aTmp['error'] = 0;
+
+					} else {
+
+						$aTmp['error']		= 1;
+						$aTmp['error_msg']	= utf8_encode( '¡La reservación no tiene asignado un proveedor! Debe asignar uno' );
+
+					}
+
 					echo $r->toAJAX( $aTmp, 'json' );
 
 			break;
