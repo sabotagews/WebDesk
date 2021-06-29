@@ -240,6 +240,9 @@ class Reservacion extends SQL_MySQL
 
 	public	function verifica_status_pago( $reservacionId ) {
 
+			$_R = $this->reservaciones_get( $reservacionId );
+			if( $_R[ $reservacionId ]['reservacionStatusPago'] == RESERVACION_STATUS_PAGO[ STATUS_CANCELADA ] ) return;
+
 			$q  = sprintf(" SELECT
 
 									reservacionCoste	,
@@ -290,6 +293,9 @@ class Reservacion extends SQL_MySQL
 	}
 
 	public	function verifica_status_cobro( $reservacionId ) {
+
+			$_R = $this->reservaciones_get( $reservacionId );
+			if( $_R[ $reservacionId ]['reservacionStatusCobro'] == RESERVACION_STATUS_COBRO[ STATUS_CANCELADA ] ) return;
 
 			$q  = sprintf(" SELECT
 
