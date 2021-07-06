@@ -147,7 +147,7 @@ require_once('./includes/admin/menu-admin.php');
 	</div>
 </form>
 
-	<div class="row" id="modificarReservacion">
+	<div id="modificarReservacion" class="col-12">
 	    <h4 class="mb-3">Datos de la Reservaci&oacute;n</h4>
 	    <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
 			<input type="hidden" name="reservacionId" value="0" />
@@ -276,17 +276,17 @@ require_once('./includes/admin/menu-admin.php');
 	    </form>
 	</div>
 
-	<div class="row d-print-none mb-5">
+	<div class="d-print-none mb-5">
 		<h4 class="mb-3 mt-5">Cotizaciones / Reservaciones</h4>
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col" data-sort="string-ins" data-sort-onload="yes">Folio</th>
-					<th scope="col">Titular</th>
-					<th scope="col">Servicio</th>
-					<th scope="col">Status Cobro</th>
-					<th scope="col">Status Pago</th>
-					<th scope="col">CheckIn</th>
+					<th scope="col" data-sort="int" data-sort-onload="yes">Folio</th>
+					<th scope="col" data-sort="string">Titular</th>
+					<th scope="col" data-sort="string">Servicio</th>
+					<th scope="col" data-sort="string">Status Cobro</th>
+					<th scope="col" data-sort="string">Status Pago</th>
+					<th scope="col" data-sort="int">CheckIn</th>
 					<th></th>
 				</tr>
 			</thead>
