@@ -1780,20 +1780,4 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 		</script>
 	</head>
 	<body class="d-flex flex-column h-100">
-		<div class="row d-none d-print-flex col-12">
-			<div class="col-sm">
-				<img class="mb-5" src="./images/logo.png" alt="" width="150">
-			</div>
-			<div class="col-sm text-right">
-				<strong>
-					TURISMO SALOMON
-				</strong>
-				<p>
-					SUCURSAL <?= $sucursal['sucursalNombre']; ?> <br>
-					<?= $sucursal['sucursalDomicilio']; ?> <br>
-					<?= $sucursal['sucursalTelefono']; ?> <br>
-					<?= $sucursal['sucursalEmail']; ?>
-				</p>
-				<p>Elaboró <strong><?= $_SESSION['currentUser']['usuarioNombre'] . ' ' . $_SESSION['currentUser']['usuarioApellido']; ?></strong></p>
-			</div>
-		</div>
+		

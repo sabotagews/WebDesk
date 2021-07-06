@@ -137,6 +137,8 @@ require_once('./includes/admin/menu-admin.php');
 </script>
 <main class="container" role="main">
 
+	<? require_once('./includes/layout/header_print.php'); ?>
+
     <div class="py-5 text-center d-print-none">
         <h2>Crear una nueva Reservación</h2>
         <p class="lead">Formulario para carga de una cotizaci&oacute;n o reservaci&oacute;n.</p>

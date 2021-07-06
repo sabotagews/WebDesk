@@ -138,16 +138,19 @@ require_once('./includes/admin/menu-admin.php');
 	}
 </script>
 <main class="container" role="main">
-<form name="form" method="post" class="form-inline my-5 d-print-none">
-	<div class="input-group mb-3 d-print-none">
-		<input class="form-control" id="searchReservacion" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
-		<div class="input-group-append">
-			<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
-		</div>
-	</div>
-</form>
 
-	<div id="modificarReservacion" class="col-12">
+	<? require_once('./includes/layout/header_print.php'); ?>
+
+	<form name="form" method="post" class="form-inline my-5 d-print-none">
+		<div class="input-group mb-3 d-print-none">
+			<input class="form-control" id="searchReservacion" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
+			<div class="input-group-append">
+				<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
+			</div>
+		</div>
+	</form>
+
+	<div id="modificarReservacion">
 	    <h4 class="mb-3">Datos de la Reservaci&oacute;n</h4>
 	    <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
 			<input type="hidden" name="reservacionId" value="0" />

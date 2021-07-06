@@ -74,6 +74,7 @@ window.onload = function( ) {
 
 </script>
 <main class="container" role="main">
+	<? require_once('./includes/layout/header_print.php'); ?>
 	<form name="form" method="post" class="form-inline my-2 d-print-none">
 
 		<input name="_data0" type="hidden" value=""/>
@@ -84,20 +85,20 @@ window.onload = function( ) {
 		<input name="proveedorId" type="hidden" value=""/>
 
 
-		<div class="col-4 input-group mb-3 w-25">
+		<div class="col-4 px-0 input-group mb-3 w-25">
 			<input class="form-control" id="search" type="search" placeholder="Buscar reservaci&oacute;n" aria-label="Buscar">
 			<div class="input-group-append">
 				<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
 			</div>
 		</div>
-		<div class="col py-5 text-right">
+		<div class="col py-5 px-0 text-right">
 			<h2>Cobros</h2>
 			<span class="text-black-50"><small>Captura de cobros ( pagos de clientes ) de <strong>reservaci&oacute;n.</strong></small></p>
 		</div>
 	</form>
 	<div id="contenedor_reservacion" style="display: none">
-		<hr class="col-12 mt-4">
-		<div class="d-flex col-12 p-0">
+		<hr class="  mt-4">
+		<div class="d-flex p-0">
 			<div class="mr-auto">
 				<h1 id="cliente"></h1>
 			</div>
@@ -105,9 +106,9 @@ window.onload = function( ) {
 				<h1 id="reservacionLocalizador"></h1>
 			</div>
 		</div>
-		<div class="d-flex col-12 p-0">
+		<div class="d-flex p-0">
 			<!--Detalle-->
-			<table class="table col-6 mr-4">
+			<table class="table col-6">
 				<tbody>
 					<tr>
 						<th id="reservacionHotel"></th>
@@ -159,14 +160,14 @@ window.onload = function( ) {
 				</tbody>
 			</table>
 		</div>
-		<hr class="col-12">
-		<div class="d-flex col-12 p-0">
+		<hr class=" ">
+		<div class="d-flex p-0">
 			<h5>Detalle de la Reservaci&oacute;n</h5>
 		</div>
-		<div class="d-flex col-12 p-0">
-			<div class="col-12" id="reservacionDetalle"></div>
+		<div class="d-flex p-0">
+			<div class=" " id="reservacionDetalle"></div>
 		</div>
-		<hr class="col-12">
+		<hr class=" ">
 
 		<h3 class="text-secondary mt-5 mb-3">Histórico de Cobros</h3>
 		<table class="table table-striped table-hover my-5" id="listCobros"></table>
@@ -176,9 +177,9 @@ window.onload = function( ) {
 			<input type="hidden" name="cobroId" value="0" />
 			<!--Inputs-->
 
-			<hr class="col-12 my-5">
+			<hr class="  my-5">
 			<h3 class="text-secondary mt-5 mb-3">Agregar nuevo Cobro</h3>
-			<hr class="col-12">
+			<hr class=" ">
 			<div class="form-row">
 				<div class="col-md-2 mb-3">
 					<label for="cobroFechaAplicacion">Fecha Aplicación</label>

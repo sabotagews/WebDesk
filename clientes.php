@@ -68,14 +68,15 @@ require_once('./includes/admin/menu-admin.php');
 
 </script>
 <main class="container" role="main">
+	<? require_once('./includes/layout/header_print.php'); ?>
     <form class="form-inline my-2 my-lg-0">
-		<div class="col-4 input-group mb-3 w-25">
+		<div class="col-4 px-0 input-group mb-3 w-25">
 			<input class="form-control" id="search" type="search" placeholder="Buscar cliente" aria-label="Buscar">
 			<div class="input-group-append">
 				<span class="input-group-text" id="basic-addon1"><span class="loupe"></span></span>
 			</div>
 		</div>
-		<div class="col py-5 text-right">
+		<div class="col py-5 px-0 text-right">
 			<h2>Clientes</h2>
 			<span class="text-black-50"><small>Cat&aacute;logo hist&oacute;rico con los datos de los pasajeros que han sido registrados ya sea por cotizaci&oacute;n o reservaci&oacute;n efectiva, permitir&aacute; dar seguimiento efectivo, prospecci&oacute;n a futuro y contacto v&iacute;a <strong>Tel&eacute;fono, Email y WhatsApp.</strong></small></span>
 		</div>
