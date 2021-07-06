@@ -94,3 +94,8 @@ input[type=number].no-spinner {
 .ui-autocomplete .ui-menu-item {
 	border-bottom: 1px dotted #eaeaea;
 }
+@media print {
+  .container {
+    font-size: 1.2em;
+  }
+}

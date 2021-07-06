@@ -25,7 +25,7 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 </script>
 
 <main class="container" role="main">
-	<div class="row d-print-none d-flex col-12 mt-5">
+	<div class="row d-flex mt-5">
 		<div class="col-sm">
 			<img class="mb-5" src="./images/logo.png" alt="" width="150">
 		</div>
@@ -42,21 +42,21 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 			<p>Elaboró <strong><?= $cobro['cobroUsuario']; ?></strong></p>
 		</div>
 	</div>
-	<hr class="col-12 my-4">
-	<div class="d-flex col-12 p-0">
-		<div class="col-6 mr-auto">
+	<hr class="my-4">
+	<div class="d-flex p-0">
+		<div class="col-6 mr-auto px-0">
 			<span class="text-muted">Localizador de la Reservación</span>
 			<h4 class="mt-2"><?= antepon_ceros( $_R['reservacionId'], 3 ); ?></h4>
 		</div>
-		<div class="col-6 text-right">
+		<div class="col-6 text-right px-0">
 			<span class="text-muted">Fecha del Pago</span>
 			<h4 class="mt-2"><?= toHTML( $cobro['cobroFecha'], 'datetime' ); ?></h4>
 		</div>
 	</div>
 
-	<hr class="col-12 my-4">
+	<hr class="my-4">
 	<div class="d-flex col-12 p-0">
-		<div class="col-6 mr-auto">
+		<div class="col-6 mr-auto px-0">
 			<span class="text-muted">Descripción del Servicio</span>
 			<h4 class="mt-2"><?= $_R['reservacionServicioVer']; ?></h4>
 			<p>
@@ -66,7 +66,7 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 				<?= $_R['reservacionHabitaciones']; ?> Habitación(es)
 			</p>
 		</div>
-		<div class="col-6 mr-auto text-right">
+		<div class="col-6 mr-auto text-right px-0">
 			<span class="text-muted">Datos del Cliente</span>
 			<h4 class="mt-2"><?= $_R['clienteNombre']; ?></h4>
 			<?= $cliente['clienteDomicilio']; ?> <br>
@@ -74,37 +74,37 @@ $cobro		= $r->get_cobro( $_POST['_data1'] );
 			<?= $cliente['clienteEmail']; ?>
 		</div>
 	</div>
-	<hr class="col-12 my-2">
-	<div class="d-flex col-12 p-0">
-		<div class="col-12 mr-auto">
+	<hr class="my-2">
+	<div class="d-flex p-0">
+		<div class="mr-auto px-0">
 			<?= $_R['reservacionDetalle']; ?>
 		</div>
 	</div>
 
-	<table class="table col-12 mt-5 text-right">
+	<table class="table mt-5 text-right px-0">
 		<tbody>
 			<tr>
-				<td><small class="text-muted">Precio de la Reservación</small> <strong>$ <?= $_R['reservacionPrecio']; ?></strong></td>
+				<td class="px-0"><small class="text-muted">Precio de la Reservación</small> <strong>$ <?= $_R['reservacionPrecio']; ?></strong></td>
 			</tr>
 			<tr>
-				<td><small class="text-muted">Acumulado de Pagos</small> <strong>$ <?= number_format( $cobro['acumulado'], 2 ); ?></strong></td>
+				<td class="px-0"><small class="text-muted">Acumulado de Pagos</small> <strong>$ <?= number_format( $cobro['acumulado'], 2 ); ?></strong></td>
 			</tr>
 			<tr>
-				<td><small class="text-muted">Saldo</small> <strong>$ <?= number_format( $cobro['saldoFinal'], 2 ); ?></strong></td>
+				<td class="px-0"><small class="text-muted">Saldo</small> <strong>$ <?= number_format( $cobro['saldoFinal'], 2 ); ?></strong></td>
 			</tr>
 			<tr>
-				<td class="h4">SU PAGO <strong class="text-success">$ <?= $cobro['cobroMonto']; ?></strong></td>
+				<td class="h4 px-0">SU PAGO <strong class="text-success">$ <?= $cobro['cobroMonto']; ?></strong></td>
 			</tr>
 		</tbody>
 	</table>
 
-	<div class="d-flex col-12 p-0">
-		<div class="col-12 mr-auto">___________________________<br />
+	<div class="d-flex p-0">
+		<div class="col-12 mr-auto px-0 text-center my-5">___________________________<br />
 			Recibí: <strong><?= $_SESSION['currentUser']['usuarioNombre'] . ' ' . $_SESSION['currentUser']['usuarioApellido']; ?></strong>
 		</div>
 	</div>
 
-	<hr class="col-12 my-5">
+	<hr class="my-5">
 	<p class="mt-5">
 		<strong>Notas Adicionales</strong>
 		Este recibo solo será válido si no presenta alteraciones, para cualquier aclaración no dude en contactarnos.
