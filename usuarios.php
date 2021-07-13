@@ -1,6 +1,8 @@
 <?php
 session_start( );
 
+if( !isset( $_SESSION['currentUser'] ) ) header('location: ./ ');
+
 require_once('definitions.php');
 if( isset( $_POST['inputEmail'] ) ) {
 

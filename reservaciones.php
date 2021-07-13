@@ -1,5 +1,8 @@
 <?php
-session_start();
+session_start( );
+
+if( !isset( $_SESSION['currentUser'] ) ) header('location: ./ ');
+
 require_once( 'definitions.php' );
 require_once('./includes/layout/header.php');
 require_once('./includes/admin/menu-admin.php');

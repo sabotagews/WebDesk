@@ -1,5 +1,8 @@
 <?php
 session_start( );
+
+if( !isset( $_SESSION['currentUser'] ) ) header('location: ./ ');
+
 require_once( 'definitions.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'classes/mysql.cls.php' );
 require_once( $_SESSION['PATH_INCLUDES_REAL'] . 'scripts/scripts.php' );
