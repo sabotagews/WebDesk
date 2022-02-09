@@ -5,8 +5,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 		<script src="<?= $_SESSION['PATH_JS']; ?>bootstrap.min.js"></script>
 		<script src="<?= $_SESSION['PATH_JS']; ?>stupidtable.js" type="text/javascript"></script>
-		<script src="<?= $_SESSION['PATH_JS']; ?>/tinymce/tinymce.min.js"></script>
-		<script src="<?= $_SESSION['PATH_JS']; ?>/tinymce/jquery.tinymce.min.js"></script>
+		<script src="<?= $_SESSION['PATH_JS']; ?>tinymce/tinymce.min.js"></script>
+		<script src="<?= $_SESSION['PATH_JS']; ?>tinymce/jquery.tinymce.min.js"></script>
         <script>
             // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function() {
@@ -17,7 +17,7 @@
                     // Loop over them and prevent submission
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('submit', function(event) {
-
+	                        
 							event.preventDefault( );
 							event.stopPropagation( );
 
@@ -25,9 +25,11 @@
 
 							if( form.checkValidity( ) === false ) {
 
-								//Nada
+								console.log( 'validar: ' + form.name + ', ' + form.checkValidity( ) );
 
 							} else {
+						
+								console.log( 'ok: ' + form.name );
 
 								switch( event.target.id.toLowerCase( ) ) {
 
@@ -62,6 +64,8 @@
 										break;
 
 									case 'form_reservacion'			:
+									
+											console.log( 'guardar' );
 
 											setTimeout( guarda_reservacion		, <?= DELAY_XHR * 1000; ?> );
 

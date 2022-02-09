@@ -1164,6 +1164,7 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 												g('reservacionPrecio').value					= objJSON.reservacionPrecio;
 												g('reservacionLocalizadorExterno').value		= objJSON.reservacionLocalizadorExterno;
 
+/*
 												if( objJSON.reservacionStatusCobro == 'CANCELADA' ) {
 
 													g('contenedor_gastos_cancelacion_precio').className	= 'col col-md-2 mb-2';
@@ -1173,18 +1174,23 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 
 													g('contenedor_gastos_cancelacion_precio').className	= 'd-none';
 													g('reservacionGastosCancelacionPrecio').removeAttribute( 'required' );
+													g('contenedor_gastos_cancelacion_precio').className	= 'col col-md-2 mb-2';
+													g('reservacionGastosCancelacionPrecio').setAttribute( 'required', '' );
 
 												}
+*/
 
 												if( objJSON.reservacionStatusPago == 'CANCELADA' ) {
 
-													g('contenedor_gastos_cancelacion_coste').className	= 'col col-md-2 mb-2 d-print-none';
+													$( '#contenedor_gastos_cancelacion').show( );
 													g('reservacionGastosCancelacionCoste').setAttribute( 'required', '' );
+													g('reservacionGastosCancelacionPrecio').setAttribute( 'required', '' );
 
 												} else {
 
-													g('contenedor_gastos_cancelacion_coste').className	= 'd-none';
-													g('reservacionGastosCancelacionCoste').removeAttribute( 'required' );
+													$( '#contenedor_gastos_cancelacion' ).hide( );
+													g( 'reservacionGastosCancelacionCoste' ).removeAttribute( 'required' );
+													g( 'reservacionGastosCancelacionPrecio' ).removeAttribute( 'required' );
 
 												}
 
@@ -1195,6 +1201,9 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 												$('#btn_nueva').show( );
 
 												$( '#modificarReservacion' ).slideDown();
+												$('html, body').animate({
+													scrollTop: $("#modificarReservacion").offset().top
+												}, 1000);
 
 											}
 
@@ -1257,6 +1266,7 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 						} else {
 
 							obj.className = 'd-none';
+							obj.className = 'col col-md-2 mb-2 d-print-none';
 
 						}
 
@@ -1273,6 +1283,7 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 						} else {
 
 							obj.className = 'd-none';
+							obj.className = 'col col-md-2 mb-2';
 
 						}
 

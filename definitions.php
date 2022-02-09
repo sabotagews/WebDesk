@@ -4,7 +4,7 @@ define( 'S', '/' );
 if( $_SERVER['SERVER_NAME'] == 'webdesk.turismosalomon.com.mx' ) {
 	define( 'SSL', 's' );
 } else {
-	define( 'SSL', '' );
+	define( 'SSL', 'S' );
 }
 
 define('SEPARADOR_FECHA', '/');
@@ -24,4 +24,5 @@ $_SESSION['PATH_AJAX']			= $_SESSION['PATH_HOME'] . 'includes/ajax/';
 $_SESSION['PATH_JS']			= $_SESSION['PATH_HOME'] . 'includes/js/';
 $_SESSION['PATH_CSS']			= $_SESSION['PATH_HOME'] . 'includes/css/';
 $_SESSION['PATH_LAYOUT']		= $_SESSION['PATH_HOME'] . 'includes/layout/';
+$validar_moneda					= '^(?!00+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$';
 ?>

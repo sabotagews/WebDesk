@@ -155,7 +155,7 @@ require_once('./includes/admin/menu-admin.php');
 
 	<div id="modificarReservacion">
 	    <h4 class="mb-3">Datos de la Reservaci&oacute;n</h4>
-	    <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
+        <form class="needs-validation" novalidate="" id="form_reservacion" name="form_reservacion">
 			<input type="hidden" name="reservacionId" value="0" />
 	        <div class="row">
 				<input type="hidden" id="clienteId" name="clienteId" value="">
@@ -221,7 +221,7 @@ require_once('./includes/admin/menu-admin.php');
 	        <div class="form-row">
 	                <div class="col col-md-2 mb-2 d-print-none">
 	                    <label for="reservacionDestino">Coste</label>
-	                    <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
+	                    <input type="text" class="form-control" id="reservacionCoste" name="reservacionCoste" placeholder="" value="" pattern="<?= $validar_moneda; ?>">
 	                </div>
 	                <div class="col-5 d-print-none">
 						<label for="proveedorId">Proveedor</label>
@@ -233,17 +233,19 @@ require_once('./includes/admin/menu-admin.php');
 					</div>
 	                <div class="col col-md-2 mb-2">
 	                    <label for="reservacionHotel">Precio</label>
-	                    <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
+                        <input type="text" class="form-control" id="reservacionPrecio" name="reservacionPrecio" placeholder="" value="" required="" pattern="<?= $validar_moneda; ?>">
 	                </div>
 				</div>
-	        <div id="contenedor_gastos_cancelacion_coste" class="col col-md-2 mb-2 d-print-none">
-	                <label for="reservacionGastosCancelacionCoste">Cancelación Coste</label>
-	                <input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
-	            </div>
-	        <div id="contenedor_gastos_cancelacion_precio" class="col col-md-2 mb-2">
-	                <label for="reservacionGastosCancelacionPrecio">Cancelación Precio</label>
-	                <input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="" pattern="^(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,3}(,\d{3})*(\.\d+)?$">
-	            </div>
+			<div class="form-row" id="contenedor_gastos_cancelacion">
+					<div id="contenedor_gastos_cancelacion_coste" class="col col-md-2 mb-2 d-print-none">
+	            		<label for="reservacionGastosCancelacionCoste">Coste Cancelación</label>
+						<input type="text" class="form-control" id="reservacionGastosCancelacionCoste" name="reservacionGastosCancelacionCoste" placeholder="" value="" pattern="<?= $validar_moneda; ?>">
+	            	</div>
+					<div id="contenedor_gastos_cancelacion_precio" class="col col-md-2 mb-2">
+	                	<label for="reservacionGastosCancelacionPrecio">Precio Cancelación</label>
+						<input type="text" class="form-control" id="reservacionGastosCancelacionPrecio" name="reservacionGastosCancelacionPrecio" placeholder="" value="" pattern="<?= $validar_moneda; ?>">
+	            	</div>
+			</div>
 			<div class="row d-print-none">
 				<div class="col col-md-6 mb-6">
 					<label for="reservacionStatusCobro">Status de Cobro</label>
