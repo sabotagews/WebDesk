@@ -38,8 +38,8 @@ class Cliente extends SQL_MySQL
 
 		}
 
-
 		return $aTmp;
+
 
 	}
 

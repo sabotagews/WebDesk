@@ -226,7 +226,7 @@ switch( strtolower( $_POST['_data1'] ) ) {
 
 					}
 
-					$aTmp['html']		= $html;
+					$aTmp['html']		= utf8_encode( $html );
 					$aTmp['contador']	= count( $clientes );
 
 					echo $u->toAJAX( $aTmp, 'json' );
