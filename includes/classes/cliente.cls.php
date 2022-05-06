@@ -24,7 +24,7 @@ class Cliente extends SQL_MySQL
 
 							WHERE 	c.clienteId LIKE %s
 
-							ORDER BY conteoReservaciones ASC",
+							ORDER BY conteoReservaciones DESC",
 
 						$this->toDBFromUtf8( $clienteId )
 
