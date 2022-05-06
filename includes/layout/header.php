@@ -248,7 +248,7 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 												g('usuarioEmail').value		= objJSON.usuarioEmail;
 												g('usuarioMovil').value		= objJSON.usuarioMovil;
 
-												g('usuarioStatus').checked	= objJSON.usuario_status == '0' ? false : true;
+												g('usuarioStatus').checked	= objJSON.usuarioStatus == '0' ? false : true;
 
 												if( objJSON.usuarioRol == 'A' ) {
 													document.form_usuarios.usuarioRol[ 0 ].checked	= true;
@@ -1791,4 +1791,3 @@ if( isset( $_SESSION['currentUser']['sucursalId'] ) ) {
 		</script>
 	</head>
 	<body class="d-flex flex-column h-100">
-		

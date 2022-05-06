@@ -47,7 +47,9 @@ class Usuario extends SQL_MySQL
 
 							WHERE 	usuarioId LIKE %s
 
-							ORDER BY usuarioStatus DESC, usuarioNombre",
+							AND usuarioEliminado IS NULL
+
+							ORDER BY usuarioRol DESC, usuarioStatus DESC, usuarioNombre",
 
 						$this->toDBFromUtf8( $usuarioId )
 
@@ -101,8 +103,8 @@ class Usuario extends SQL_MySQL
 
 	public	function delete_usuario( $usuarioId ) {
 
-		$q = sprintf(" DELETE FROM usuarios WHERE usuarioId = %s ",	$this->toDBFromUtf8( $usuarioId )	);
-		$this->ejecuta_query( $q, 'delete_usuario( )' );
+		$q = sprintf(" UPDATE usuarios SET usuarioEliminado = 1 WHERE usuarioId = %s ",	$this->toDBFromUtf8( $usuarioId )	);
+		$this->ejecuta_query( $q, 'delete_usuario( ): Baja lógica' );
 
 	}
 
