@@ -17,7 +17,7 @@
                     // Loop over them and prevent submission
                     var validation = Array.prototype.filter.call(forms, function(form) {
                         form.addEventListener('submit', function(event) {
-	                        
+
 							event.preventDefault( );
 							event.stopPropagation( );
 
@@ -28,7 +28,7 @@
 								console.log( 'validar: ' + form.name + ', ' + form.checkValidity( ) );
 
 							} else {
-						
+
 								console.log( 'ok: ' + form.name );
 
 								switch( event.target.id.toLowerCase( ) ) {
@@ -64,7 +64,7 @@
 										break;
 
 									case 'form_reservacion'			:
-									
+
 											console.log( 'guardar' );
 
 											setTimeout( guarda_reservacion		, <?= DELAY_XHR * 1000; ?> );
@@ -118,17 +118,17 @@
 		        	table.on("beforetablesort", function (event, data) {
 						// Apply a "disabled" look to the table while sorting.
 						// Using addClass for "testing" as it takes slightly longer to render.
-						$("#msg").text("Sorting...");
+						// $("#msg").text("Sorting...");
 						$("table").addClass("disabled");
 					});
 					table.on("aftertablesort", function (event, data) {
 						// Reset loading message.
-						$("#msg").html("&nbsp;");
+						// $("#msg").html("&nbsp;");
 						$("table").removeClass("disabled");
 						var th = $(this).find("th");
 						th.find(".arrow").remove();
 						var dir = $.fn.stupidtable.dir;
-		 				var arrow = data.direction === dir.ASC ? " &and;" : " &or;";
+		 				var arrow = data.direction === dir.ASC ? " &#42780;" : " &#42779;";
 						th.eq(data.column).append('<span class="arrow" style="font-size: 1.15em;">' + arrow +'</span>');
 					} );
 

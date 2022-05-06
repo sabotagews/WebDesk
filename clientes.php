@@ -153,10 +153,10 @@ require_once('./includes/admin/menu-admin.php');
     <table class="table table-striped table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col" data-sort="string-ins" data-sort-onload="yes">Nombre</th>
-                <th scope="col" data-sort="string-ins">Email</th>
-                <th scope="col" data-sort="int">M&oacute;vil</th>
-                <th scope="col" data-sort="int">Reservaciones</th>
+                <th data-sort="string-ins">Nombre</th>
+                <th data-sort="string-ins">Email</th>
+                <th>M&oacute;vil</th>
+                <th data-sort="int" data-sort-onload="yes" data-sort-default="desc" style="white-space: nowrap;">Reservaciones</th>
             </tr>
         </thead>
         <tbody id="listClientes"></tbody>
