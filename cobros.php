@@ -217,7 +217,7 @@ window.onload = function( ) {
 				</div>
 				<div class="col-md-2 mb-3">
 					<label for="cobroMonto">Monto</label>
-					<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="" pattern="^-?(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,5}(,\d{5})*(\.\d+)?$">
+					<input type="text" class="form-control" id="cobroMonto" placeholder="" value="" required="" pattern="^-?(?!0+\.00)(?=.{1,9}(\.|$))(?!0(?!\.))\d{1,6}(,\d{5})*(\.\d+)?$">
 					<div class="invalid-feedback">
 						El monto no es correcto.
 					</div>
